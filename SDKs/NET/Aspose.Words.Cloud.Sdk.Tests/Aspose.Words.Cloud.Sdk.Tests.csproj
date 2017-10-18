@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+	<CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -228,6 +229,22 @@
       <Link>Data\TestExecuteResult.doc</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+	<None Include="..\..\..\Data\Conversion\TableDocument.doc">
+      <Link>Data\TableDocument.doc</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<None Include="..\..\..\Data\Conversion\test_doc.docx">
+      <Link>Data\test_doc.docx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<None Include="..\..\..\Data\MailMerge\TestExecuteTemplate.doc">
+      <Link>Data\TestExecuteTemplate.doc</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<None Include="..\..\..\Data\MailMerge\TestExecuteTemplateData.txt">
+      <Link>Data\TestExecuteTemplateData.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="..\..\..\Data\testfile.doc">
       <Link>Data\testfile.doc</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -250,15 +267,6 @@
     </None>
     <None Include="..\..\..\Data\WordFormatConverterExampleTest.doc">
       <Link>Data\WordFormatConverterExampleTest.doc</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\TableDocument.doc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\TestExecuteTemplate.doc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\test_doc.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -322,9 +330,6 @@
     </Content>
     <Content Include="..\..\..\Data\WithRegions.xml">
       <Link>Data\WithRegions.xml</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\TestExecuteTemplateData.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
