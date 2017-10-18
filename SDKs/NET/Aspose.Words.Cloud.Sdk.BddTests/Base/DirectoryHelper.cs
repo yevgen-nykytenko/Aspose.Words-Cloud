@@ -26,6 +26,7 @@
 namespace Aspose.Words.Cloud.Sdk.BddTests.Base
 {
     using System.IO;
+    using System.Linq;
 
     /// <summary>
     /// This class contains helper methods for working with directories
@@ -35,34 +36,23 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Base
         /// <summary>
         /// Returns path to folder with test data
         /// </summary>
+        /// <param name="parentDir">parent directory</param>
         /// <returns>path to test data folder</returns>
-        public static string GetTestDataPath()
-        {
-            var info = Directory.GetParent(Directory.GetCurrentDirectory()).Parent;
+        public static string GetTestDataPath(string parentDir = null)
+        { 
+            var info = Directory.GetParent(parentDir ?? Directory.GetCurrentDirectory());
             if (info != null)
             {
-                if (info.Parent != null)
+                var dataFolderExists = info.GetDirectories("Data");
+                if (dataFolderExists.Any())
                 {
-                    var parent = info.Parent.Parent;
-                    string startDirectory = null;
-                    if (parent != null)
-                    {
-                        var directoryInfo = parent.Parent;
-                        if (directoryInfo != null)
-                        {
-                            startDirectory = directoryInfo.FullName;
-                        }
-                    }
-                    else
-                    {
-                        startDirectory = parent.FullName;
-                    }
-
-                    return Path.Combine(startDirectory, "Data\\");
+                    return Path.Combine(info.FullName, "Data\\");
                 }
+
+                return GetTestDataPath(info.FullName);
             }
 
-            return @"Data\\";
+            return Path.Combine(parentDir ?? string.Empty, "Data\\");
         }
     }
 }
