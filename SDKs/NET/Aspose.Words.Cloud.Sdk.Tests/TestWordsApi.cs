@@ -68,22 +68,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
         /// </summary>
         public TestContext TestContext { get; set; }
 
-        /// <summary>
-        /// A test for AcceptAllRevisions
-        /// </summary>
-        [TestMethod]
-        public void TestAcceptAllRevisions()
-        {
-            string name = "test_multi_pages.docx";
-            string filename = "Test2.docx";
-         
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new AcceptAllRevisionsRequest(name, destFileName: filename);
-            var actual = this.wordsApi.AcceptAllRevisions(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
+        
 
         /// <summary>
         /// A test for DeleteComment
@@ -133,32 +118,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             Assert.AreEqual(200, actual.Code);
         }
 
-        /// <summary>
-        /// A test for DeleteDocumentProperty
-        /// </summary>
-        [TestMethod]
-        public void TestDeleteDocumentProperty()
-        {
-            string name = "test_multi_pages.docx";
-            string propertyName = "AsposeAuthor";
-            string filename = "test_multi_pages.docx";
-          
-            var body = new DocumentProperty();
-            body.Name = "AsposeAuthor";
-            body.Value = "Imran Anwar";
-            body.BuiltIn = false;
-
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            // setting a property
-            var updateRequest = new CreateOrUpdateDocumentPropertyRequest(name, propertyName, body, destFileName: filename);
-            this.wordsApi.CreateOrUpdateDocumentProperty(updateRequest);
-
-            var deleteRequest = new DeleteDocumentPropertyRequest(name, propertyName, destFileName: filename);
-            var actual = this.wordsApi.DeleteDocumentProperty(deleteRequest);
-
-            Assert.AreEqual(200, actual.Code);
-        }
+        
 
         /// <summary>
         /// A test for DeleteDocumentWatermark
@@ -313,38 +273,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             Assert.AreEqual(200, actual.Code);            
         }
 
-        /// <summary>
-        /// A test for GetComment
-        /// </summary>
-        [TestMethod]
-        public void TestGetComment()
-        {
-            string name = "test_multi_pages.docx";
-            int commentIndex = 0;
-         
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+        
 
-            var request = new GetCommentRequest(name, commentIndex);
-            var actual = this.wordsApi.GetComment(request);
-
-            Assert.AreEqual(200, actual.Code);            
-        }
-
-        /// <summary>
-        /// A test for GetComments
-        /// </summary>
-        [TestMethod]
-        public void TestGetComments()
-        {
-            string name = "test_multi_pages.docx";
-            
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new GetCommentsRequest(name);
-            var actual = this.wordsApi.GetComments(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
 
         /// <summary>
         /// A test for GetDocument
@@ -361,112 +291,16 @@ namespace Aspose.Words.Cloud.Sdk.Tests
            Assert.AreEqual(200, actual.Code);            
         }
 
-        /// <summary>
-        /// A test for GetDocumentBookmarkByName
-        /// </summary>
-        [TestMethod]
-        public void TestGetDocumentBookmarkByName()
-        {
-            string name = "test_multi_pages.docx";
-            string bookmarkName = "aspose";           
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
 
-            var request = new GetDocumentBookmarkByNameRequest(name, bookmarkName);
-            var actual = this.wordsApi.GetDocumentBookmarkByName(request);
-            Assert.AreEqual(200, actual.Code);
-        }
+        
 
-        /// <summary>
-        /// A test for GetDocumentBookmarks
-        /// </summary>
-        [TestMethod]
-        public void TestGetDocumentBookmarks()
-        {
-            string name = "test_multi_pages.docx";
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+        
 
-            var request = new GetDocumentBookmarksRequest(name);
-            var actual = this.wordsApi.GetDocumentBookmarks(request);
+        
 
-            Assert.AreEqual(200, actual.Code);
-        }
+        
 
-        /// <summary>
-        /// A test for GetDocumentDrawingObjectByIndex
-        /// </summary>
-        [TestMethod]
-        public void TestGetDocumentDrawingObjectByIndex()
-        {
-            string name = "test_multi_pages.docx";
-            int objectIndex = 0;
-          
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new GetDocumentDrawingObjectByIndexRequest(name, objectIndex, nodePath: "sections/0");
-            DrawingObjectResponse actual = this.wordsApi.GetDocumentDrawingObjectByIndex(request);
-
-            Assert.AreEqual(200, actual.Code);                        
-        }
-
-        /// <summary>
-        /// A test for GetDocumentDrawingObjectByIndexWithFormat
-        /// </summary>
-        [TestMethod]
-        public void TestGetDocumentDrawingObjectByIndexWithFormat()
-        {
-            string name = "test_multi_pages.docx";
-            int objectIndex = 0;
-            string format = "png";
-           
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new RenderDrawingObjectRequest(name, format, objectIndex, nodePath: "sections/0");
-            this.wordsApi.RenderDrawingObject(request);                        
-        }
-
-        /// <summary>
-        /// A test for GetDocumentDrawingObjectImageData
-        /// </summary>
-        [TestMethod]
-        public void TestGetDocumentDrawingObjectImageData()
-        {
-            string name = "test_multi_pages.docx";
-            int objectIndex = 0;            
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new GetDocumentDrawingObjectImageDataRequest(name, objectIndex, nodePath: "sections/0");
-            this.wordsApi.GetDocumentDrawingObjectImageData(request);            
-        }
-
-        /// <summary>
-        /// A test for GetDocumentDrawingObjectOleData
-        /// </summary>
-        [TestMethod]
-        public void TestGetDocumentDrawingObjectOleData()
-        {
-            string name = "sample_EmbeddedOLE.docx";
-            int objectIndex = 0;             
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new GetDocumentDrawingObjectOleDataRequest(name, objectIndex, nodePath: "sections/0");
-            this.wordsApi.GetDocumentDrawingObjectOleData(request);            
-        }
-
-        /// <summary>
-        /// A test for GetDocumentDrawingObjects
-        /// </summary>
-        [TestMethod]
-        public void TestGetDocumentDrawingObjects()
-        {
-            string name = "test_multi_pages.docx";
-         
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new GetDocumentDrawingObjectsRequest(name, nodePath: "sections/0");
-            var actual = this.wordsApi.GetDocumentDrawingObjects(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
+        
 
         /// <summary>
         /// A test for GetDocumentFieldNames
@@ -599,35 +433,9 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             Assert.AreEqual(200, actual.Code);            
         }
 
-        /// <summary>
-        /// A test for GetDocumentProperties
-        /// </summary>
-        [TestMethod]
-        public void TestGetDocumentProperties()
-        {
-            string name = "test_multi_pages.docx";            
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+        
 
-            var request = new GetDocumentPropertiesRequest(name);
-            var actual = this.wordsApi.GetDocumentProperties(request);
-            Assert.AreEqual(200, actual.Code);
-        }
-
-        /// <summary>
-        /// A test for GetDocumentProperty
-        /// </summary>
-        [TestMethod]
-        public void TestGetDocumentProperty()
-        {
-            string name = "test_multi_pages.docx";
-            string propertyName = "Author";            
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new GetDocumentPropertyRequest(name, propertyName);
-            var actual = this.wordsApi.GetDocumentProperty(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
+        
 
         /// <summary>
         /// A test for GetDocumentProtection
@@ -645,21 +453,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             Assert.AreEqual(200, actual.Code);
         }
 
-        /// <summary>
-        /// A test for GetDocumentStatistics
-        /// </summary>
-        [TestMethod]
-        public void TestGetDocumentStatistics()
-        {
-            string name = "test_multi_pages.docx";
-          
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new GetDocumentStatisticsRequest(name);
-            var actual = this.wordsApi.GetDocumentStatistics(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
+        
 
         /// <summary>
         /// A test for GetDocumentTextItems
@@ -677,22 +471,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             Assert.AreEqual(200, actual.Code);
         }
 
-        /// <summary>
-        /// A test for GetDocumentWithFormat
-        /// </summary>
-        [TestMethod]
-        public void TestGetDocumentWithFormat()
-        {
-            string name = "test_multi_pages.docx";
-            string format = "text";
-     
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new GetDocumentWithFormatRequest(name, format);
-            this.wordsApi.GetDocumentWithFormat(request);
-
-            // TODO: add case with specified out path            
-        }
+        
 
         /// <summary>
         /// A test for GetField
@@ -826,31 +605,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             Assert.AreEqual(200, actual.Code);            
         }
 
-        /// <summary>
-        /// A test for PostAppendDocument
-        /// </summary>
-        [TestMethod]
-        public void TestPostAppendDocument()
-        {
-            string name = "test_multi_pages.docx";
-            string filename = "test_multi_pages.docx";
-           
-            var body = new DocumentEntryList();
-            System.Collections.Generic.List<DocumentEntry> docEntries = new System.Collections.Generic.List<DocumentEntry>();
-
-            DocumentEntry docEntry = new DocumentEntry();
-            docEntry.Href = "test_multi_pages.docx";
-            docEntry.ImportFormatMode = "KeepSourceFormatting";
-            docEntries.Add(docEntry);
-            body.DocumentEntries = docEntries;            
-
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new PostAppendDocumentRequest(name, body, destFileName: filename);
-            var actual = this.wordsApi.PostAppendDocument(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
+        
 
         /// <summary>
         /// A test for PostChangeDocumentProtection
@@ -943,26 +698,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             Assert.AreEqual(200, actual.Code);
         }
 
-        /// <summary>
-        /// A test for PostDocumentSaveAs
-        /// </summary>
-        [TestMethod]
-        public void TestPostDocumentSaveAs()
-        {
-            string name = "test_multi_pages.docx";
-           
-            var body = new SaveOptionsData();
-
-            body.SaveFormat = "pdf";
-            body.FileName = "output.pdf";
-
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new PostDocumentSaveAsRequest(name, body);
-            var actual = this.wordsApi.PostDocumentSaveAs(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
+        
 
         /// <summary>
         /// A test for PostExecuteTemplate
@@ -1156,31 +892,6 @@ namespace Aspose.Words.Cloud.Sdk.Tests
         }
 
         /// <summary>
-        /// A test for PostLoadWebDocument
-        /// </summary>
-        [TestMethod]
-        public void TestPostLoadWebDocument()
-        {
-            var body = new LoadWebDocumentData();
-            var soptions = new SaveOptionsData();
-            soptions.FileName = "google.doc";
-            soptions.SaveFormat = "doc";
-            soptions.ColorMode = "1";
-            soptions.DmlEffectsRenderingMode = "1";
-            soptions.DmlRenderingMode = "1";
-            soptions.UpdateSdtContent = false;
-            soptions.ZipOutput = false;
-
-            body.LoadingDocumentUrl = "http://google.com";
-            body.SaveOptions = soptions;
-
-            var request = new PostLoadWebDocumentRequest(body);
-            var actual = this.wordsApi.PostLoadWebDocument(request);
-            
-            Assert.AreEqual(200, actual.Code);
-        }
-
-        /// <summary>
         /// A test for PostReplaceText
         /// </summary>
         [TestMethod]
@@ -1200,45 +911,9 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             Assert.AreEqual(200, actual.Code);
         }
         
-        /// <summary>
-        /// A test for PostSplitDocument
-        /// </summary>
-        [TestMethod]
-        public void TestPostSplitDocument()
-        {
-            string name = "test_multi_pages.docx";
-            string format = "text";
-            int from = 1; 
-            int to = 2; 
-           
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+       
 
-            var request = new PostSplitDocumentRequest(name, format: format, from: from, to: to);
-            var actual = this.wordsApi.PostSplitDocument(request);
-            
-            Assert.AreEqual(200, actual.Code);            
-        }
-
-        /// <summary>
-        /// A test for PostUpdateDocumentBookmark
-        /// </summary>
-        [TestMethod]
-        public void TestPostUpdateDocumentBookmark()
-        {
-            string name = "test_multi_pages.docx";
-            string bookmarkName = "aspose";
-            string filename = "test.docx";          
-            var body = new BookmarkData();
-            body.Name = "aspose";
-            body.Text = "This will be the text for Aspose";
-
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new PostUpdateDocumentBookmarkRequest(name, body, bookmarkName, destFileName: filename);
-            var actual = this.wordsApi.PostUpdateDocumentBookmark(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
+        
 
         /// <summary>
         /// A test for PostUpdateDocumentFields
@@ -1287,19 +962,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             Assert.AreEqual(200, actual.Code);
         }
 
-        /// <summary>
-        /// A test for PutConvertDocument
-        /// </summary>
-        [TestMethod]
-        public void TestPutConvertDocument()
-        {
-            string format = "pdf";            
-            using (var fileStream = System.IO.File.OpenRead(Common.GetDataDir() + "test_uploadfile.docx"))
-            {
-                var request = new PutConvertDocumentRequest(fileStream, format);
-                this.wordsApi.PutConvertDocument(request);             
-            }
-        }
+        
 
         /// <summary>
         /// A test for PutDocumentFieldNames
@@ -1437,42 +1100,9 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             Assert.AreEqual(200, actual.Code);
         }
 
-        /// <summary>
-        /// A test for PutUpdateDocumentProperty
-        /// </summary>
-        [TestMethod]
-        public void TestPutUpdateDocumentProperty()
-        {
-            string name = "test_multi_pages.docx";
-            string propertyName = "Author";
-            string filename = "test_multi_pages.docx";          
-            DocumentProperty body = new DocumentProperty();
-            body.Name = "Author";
-            body.Value = "Imran Anwar";
+        
 
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new CreateOrUpdateDocumentPropertyRequest(name, propertyName, body, destFileName: filename);
-            var actual = this.wordsApi.CreateOrUpdateDocumentProperty(request);
-            Assert.AreEqual(200, actual.Code);
-        }
-
-        /// <summary>
-        /// A test for RejectAllRevisions
-        /// </summary>
-        [TestMethod]
-        public void TestRejectAllRevisions()
-        {
-            string name = "test_multi_pages.docx";
-            string filename = "test_multi_pages.docx";
-           
-            this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new RejectAllRevisionsRequest(name, destFileName: filename);
-            var actual = this.wordsApi.RejectAllRevisions(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
+        
 
         /// <summary>
         /// A test for Search
