@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="GetComment.cs">
+// // <copyright company="Aspose" file="GetComments.cs">
 // //   Copyright (c) 2016 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -33,6 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// <summary>
     /// Example about how to get comments from document
     /// </summary>
+    [TestClass]
     public class GetComments : BaseTestContext
     {
         /// <summary>

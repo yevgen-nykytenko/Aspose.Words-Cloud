@@ -33,6 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// <summary>
     /// Example about how to reject all revisions in document
     /// </summary>
+    [TestClass]
     public class RejectAllRevisions : BaseTestContext
     {
         /// <summary>

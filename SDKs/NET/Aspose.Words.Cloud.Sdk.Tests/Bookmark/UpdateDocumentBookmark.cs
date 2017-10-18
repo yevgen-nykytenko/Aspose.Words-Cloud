@@ -34,6 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Bookmark
     /// <summary>
     /// Example about how to update document bookmark
     /// </summary>
+    [TestClass]
     public class UpdateDocumentBookmark : BaseTestContext
     {
         /// <summary>

@@ -33,6 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
     /// <summary>
     /// Example about how to get drawing objects
     /// </summary>
+    [TestClass]
     public class DrawingObjects : BaseTestContext
     {
         /// <summary>

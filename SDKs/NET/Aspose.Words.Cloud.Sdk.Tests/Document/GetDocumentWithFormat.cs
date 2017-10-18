@@ -33,6 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// <summary>
     /// Example about how to get document with different format
     /// </summary>
+    [TestClass]
     public class GetDocumentWithFormat : BaseTestContext
     {
         /// <summary>

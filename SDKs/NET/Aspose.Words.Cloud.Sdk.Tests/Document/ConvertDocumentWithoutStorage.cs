@@ -33,6 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// <summary>
     /// Example about how to get converted document without saving to storage
     /// </summary>
+    [TestClass]
     public class ConvertDocumentWithoutStorage : BaseTestContext
     {
         /// <summary>

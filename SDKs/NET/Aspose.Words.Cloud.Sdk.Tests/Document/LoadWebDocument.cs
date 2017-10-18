@@ -34,6 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// <summary>
     /// Example about how to load web document
     /// </summary>
+    [TestClass]
     public class LoadWebDocument : BaseTestContext
     {
         /// <summary>

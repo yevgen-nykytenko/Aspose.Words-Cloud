@@ -33,6 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// <summary>
     /// Example about how to get document statistics
     /// </summary>
+    [TestClass]
     public class GetDocumentStatistics : BaseTestContext
     {
         /// <summary>

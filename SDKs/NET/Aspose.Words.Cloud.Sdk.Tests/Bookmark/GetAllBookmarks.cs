@@ -35,6 +35,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Bookmark
     /// <summary>
     /// Example about how to get all bookmarks from document
     /// </summary>
+    [TestClass]
     public class GetAllBookmarks : BaseTestContext
     {
         /// <summary>

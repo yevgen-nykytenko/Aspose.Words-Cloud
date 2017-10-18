@@ -34,6 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// <summary>
     /// Example about how to append document
     /// </summary>
+    [TestClass]
     public class AppendDocument : BaseTestContext
     {
         /// <summary>

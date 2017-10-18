@@ -33,6 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// <summary>
     /// Example about how to accept all revisions in document
     /// </summary>
+    [TestClass]
     public class AcceptAllRevisions : BaseTestContext
     {
         /// <summary>

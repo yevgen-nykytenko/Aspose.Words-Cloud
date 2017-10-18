@@ -33,6 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Bookmark
     /// <summary>
     /// Example about how to get bookmark by its name
     /// </summary>
+    [TestClass]
     public class GetBookmarkByName : BaseTestContext
     {
         /// <summary>

@@ -29,12 +29,9 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
 
     using Com.Aspose.Storage.Api;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     /// <summary>
     /// Base class for all tests
     /// </summary>
-    [TestClass]
     public abstract class BaseTestContext
     {
         private const string ApiKey = "0fbf678c5ecabdb5caca48452a736dd0";

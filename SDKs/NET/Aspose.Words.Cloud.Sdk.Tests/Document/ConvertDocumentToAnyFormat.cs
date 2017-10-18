@@ -34,6 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// <summary>
     /// Example about how to convert document to one of the available formats
     /// </summary>
+    [TestClass]
     public class ConvertDocumentToAnyFormat : BaseTestContext
     {
         /// <summary>

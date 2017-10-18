@@ -34,6 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.DocumentProperties
     /// <summary>
     /// Example about how to get document properties
     /// </summary>
+    [TestClass]
     public class DocumentProperties : BaseTestContext
     {
         /// <summary>
