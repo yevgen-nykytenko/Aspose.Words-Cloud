@@ -38,8 +38,31 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Base
         /// <returns>path to test data folder</returns>
         public static string GetTestDataPath()
         {
-            var path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.FullName, "Data");
-            return path;
+            var info = Directory.GetParent(Directory.GetCurrentDirectory()).Parent;
+            if (info != null)
+            {
+                if (info.Parent != null)
+                {
+                    var parent = info.Parent.Parent;
+                    string startDirectory = null;
+                    if (parent != null)
+                    {
+                        var directoryInfo = parent.Parent;
+                        if (directoryInfo != null)
+                        {
+                            startDirectory = directoryInfo.FullName;
+                        }
+                    }
+                    else
+                    {
+                        startDirectory = parent.FullName;
+                    }
+
+                    return Path.Combine(startDirectory, "Data\\");
+                }
+            }
+
+            return @"Data\\";
         }
     }
 }
