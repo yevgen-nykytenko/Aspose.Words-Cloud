@@ -82,6 +82,10 @@
     <Compile Include="Internal\ApiInvoker.cs" />
     <Compile Include="Api\Configuration.cs" />
     <Compile Include="Internal\FileInfo.cs" />
+    <Compile Include="Internal\IRequestHandler.cs" />
+    <Compile Include="Internal\RequestHandlers\ApiExceptionRequestHandler.cs" />
+    <Compile Include="Internal\RequestHandlers\AuthWithSignatureRequestHandler.cs" />
+    <Compile Include="Internal\RequestHandlers\DebugLogRequestHandler.cs" />
     <Compile Include="Internal\SerializationHelper.cs" />
     <Compile Include="Internal\StreamHelper.cs" />
     <Compile Include="Model.Requests\ICanSpecifyMailMergeParametersRequest.cs" />

@@ -45,7 +45,7 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Base.Context
         /// </summary>
         protected BaseContext()
         {
-            this.WordsApi = new WordsApi(new Configuration { ApiKey = AppKey, AppSid = AppSID, ApiBaseUrl = BaseProductUri });
+            this.WordsApi = new WordsApi(new Configuration { AppKey = AppKey, AppSid = AppSID, ApiBaseUrl = BaseProductUri });
             this.StorageApi = new StorageApi(AppKey, AppSID, BaseProductUri);
         }
 

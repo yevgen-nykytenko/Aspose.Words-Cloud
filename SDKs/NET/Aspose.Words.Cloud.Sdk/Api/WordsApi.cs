@@ -47,7 +47,7 @@ namespace Aspose.Words.Cloud.Sdk
         /// The app Sid.
         /// </param>
         public WordsApi(string apiKey, string appSid)
-            : this(new Configuration { ApiKey = apiKey, AppSid = appSid })
+            : this(new Configuration { AppKey = apiKey, AppSid = appSid })
         {
         }
 

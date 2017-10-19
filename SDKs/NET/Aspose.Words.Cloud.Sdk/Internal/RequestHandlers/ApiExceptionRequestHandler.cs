@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="Aspose" file="Configuration.cs">
+// <copyright company="Aspose" file="ApiExceptionRequestHandler.cs">
 //   Copyright (c) 2016 Aspose.Words for Cloud
 // </copyright>
 // <summary>
@@ -23,56 +23,52 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Aspose.Words.Cloud.Sdk
+namespace Aspose.Words.Cloud.Sdk.RequestHandlers
 {
-    /// <summary>
-    /// Represents a set of configuration settings.
-    /// </summary>
-    public class Configuration
+    using System;
+    using System.IO;
+    using System.Net;
+
+    using Aspose.Words.Cloud.Sdk.Model;
+
+    internal class ApiExceptionRequestHandler : IRequestHandler
     {
-        private string apiBaseUrl = "https://api.aspose.cloud/v1.1";
-
-        private bool debugMode = false;
-
-        /// <summary>
-        /// Aspose Cloud API base URL.
-        /// </summary>
-        public string ApiBaseUrl
+        public string ProcessUrl(string url)
         {
-            get
-            {
-                return this.apiBaseUrl;
-            }
+            return url;
+        }
 
-            set
+        public void BeforeSend(WebRequest request, Stream streamToSend)
+        {            
+        }
+
+        public void ProcessResponse(HttpWebResponse response, Stream resultStream)
+        {
+            if (response.StatusCode != HttpStatusCode.OK)
             {
-                this.apiBaseUrl = value.EndsWith("/") ? value.Substring(0, value.Length - 1) : value;
+                this.ThrowApiException(response, resultStream);
             }
         }
 
-        /// <summary>
-        /// Gets or sets the app key.
-        /// </summary>
-        public string AppKey { get; set; }
-
-        /// <summary>
-        /// Gets or sets the app sid.
-        /// </summary>
-        public string AppSid { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether debug mode.
-        /// </summary>
-        public bool DebugMode
+        private void ThrowApiException(HttpWebResponse webResponse, Stream resultStream)
         {
-            get
+            try
             {
-                return this.debugMode;
+                resultStream.Position = 0;
+                using (var responseReader = new StreamReader(resultStream))
+                {                    
+                    var responseData = responseReader.ReadToEnd();
+                    var errorResponse = (WordsApiErrorResponse)SerializationHelper.Deserialize(responseData, typeof(WordsApiErrorResponse));
+                    throw new ApiException((int)webResponse.StatusCode, errorResponse.Message);
+                }
             }
-
-            set
+            catch (ApiException)
             {
-                this.debugMode = value;
+                throw;
+            }
+            catch (Exception)
+            {
+                throw new ApiException((int)webResponse.StatusCode, webResponse.StatusDescription);
             }
         }
     }

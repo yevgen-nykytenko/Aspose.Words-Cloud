@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="Aspose" file="Configuration.cs">
+// <copyright company="Aspose" file="IRequestHandler.cs">
 //   Copyright (c) 2016 Aspose.Words for Cloud
 // </copyright>
 // <summary>
@@ -25,55 +25,15 @@
 
 namespace Aspose.Words.Cloud.Sdk
 {
-    /// <summary>
-    /// Represents a set of configuration settings.
-    /// </summary>
-    public class Configuration
+    using System.IO;
+    using System.Net;
+
+    internal interface IRequestHandler
     {
-        private string apiBaseUrl = "https://api.aspose.cloud/v1.1";
+        string ProcessUrl(string url);
 
-        private bool debugMode = false;
+        void BeforeSend(WebRequest request, Stream streamToSend);
 
-        /// <summary>
-        /// Aspose Cloud API base URL.
-        /// </summary>
-        public string ApiBaseUrl
-        {
-            get
-            {
-                return this.apiBaseUrl;
-            }
-
-            set
-            {
-                this.apiBaseUrl = value.EndsWith("/") ? value.Substring(0, value.Length - 1) : value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the app key.
-        /// </summary>
-        public string AppKey { get; set; }
-
-        /// <summary>
-        /// Gets or sets the app sid.
-        /// </summary>
-        public string AppSid { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether debug mode.
-        /// </summary>
-        public bool DebugMode
-        {
-            get
-            {
-                return this.debugMode;
-            }
-
-            set
-            {
-                this.debugMode = value;
-            }
-        }
+        void ProcessResponse(HttpWebResponse response, Stream resultStream);
     }
 }

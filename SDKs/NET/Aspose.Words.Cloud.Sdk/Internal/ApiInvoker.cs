@@ -25,32 +25,26 @@
 
 namespace Aspose.Words.Cloud.Sdk
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
+    using System.Collections.Generic;    
     using System.IO;
     using System.Net;
-    using System.Security.Cryptography;
     using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Web;
+    
+    using Aspose.Words.Cloud.Sdk.RequestHandlers;
 
-    using Aspose.Words.Cloud.Sdk.Model;
-  
     internal class ApiInvoker
-    {
-        private const string AppSidParamTemplate = "{appSid}";        
+    {        
         private const string AsposeClientHeaderName = "x-aspose-client";
-
         private readonly Configuration configuration;
-
-        private readonly Dictionary<string, string> defaultHeaderMap = new Dictionary<string, string>();      
+        private readonly Dictionary<string, string> defaultHeaderMap = new Dictionary<string, string>();
+        private readonly List<IRequestHandler> requestHandlers = new List<IRequestHandler>(); 
     
         public ApiInvoker(Configuration configuration)
         {
             this.configuration = configuration;
             this.AddDefaultHeader(AsposeClientHeaderName, ".net sdk");
-        }                         
+            this.InitRequestHandlers();
+        }
         
         public string InvokeApi(
             string path,
@@ -76,36 +70,11 @@ namespace Aspose.Words.Cloud.Sdk
         {
             // TODO: add contenttype
             return new FileInfo { Name = paramName, FileContent = StreamHelper.ReadAsBytes(stream) };
-        }          
-
-        private static string Sign(string url, string appKey)
-        {
-            UriBuilder uriBuilder = new UriBuilder(url);
-
-            // Remove final slash here as it can be added automatically.
-            uriBuilder.Path = uriBuilder.Path.TrimEnd('/');
-
-            // Compute the hash.
-            byte[] privateKey = Encoding.UTF8.GetBytes(appKey);
-            HMACSHA1 algorithm = new HMACSHA1(privateKey);
-
-            byte[] sequence = Encoding.ASCII.GetBytes(uriBuilder.Uri.AbsoluteUri);
-            byte[] hash = algorithm.ComputeHash(sequence);
-            string signature = Convert.ToBase64String(hash);
-
-            // Remove invalid symbols.
-            signature = signature.TrimEnd('=');
-            signature = HttpUtility.UrlEncode(signature);
-
-            // Convert codes to upper case as they can be updated automatically.
-            signature = Regex.Replace(signature, "%[0-9a-f]{2}", e => e.Value.ToUpper());
-
-            // Add the signature to query string.
-            return string.Format("{0}&signature={1}", uriBuilder.Uri.AbsoluteUri, signature);
-        }
+        }                 
 
         private static byte[] GetMultipartFormData(Dictionary<string, object> postParameters, string boundary)
         {
+            // TOOD: stream is not disposed
             Stream formDataStream = new MemoryStream();
             bool needsClrf = false;
 
@@ -216,21 +185,14 @@ namespace Aspose.Words.Cloud.Sdk
                 headerParams = new Dictionary<string, string>();
             }
 
-            path = this.AddInhouseAuthToUrl(path);
+            path = this.configuration.ApiBaseUrl + path;
+            this.requestHandlers.ForEach(p => path = p.ProcessUrl(path));
+
             var client = this.PrepareRequest(path, method, formParams, headerParams, body);
             
             return this.ReadResponse(client, binaryResponse);
-        }
-
-        private string AddInhouseAuthToUrl(string url)
-        {
-            url = url.Replace(AppSidParamTemplate, this.configuration.AppSid);
-            url = Regex.Replace(url, @"{.+?}", string.Empty);
-            url = Sign(this.configuration.ApiBaseUrl + url, this.configuration.ApiKey);
-
-            return url;
-        }
-
+        }       
+        
         private WebRequest PrepareRequest(string path, string method, Dictionary<string, object> formParams, Dictionary<string, string> headerParams, object body)
         {
             var client = WebRequest.Create(path);
@@ -294,13 +256,13 @@ namespace Aspose.Words.Cloud.Sdk
                             requestWriter.Write(SerializationHelper.Serialize(body));
                             requestWriter.Flush();
                         }
-
-                        streamToSend.Position = 0;
-
+                        
                         break;
                     default:
                         throw new ApiException(500, "unknown method type " + method);
                 }
+
+                this.requestHandlers.ForEach(p => p.BeforeSend(client, streamToSend));
 
                 if (streamToSend != null)
                 {
@@ -308,12 +270,7 @@ namespace Aspose.Words.Cloud.Sdk
                     {
                         StreamHelper.CopyTo(streamToSend, requestStream);
                     }
-                }
-
-                if (this.configuration.DebugMode)
-                {
-                    this.LogRequest(client, streamToSend);
-                }
+                }                
             }
             finally
             {
@@ -322,29 +279,20 @@ namespace Aspose.Words.Cloud.Sdk
                     streamToSend.Dispose();
                 }
             }
-
+            
             return client;
         }
 
         private object ReadResponse(WebRequest client, bool binaryResponse)
         {
-            try
+            var webResponse = (HttpWebResponse)this.GetResponse(client);
+            using (var resultStream = new MemoryStream())
             {
-                var webResponse = (HttpWebResponse)client.GetResponse();
-                var resultStream = new MemoryStream();
                 StreamHelper.CopyTo(webResponse.GetResponseStream(), resultStream);
+
+                this.requestHandlers.ForEach(p => p.ProcessResponse(webResponse, resultStream));
+
                 resultStream.Position = 0;
-
-                if (this.configuration.DebugMode)
-                {
-                    this.LogResponse(webResponse, resultStream);
-                }
-
-                if (webResponse.StatusCode != HttpStatusCode.OK)
-                {
-                    this.ThrowApiException(webResponse);
-                }
-
                 if (binaryResponse)
                 {                    
                     return resultStream;
@@ -356,70 +304,30 @@ namespace Aspose.Words.Cloud.Sdk
                     return responseData;
                 }
             }
-            catch (WebException ex)
-            {
-                var response = ex.Response as HttpWebResponse;
-                this.ThrowApiException(response);
-                throw;
-            }
         }
 
-        private void ThrowApiException(HttpWebResponse webResponse)
+        private WebResponse GetResponse(WebRequest request)
         {
             try
             {
-                using (var responseReader = new StreamReader(webResponse.GetResponseStream()))
-                {
-                    var responseData = responseReader.ReadToEnd();
-                    var errorResponse = (WordsApiErrorResponse)SerializationHelper.Deserialize(responseData, typeof(WordsApiErrorResponse));
-                    throw new ApiException((int)webResponse.StatusCode, errorResponse.Message);
-                }
+                return request.GetResponse();
             }
-            catch (ApiException)
+            catch (WebException wex)
             {
+                if (wex.Response != null)
+                {
+                    return wex.Response;
+                }
+
                 throw;
             }
-            catch (Exception)
-            {
-                throw new ApiException((int)webResponse.StatusCode, webResponse.StatusDescription);
-            }
         }
-
-        private void LogRequest(WebRequest request, Stream streamToSend)
-        {            
-            var header = string.Format("{0}: {1}", request.Method, request.RequestUri);
-            var sb = new StringBuilder();
-
-            this.FormatHeaders(sb, request.Headers);
-            StreamHelper.CopyStreamToStringBuilder(sb, streamToSend);
-
-            this.Log(header, sb);
-        }
-
-        private void LogResponse(HttpWebResponse response, Stream resultStream)
-        {            
-            var header = string.Format("\r\nResponse {0}: {1}", (int)response.StatusCode, response.StatusCode);
-            var sb = new StringBuilder();
-
-            this.FormatHeaders(sb, response.Headers);
-            StreamHelper.CopyStreamToStringBuilder(sb, resultStream);            
-            this.Log(header, sb);
-        }
-
-        private void FormatHeaders(StringBuilder sb, WebHeaderCollection headerDictionary)
+        
+        private void InitRequestHandlers()
         {
-            foreach (var key in headerDictionary.AllKeys)
-            {
-                sb.Append(key);
-                sb.Append(": ");
-                sb.AppendLine(headerDictionary[key]);
-            }
+            this.requestHandlers.Add(new DebugLogRequestHandler(this.configuration));
+            this.requestHandlers.Add(new ApiExceptionRequestHandler());
+            this.requestHandlers.Add(new AuthWithSignatureRequestHandler(this.configuration));
         }
-
-        private void Log(string header, StringBuilder sb)
-        {
-            Trace.WriteLine(header);
-            Trace.WriteLine(sb.ToString());
-        }       
     }
 }

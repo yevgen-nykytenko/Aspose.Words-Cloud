@@ -57,7 +57,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
         /// </summary>
         public TestWordsApi()
         {
-            this.wordsApi = new WordsApi(new Configuration { ApiKey = AppKey, AppSid = AppSid, ApiBaseUrl = AppUrl });
+            this.wordsApi = new WordsApi(new Configuration { AppKey = AppKey, AppSid = AppSid, ApiBaseUrl = AppUrl });
             this.storageApi = new StorageApi(AppKey, AppSid, AppUrl);
         }
 
@@ -1545,7 +1545,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             string name = "test_multi_pages.docx";
             this.storageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
             var request = new DeleteFieldsRequest(name);
-            var api = new WordsApi(new Configuration { ApiKey = AppKey, AppSid = AppSid, ApiBaseUrl = AppUrl, DebugMode = true });
+            var api = new WordsApi(new Configuration { AppKey = AppKey, AppSid = AppSid, ApiBaseUrl = AppUrl, DebugMode = true });
 
             var mockFactory = new MockFactory();
             var traceListenerMock = mockFactory.CreateMock<TraceListener>();
