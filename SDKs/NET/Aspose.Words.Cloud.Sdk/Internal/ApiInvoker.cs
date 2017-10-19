@@ -42,22 +42,14 @@ namespace Aspose.Words.Cloud.Sdk
         private const string AppSidParamTemplate = "{appSid}";        
         private const string AsposeClientHeaderName = "x-aspose-client";
 
-        private readonly string apiBaseUrl;
-        private readonly string apiKey;
-        private readonly string appSid;
-
-        private readonly bool debug;
+        private readonly Configuration configuration;
 
         private readonly Dictionary<string, string> defaultHeaderMap = new Dictionary<string, string>();      
     
-        public ApiInvoker(string apiKey, string appSid, string apiBaseUrl, bool debug)
+        public ApiInvoker(Configuration configuration)
         {
+            this.configuration = configuration;
             this.AddDefaultHeader(AsposeClientHeaderName, ".net sdk");
-            
-            this.apiBaseUrl = apiBaseUrl.EndsWith("/") ? apiBaseUrl.Substring(0, apiBaseUrl.Length - 1) : apiBaseUrl;
-            this.apiKey = apiKey;
-            this.appSid = appSid;
-            this.debug = debug;
         }                         
         
         public string InvokeApi(
@@ -224,12 +216,19 @@ namespace Aspose.Words.Cloud.Sdk
                 headerParams = new Dictionary<string, string>();
             }
 
-            path = path.Replace(AppSidParamTemplate, this.appSid);
-            path = Regex.Replace(path, @"{.+?}", string.Empty);            
-            path = Sign(this.apiBaseUrl + path, this.apiKey);
-
+            path = this.AddInhouseAuthToUrl(path);
             var client = this.PrepareRequest(path, method, formParams, headerParams, body);
+            
             return this.ReadResponse(client, binaryResponse);
+        }
+
+        private string AddInhouseAuthToUrl(string url)
+        {
+            url = url.Replace(AppSidParamTemplate, this.configuration.AppSid);
+            url = Regex.Replace(url, @"{.+?}", string.Empty);
+            url = Sign(this.configuration.ApiBaseUrl + url, this.configuration.ApiKey);
+
+            return url;
         }
 
         private WebRequest PrepareRequest(string path, string method, Dictionary<string, object> formParams, Dictionary<string, string> headerParams, object body)
@@ -311,7 +310,7 @@ namespace Aspose.Words.Cloud.Sdk
                     }
                 }
 
-                if (this.debug)
+                if (this.configuration.DebugMode)
                 {
                     this.LogRequest(client, streamToSend);
                 }
@@ -336,7 +335,7 @@ namespace Aspose.Words.Cloud.Sdk
                 StreamHelper.CopyTo(webResponse.GetResponseStream(), resultStream);
                 resultStream.Position = 0;
 
-                if (this.debug)
+                if (this.configuration.DebugMode)
                 {
                     this.LogResponse(webResponse, resultStream);
                 }

@@ -23,7 +23,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace {{packageName}}.Api
+namespace {{packageName}}
 {
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
@@ -47,16 +47,19 @@ namespace {{packageName}}.Api
         /// <param name="appSid">
         /// The app Sid.
         /// </param>
-        /// <param name="apiBaseUrl">
-        /// Aspose Cloud API base URL.
-        /// </param>
-        /// <param name="debug">
-        /// Allows to see the SDK debugging messages.
-        /// </param>
-        public WordsApi(string apiKey, string appSid, string apiBaseUrl, bool debug = false)
+        public WordsApi(string apiKey, string appSid)
+            : this(new Configuration { ApiKey = apiKey, AppSid = appSid })
         {
-            this.apiInvoker = new ApiInvoker(apiKey, appSid, apiBaseUrl, debug);
-        }                     
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WordsApi"/> class.
+        /// </summary>    
+        /// <param name="configuration">Configuration settings</param>
+        public WordsApi(Configuration configuration)
+        {
+            this.apiInvoker = new ApiInvoker(configuration);
+        }                            
         {{#operation}}
 
         /// <summary>

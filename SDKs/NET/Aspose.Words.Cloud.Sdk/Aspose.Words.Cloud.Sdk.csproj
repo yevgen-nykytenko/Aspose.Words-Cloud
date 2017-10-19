@@ -48,7 +48,7 @@
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>    
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
@@ -80,6 +80,7 @@
     <Compile Include="ApiException.cs" />
     <Compile Include="Api\WordsApi.cs" />
     <Compile Include="Internal\ApiInvoker.cs" />
+    <Compile Include="Api\Configuration.cs" />
     <Compile Include="Internal\FileInfo.cs" />
     <Compile Include="Internal\SerializationHelper.cs" />
     <Compile Include="Internal\StreamHelper.cs" />
