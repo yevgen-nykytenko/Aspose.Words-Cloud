@@ -78,12 +78,7 @@ namespace Aspose.Words.Cloud.Sdk
             Dictionary<string, object> formParams)
         {
             return this.InvokeInternal(path, method, true, body, headerParams, formParams);
-        }             
-
-        public string ToPathValue(object value)
-        {
-            return value.ToString();
-        }
+        }                     
        
         public FileInfo ToFileInfo(Stream stream, string paramName)
         {
@@ -397,7 +392,7 @@ namespace Aspose.Words.Cloud.Sdk
             var sb = new StringBuilder();
 
             this.FormatHeaders(sb, request.Headers);
-            this.CopyStreamToStringBuilder(sb, streamToSend);
+            StreamHelper.CopyStreamToStringBuilder(sb, streamToSend);
 
             this.Log(header, sb);
         }
@@ -408,7 +403,7 @@ namespace Aspose.Words.Cloud.Sdk
             var sb = new StringBuilder();
 
             this.FormatHeaders(sb, response.Headers);
-            this.CopyStreamToStringBuilder(sb, resultStream);            
+            StreamHelper.CopyStreamToStringBuilder(sb, resultStream);            
             this.Log(header, sb);
         }
 
@@ -426,36 +421,6 @@ namespace Aspose.Words.Cloud.Sdk
         {
             Trace.WriteLine(header);
             Trace.WriteLine(sb.ToString());
-        }
-
-        private void CopyStreamToStringBuilder(StringBuilder sb, Stream stream)
-        {
-            if ((stream == null) || !stream.CanRead)
-            {
-                return;
-            }
-
-            Stream streamToRead;
-            if (!stream.CanSeek)
-            {
-                streamToRead = new MemoryStream(1024);
-                StreamHelper.CopyTo(stream, streamToRead);
-            }
-            else
-            {
-                streamToRead = stream;
-            }
-
-            streamToRead.Seek(0, SeekOrigin.Begin);
-            var bodyReader = new StreamReader(streamToRead);
-            if (bodyReader.Peek() != -1)
-            {
-                var content = bodyReader.ReadToEnd();
-                streamToRead.Seek(0, SeekOrigin.Begin);
-
-                sb.AppendLine("Body:");                
-                sb.AppendLine(content);                
-            }            
         }       
     }
 }

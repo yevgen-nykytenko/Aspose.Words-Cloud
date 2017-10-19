@@ -144,7 +144,7 @@ namespace {{packageName}}.Api
             }
             else
             {
-                url = url.Replace("{" + parameterName + "}", this.apiInvoker.ToPathValue(parameterValue));
+                url = url.Replace("{" + parameterName + "}", parameterValue.ToString());
             }
 
             return url;
@@ -165,7 +165,7 @@ namespace {{packageName}}.Api
             } 
             else 
             {
-                url = url.Replace("[" + parameterName + "]", this.apiInvoker.ToPathValue(parameterValue));
+                url = url.Replace("[" + parameterName + "]", parameterValue.ToString());
             }
           
             return url;

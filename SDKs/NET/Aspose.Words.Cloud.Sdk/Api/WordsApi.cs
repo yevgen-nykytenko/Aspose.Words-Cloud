@@ -7252,7 +7252,7 @@ namespace Aspose.Words.Cloud.Sdk.Api
             }
             else
             {
-                url = url.Replace("{" + parameterName + "}", this.apiInvoker.ToPathValue(parameterValue));
+                url = url.Replace("{" + parameterName + "}", parameterValue.ToString());
             }
 
             return url;
@@ -7273,7 +7273,7 @@ namespace Aspose.Words.Cloud.Sdk.Api
             } 
             else 
             {
-                url = url.Replace("[" + parameterName + "]", this.apiInvoker.ToPathValue(parameterValue));
+                url = url.Replace("[" + parameterName + "]", parameterValue.ToString());
             }
           
             return url;
