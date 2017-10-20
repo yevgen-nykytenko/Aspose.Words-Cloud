@@ -36,7 +36,8 @@ namespace {{packageName}}
     /// </summary>
     public class {{classname}}
     {        
-        private readonly ApiInvoker apiInvoker;        
+        private readonly ApiInvoker apiInvoker;
+        private readonly Configuration configuration;     
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WordsApi"/> class.
@@ -48,7 +49,7 @@ namespace {{packageName}}
         /// The app Sid.
         /// </param>
         public WordsApi(string apiKey, string appSid)
-            : this(new Configuration { ApiKey = apiKey, AppSid = appSid })
+            : this(new Configuration { AppKey = apiKey, AppSid = appSid })
         {
         }
 
@@ -58,6 +59,7 @@ namespace {{packageName}}
         /// <param name="configuration">Configuration settings</param>
         public WordsApi(Configuration configuration)
         {
+            this.configuration = configuration;
             this.apiInvoker = new ApiInvoker(configuration);
         }                            
         {{#operation}}
@@ -76,7 +78,7 @@ namespace {{packageName}}
             }
 
 {{/required}}{{/allParams}}            // create path and map variables
-            var resourcePath = "{{path}}?appSid={appSid}{{#queryParams}}&amp;{{paramName}}=[{{paramName}}]{{/queryParams}}";
+            var resourcePath = this.configuration.ApiBaseUrl + "{{path}}";
             resourcePath = Regex
                         .Replace(resourcePath, "\\*", string.Empty)
                         .Replace("&amp;", "&")
@@ -91,7 +93,7 @@ namespace {{packageName}}
             resourcePath = this.AddPathParameter(resourcePath, "{{paramName}}", request.{{baseName}});
             {{/pathParams}}
             {{#queryParams}}
-            resourcePath = this.AddQueryParameter(resourcePath, "{{paramName}}", request.{{baseName}});
+            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{baseName}});
             {{/queryParams}}
             {{#headerParams}}
             if ({{paramName}} != null) 
@@ -151,28 +153,7 @@ namespace {{packageName}}
             }
 
             return url;
-        }
-
-        private string AddQueryParameter(string url, string parameterName, object parameterValue)
-        {
-            if (url.Contains("{" + parameterName + "}"))
-            {
-                url = Regex.Replace(url, @"([&?])" + parameterName + @"=\[" + parameterName + @"\]", string.Empty);
-                url = this.AddPathParameter(url, parameterName, parameterValue);
-                return url;
-            }
-
-            if (parameterValue == null) 
-            {
-                url = Regex.Replace(url, @"([&?])" + parameterName + @"=\[" + parameterName + @"\]", string.Empty);
-            } 
-            else 
-            {
-                url = url.Replace("[" + parameterName + "]", parameterValue.ToString());
-            }
-          
-            return url;
-        }
+        }        
     }
     {{/operations}}
 }

@@ -27,7 +27,7 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
 {
     using System;
     using System.IO;
-    using System.Net;
+    using System.Net;    
     using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
@@ -35,8 +35,6 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
 
     internal class AuthWithSignatureRequestHandler : IRequestHandler
     {
-        private const string AppSidParamTemplate = "{appSid}";
-
         private readonly Configuration configuration;
 
         public AuthWithSignatureRequestHandler(Configuration configuration)
@@ -51,9 +49,8 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
                 return url;
             }
 
-            url = url.Replace(AppSidParamTemplate, this.configuration.AppSid);
-            url = Regex.Replace(url, @"{.+?}", string.Empty);
-            url = Sign(url, this.configuration.AppKey);
+            url = UrlHelper.AddQueryParameterToUrl(url, "appSid", this.configuration.AppSid);                      
+            url = this.Sign(url);
 
             return url;
         }
@@ -66,15 +63,15 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
         {
         }
 
-        private static string Sign(string url, string appKey)
+        private string Sign(string url)
         {
             UriBuilder uriBuilder = new UriBuilder(url);
-
+            
             // Remove final slash here as it can be added automatically.
             uriBuilder.Path = uriBuilder.Path.TrimEnd('/');
 
             // Compute the hash.
-            byte[] privateKey = Encoding.UTF8.GetBytes(appKey);
+            byte[] privateKey = Encoding.UTF8.GetBytes(this.configuration.AppKey);
             HMACSHA1 algorithm = new HMACSHA1(privateKey);
 
             byte[] sequence = Encoding.ASCII.GetBytes(uriBuilder.Uri.AbsoluteUri);

@@ -184,8 +184,7 @@ namespace Aspose.Words.Cloud.Sdk
             {
                 headerParams = new Dictionary<string, string>();
             }
-
-            path = this.configuration.ApiBaseUrl + path;
+           
             this.requestHandlers.ForEach(p => path = p.ProcessUrl(path));
 
             var client = this.PrepareRequest(path, method, formParams, headerParams, body);

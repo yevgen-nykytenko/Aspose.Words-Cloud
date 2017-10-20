@@ -90,6 +90,7 @@
     <Compile Include="Internal\RequestHandlers\OAuthRequestHandler.cs" />
     <Compile Include="Internal\SerializationHelper.cs" />
     <Compile Include="Internal\StreamHelper.cs" />
+    <Compile Include="Internal\UrlHelper.cs" />
     <Compile Include="Model.Requests\ICanSpecifyMailMergeParametersRequest.cs" />
     <Compile Include="Model.Requests\IPutExecuteRequest.cs" />
     <Compile Include="Model\BmpSaveOptionsData.cs" />

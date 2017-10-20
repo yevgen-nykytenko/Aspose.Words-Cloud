@@ -52,6 +52,7 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
 
         private void ThrowApiException(HttpWebResponse webResponse, Stream resultStream)
         {
+            Exception resutException;
             try
             {
                 resultStream.Position = 0;
@@ -59,17 +60,15 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
                 {                    
                     var responseData = responseReader.ReadToEnd();
                     var errorResponse = (WordsApiErrorResponse)SerializationHelper.Deserialize(responseData, typeof(WordsApiErrorResponse));
-                    throw new ApiException((int)webResponse.StatusCode, errorResponse.Message);
+                    resutException = new ApiException((int)webResponse.StatusCode, errorResponse.Message);
                 }
-            }
-            catch (ApiException)
-            {
-                throw;
-            }
+            }          
             catch (Exception)
             {
                 throw new ApiException((int)webResponse.StatusCode, webResponse.StatusDescription);
             }
+
+            throw resutException;
         }
     }
 }
