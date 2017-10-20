@@ -77,7 +77,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiException.cs" />
+    <Compile Include="Api\ApiException.cs" />
+    <Compile Include="Api\AuthType.cs" />
     <Compile Include="Api\WordsApi.cs" />
     <Compile Include="Internal\ApiInvoker.cs" />
     <Compile Include="Api\Configuration.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Internal\RequestHandlers\ApiExceptionRequestHandler.cs" />
     <Compile Include="Internal\RequestHandlers\AuthWithSignatureRequestHandler.cs" />
     <Compile Include="Internal\RequestHandlers\DebugLogRequestHandler.cs" />
+    <Compile Include="Internal\RequestHandlers\OAuthRequestHandler.cs" />
     <Compile Include="Internal\SerializationHelper.cs" />
     <Compile Include="Internal\StreamHelper.cs" />
     <Compile Include="Model.Requests\ICanSpecifyMailMergeParametersRequest.cs" />

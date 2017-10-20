@@ -1,5 +1,5 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="Aspose" file="Configuration.cs">
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="Aspose" file="AuthType.cs">
 //   Copyright (c) 2016 Aspose.Words for Cloud
 // </copyright>
 // <summary>
@@ -26,60 +26,18 @@
 namespace Aspose.Words.Cloud.Sdk
 {
     /// <summary>
-    /// Represents a set of configuration settings.
+    /// Supported types of authentification.
     /// </summary>
-    public class Configuration
+    public enum AuthType
     {
-        private string apiBaseUrl = "https://api.aspose.cloud/v1.1";
-
-        private bool debugMode = true;
+        /// <summary>
+        /// OAuth2.0
+        /// </summary>
+        OAuth2 = 0,
 
         /// <summary>
-        /// Aspose Cloud API base URL.
+        /// Authentification with signing of url.
         /// </summary>
-        public string ApiBaseUrl
-        {
-            get
-            {
-                return this.apiBaseUrl;
-            }
-
-            set
-            {
-                this.apiBaseUrl = value.EndsWith("/") ? value.Substring(0, value.Length - 1) : value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the app key.
-        /// </summary>
-        public string AppKey { get; set; }
-
-        /// <summary>
-        /// Gets or sets the app sid.
-        /// </summary>
-        public string AppSid { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether debug mode.
-        /// </summary>
-        public bool DebugMode
-        {
-            get
-            {
-                return this.debugMode;
-            }
-
-            set
-            {
-                this.debugMode = value;
-            }
-        }
-
-        /// <summary>
-        /// Authentification type.
-        /// Default is OAuth 2.0
-        /// </summary>
-        public AuthType AuthType { get; set; }
+        RequestSignature = 1
     }
 }

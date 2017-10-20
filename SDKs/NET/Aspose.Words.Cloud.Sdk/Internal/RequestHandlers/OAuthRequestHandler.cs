@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="Aspose" file="Configuration.cs">
+// <copyright company="Aspose" file="OAuthRequestHandler.cs">
 //   Copyright (c) 2016 Aspose.Words for Cloud
 // </copyright>
 // <summary>
@@ -23,63 +23,31 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Aspose.Words.Cloud.Sdk
+namespace Aspose.Words.Cloud.Sdk.RequestHandlers
 {
-    /// <summary>
-    /// Represents a set of configuration settings.
-    /// </summary>
-    public class Configuration
+    using System.IO;
+    using System.Net;
+
+    internal class OAuthRequestHandler : IRequestHandler
     {
-        private string apiBaseUrl = "https://api.aspose.cloud/v1.1";
+        private readonly Configuration configuration;
 
-        private bool debugMode = true;
-
-        /// <summary>
-        /// Aspose Cloud API base URL.
-        /// </summary>
-        public string ApiBaseUrl
+        public OAuthRequestHandler(Configuration configuration)
         {
-            get
-            {
-                return this.apiBaseUrl;
-            }
-
-            set
-            {
-                this.apiBaseUrl = value.EndsWith("/") ? value.Substring(0, value.Length - 1) : value;
-            }
+            this.configuration = configuration;
         }
 
-        /// <summary>
-        /// Gets or sets the app key.
-        /// </summary>
-        public string AppKey { get; set; }
-
-        /// <summary>
-        /// Gets or sets the app sid.
-        /// </summary>
-        public string AppSid { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether debug mode.
-        /// </summary>
-        public bool DebugMode
+        public string ProcessUrl(string url)
         {
-            get
-            {
-                return this.debugMode;
-            }
-
-            set
-            {
-                this.debugMode = value;
-            }
+            return url;
         }
 
-        /// <summary>
-        /// Authentification type.
-        /// Default is OAuth 2.0
-        /// </summary>
-        public AuthType AuthType { get; set; }
+        public void BeforeSend(WebRequest request, Stream streamToSend)
+        {            
+        }
+
+        public void ProcessResponse(HttpWebResponse response, Stream resultStream)
+        {            
+        }
     }
 }

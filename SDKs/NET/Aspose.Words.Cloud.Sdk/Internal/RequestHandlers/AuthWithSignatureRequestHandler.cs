@@ -46,6 +46,11 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
 
         public string ProcessUrl(string url)
         {
+            if (this.configuration.AuthType != AuthType.RequestSignature)
+            {
+                return url;
+            }
+
             url = url.Replace(AppSidParamTemplate, this.configuration.AppSid);
             url = Regex.Replace(url, @"{.+?}", string.Empty);
             url = Sign(url, this.configuration.AppKey);

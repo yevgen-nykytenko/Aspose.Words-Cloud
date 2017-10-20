@@ -57,7 +57,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
         /// </summary>
         public TestWordsApi()
         {
-            this.wordsApi = new WordsApi(new Configuration { AppKey = AppKey, AppSid = AppSid, ApiBaseUrl = AppUrl });
+            this.wordsApi = new WordsApi(new Configuration { AppKey = AppKey, AppSid = AppSid, ApiBaseUrl = AppUrl, AuthType = AuthType.RequestSignature });
             this.storageApi = new StorageApi(AppKey, AppSid, AppUrl);
         }
 
