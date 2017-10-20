@@ -26,11 +26,16 @@
 namespace Aspose.Words.Cloud.Sdk.RequestHandlers
 {
     using System.IO;
-    using System.Net;
+    using System.Net;    
+    using System.Text;
+
+    using Newtonsoft.Json;
 
     internal class OAuthRequestHandler : IRequestHandler
-    {
+    {        
         private readonly Configuration configuration;
+        private string accessToken;
+        private string refreshToken;
 
         public OAuthRequestHandler(Configuration configuration)
         {
@@ -43,11 +48,58 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
         }
 
         public void BeforeSend(WebRequest request, Stream streamToSend)
-        {            
-        }
+        {
+            if (this.configuration.AuthType != AuthType.OAuth2)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.accessToken))
+            {
+                this.RequestToken();
+            }
+
+            request.Headers.Add("Authorization", "Bearer " + this.accessToken);
+        }       
 
         public void ProcessResponse(HttpWebResponse response, Stream resultStream)
         {            
+        }
+
+        private void RequestToken()
+        {
+            var request = WebRequest.Create(this.configuration.ApiBaseUrl + "/oauth2/token");
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+
+            var postData = "grant_type=client_credentials";
+            postData += "&client_id=" + this.configuration.AppSid;
+            postData += "&client_secret=" + this.configuration.AppKey;
+
+            var data = Encoding.ASCII.GetBytes(postData);            
+            request.ContentLength = data.Length;
+
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            var result = (GetAccessTokenResult)SerializationHelper.Deserialize(responseString, typeof(GetAccessTokenResult));
+
+            this.accessToken = result.AccessToken;
+        }
+
+        private class GetAccessTokenResult
+        {
+            [JsonProperty(PropertyName = "access_token")]
+            public string AccessToken { get; set; }
+
+            [JsonProperty(PropertyName = "refresh_token")]
+            public string RefreshToken { get; set; }
         }
     }
 }

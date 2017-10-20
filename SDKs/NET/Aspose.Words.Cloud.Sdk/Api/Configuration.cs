@@ -30,7 +30,8 @@ namespace Aspose.Words.Cloud.Sdk
     /// </summary>
     public class Configuration
     {
-        private string apiBaseUrl = "https://api.aspose.cloud/v1.1";
+        private string apiBaseUrl = "https://api.aspose.cloud";
+        private string version = "v1.1";
 
         private bool debugMode = true;
 
@@ -46,7 +47,7 @@ namespace Aspose.Words.Cloud.Sdk
 
             set
             {
-                this.apiBaseUrl = value.EndsWith("/") ? value.Substring(0, value.Length - 1) : value;
+                this.apiBaseUrl = value;
             }
         }
 
@@ -81,5 +82,12 @@ namespace Aspose.Words.Cloud.Sdk
         /// Default is OAuth 2.0
         /// </summary>
         public AuthType AuthType { get; set; }
+
+        internal string GetApiRootUrl()
+        {
+            var result = this.ApiBaseUrl + "/" + this.version;
+
+            return result.EndsWith("/") ? result.Substring(0, result.Length - 1) : result;
+        }
     }
 }

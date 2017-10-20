@@ -324,10 +324,10 @@ namespace Aspose.Words.Cloud.Sdk
         
         private void InitRequestHandlers()
         {
-            this.requestHandlers.Add(new DebugLogRequestHandler(this.configuration));
-            this.requestHandlers.Add(new ApiExceptionRequestHandler());
-            this.requestHandlers.Add(new AuthWithSignatureRequestHandler(this.configuration));
             this.requestHandlers.Add(new OAuthRequestHandler(this.configuration));
+            this.requestHandlers.Add(new DebugLogRequestHandler(this.configuration));            
+            this.requestHandlers.Add(new ApiExceptionRequestHandler());
+            this.requestHandlers.Add(new AuthWithSignatureRequestHandler(this.configuration));         
         }
     }
 }

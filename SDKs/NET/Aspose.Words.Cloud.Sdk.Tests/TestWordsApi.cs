@@ -47,7 +47,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
     {
         private const string AppKey = "0fbf678c5ecabdb5caca48452a736dd0";
         private const string AppSid = "91a2fd07-bba1-4b32-9112-abfb1fe8aebd";
-        private const string AppUrl = "http://api.aspose.cloud/v1.1";
+        private const string AppUrl = "http://api.aspose.cloud";
 
         private readonly WordsApi wordsApi;
         private readonly StorageApi storageApi;
@@ -57,7 +57,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
         /// </summary>
         public TestWordsApi()
         {
-            this.wordsApi = new WordsApi(new Configuration { AppKey = AppKey, AppSid = AppSid, ApiBaseUrl = AppUrl, AuthType = AuthType.RequestSignature });
+            this.wordsApi = new WordsApi(new Configuration { AppKey = AppKey, AppSid = AppSid, ApiBaseUrl = AppUrl, AuthType = AuthType.OAuth2 });
             this.storageApi = new StorageApi(AppKey, AppSid, AppUrl);
         }
 
