@@ -51,7 +51,7 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Features.MailMerge.ExecuteTemplate.Put
         public PutExecuteTemplateWithoutSavingSteps(BaseContext context)
         {
             this.context = context;
-            this.context.TestSubFolderInStorage = "MailMerge/";
+            this.context.TestSubFolderInStorage = "MailMerge";
         }
 
         private PutExecuteTemplateOnlineRequest Request

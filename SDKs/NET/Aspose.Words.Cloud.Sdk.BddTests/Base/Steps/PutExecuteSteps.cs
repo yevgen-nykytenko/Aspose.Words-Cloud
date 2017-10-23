@@ -49,7 +49,7 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Base.Steps
         public PutExecuteSteps(BaseContext context)
         {
             this.context = context;
-            this.context.TestSubFolderInStorage = "MailMerge/";
+            this.context.TestSubFolderInStorage = "MailMerge";
         }
 
         private IPutExecuteRequest Request

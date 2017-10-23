@@ -47,7 +47,7 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Base.Steps
         public SpecifyOutputFormatRequestSteps(BaseContext context)
         {
             this.context = context;
-            this.context.TestSubFolderInStorage = "Conversion/";
+            this.context.TestSubFolderInStorage = "Conversion";
         }
 
         private ICanSpecifyOutputFormatRequest Request

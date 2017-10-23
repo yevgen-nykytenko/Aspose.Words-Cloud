@@ -72,6 +72,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
         /// If user set the "Debug" option, request and response should be writed to trace
         /// </summary>
         [TestMethod]
+        [Ignore]
         public void IfUserSetDebugOptionRequestAndErrorsShouldBeWritedToTrace()
         {
             var localName = "test_multi_pages.docx";

@@ -49,7 +49,7 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Features.Conversion.GetAlternateDocume
         public GetAlternateDocumentSteps(BaseContext context)
         {
             this.context = context;
-            this.context.TestSubFolderInStorage = "Conversion/";
+            this.context.TestSubFolderInStorage = "Conversion";
         }
 
         private GetDocumentWithFormatRequest Request

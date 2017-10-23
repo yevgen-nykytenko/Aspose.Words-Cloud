@@ -47,7 +47,7 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Features.Conversion.PutConvert.Steps
         protected PutConvertSteps(BaseContext context)
         {
             this.context = context;
-            this.context.TestSubFolderInStorage = "Conversion/";
+            this.context.TestSubFolderInStorage = "Conversion";
         }
 
         private PutConvertDocumentRequest Request

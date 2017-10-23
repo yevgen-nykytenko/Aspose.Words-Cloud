@@ -49,7 +49,7 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Features.MailMerge.MailMerge.PutExecut
         public PutExecuteMailMergeSteps(BaseContext context)
         {
             this.context = context;
-            this.context.TestSubFolderInStorage = "MailMerge/";
+            this.context.TestSubFolderInStorage = "MailMerge";
         }
 
         private PutExecuteMailMergeOnlineRequest Request
