@@ -29,7 +29,8 @@ namespace {{packageName}}
     using System.Text.RegularExpressions;
     using {{packageName}}.Model;
     using {{packageName}}.Model.Requests;
-
+    using {{packageName}}.RequestHandlers;
+    
     {{#operations}}
     /// <summary>
     /// Aspose.Words for Cloud API.
@@ -60,7 +61,13 @@ namespace {{packageName}}
         public WordsApi(Configuration configuration)
         {
             this.configuration = configuration;
-            this.apiInvoker = new ApiInvoker(configuration);
+            
+            var requestHandlers = new List<IRequestHandler>();
+            requestHandlers.Add(new OAuthRequestHandler(this.configuration));
+            requestHandlers.Add(new DebugLogRequestHandler(this.configuration));
+            requestHandlers.Add(new ApiExceptionRequestHandler());
+            requestHandlers.Add(new AuthWithSignatureRequestHandler(this.configuration));
+            this.apiInvoker = new ApiInvoker(requestHandlers);
         }                            
         {{#operation}}
 
@@ -101,7 +108,7 @@ namespace {{packageName}}
                 headerParams.Add("{{paramName}}", this.apiInvoker.ToPathValue(request.{{baseName}})); // header parameter
             }
             {{/headerParams}}
-            {{#hasBodyParam}}var postBody = request.{{bodyParam.baseName}}; // http body (model) parameter{{/hasBodyParam}}
+            {{#hasBodyParam}}var postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
             {{#formParams}}
             if (request.{{baseName}} != null) 
             {
@@ -116,7 +123,7 @@ namespace {{packageName}}
                         "{{httpMethod}}", 
                         {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}}, 
                         {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}}, 
-                        {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}}) as {{returnType}};{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}                var response = this.apiInvoker.InvokeApi(
+                        {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}                var response = this.apiInvoker.InvokeApi(
                     resourcePath, 
                     "{{httpMethod}}", 
                     {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}}, 

@@ -29,41 +29,39 @@ namespace Aspose.Words.Cloud.Sdk
     using System.IO;
     using System.Net;
     using System.Text;
-    
-    using Aspose.Words.Cloud.Sdk.RequestHandlers;
 
     internal class ApiInvoker
     {        
-        private const string AsposeClientHeaderName = "x-aspose-client";
-        private readonly Configuration configuration;
+        private const string AsposeClientHeaderName = "x-aspose-client";        
         private readonly Dictionary<string, string> defaultHeaderMap = new Dictionary<string, string>();
-        private readonly List<IRequestHandler> requestHandlers = new List<IRequestHandler>(); 
+        private readonly List<IRequestHandler> requestHandlers; 
     
-        public ApiInvoker(Configuration configuration)
+        public ApiInvoker(List<IRequestHandler> requestHandlers)
         {
-            this.configuration = configuration;
             this.AddDefaultHeader(AsposeClientHeaderName, ".net sdk");
-            this.InitRequestHandlers();
+            this.requestHandlers = requestHandlers;
         }
         
         public string InvokeApi(
             string path,
             string method,
-            object body,
-            Dictionary<string, string> headerParams,
-            Dictionary<string, object> formParams)
+            string body = null,
+            Dictionary<string, string> headerParams = null,
+            Dictionary<string, object> formParams = null,
+            string contentType = "ContentType = \"application/json\"")
         {
-            return this.InvokeInternal(path, method, false, body, headerParams, formParams) as string;
+            return this.InvokeInternal(path, method, false, body, headerParams, formParams, contentType) as string;
         }
 
-        public object InvokeBinaryApi(
+        public Stream InvokeBinaryApi(
             string path,
             string method,
-            object body,
+            string body,
             Dictionary<string, string> headerParams,
-            Dictionary<string, object> formParams)
+            Dictionary<string, object> formParams,
+            string contentType = "ContentType = \"application/json\"")
         {
-            return this.InvokeInternal(path, method, true, body, headerParams, formParams);
+            return (Stream)this.InvokeInternal(path, method, true, body, headerParams, formParams, contentType);
         }                     
        
         public FileInfo ToFileInfo(Stream stream, string paramName)
@@ -171,9 +169,10 @@ namespace Aspose.Words.Cloud.Sdk
             string path,
             string method,
             bool binaryResponse,
-            object body,
+            string body,
             Dictionary<string, string> headerParams,
-            Dictionary<string, object> formParams)
+            Dictionary<string, object> formParams,
+            string contentType)
         {
             if (formParams == null)
             {
@@ -187,12 +186,12 @@ namespace Aspose.Words.Cloud.Sdk
            
             this.requestHandlers.ForEach(p => path = p.ProcessUrl(path));
 
-            var client = this.PrepareRequest(path, method, formParams, headerParams, body);
+            var client = this.PrepareRequest(path, method, formParams, headerParams, body, contentType);
             
             return this.ReadResponse(client, binaryResponse);
         }       
         
-        private WebRequest PrepareRequest(string path, string method, Dictionary<string, object> formParams, Dictionary<string, string> headerParams, object body)
+        private WebRequest PrepareRequest(string path, string method, Dictionary<string, object> formParams, Dictionary<string, string> headerParams, string body, string contentType)
         {
             var client = WebRequest.Create(path);
             client.Method = method;
@@ -216,7 +215,7 @@ namespace Aspose.Words.Cloud.Sdk
             }
             else
             {
-                client.ContentType = "application/json";
+                client.ContentType = contentType;
             }
 
             foreach (var headerParamsItem in headerParams)
@@ -252,7 +251,7 @@ namespace Aspose.Words.Cloud.Sdk
                         if (body != null)
                         {
                             var requestWriter = new StreamWriter(streamToSend);
-                            requestWriter.Write(SerializationHelper.Serialize(body));
+                            requestWriter.Write(body);
                             requestWriter.Flush();
                         }
                         
@@ -320,14 +319,6 @@ namespace Aspose.Words.Cloud.Sdk
 
                 throw;
             }
-        }
-        
-        private void InitRequestHandlers()
-        {
-            this.requestHandlers.Add(new OAuthRequestHandler(this.configuration));
-            this.requestHandlers.Add(new DebugLogRequestHandler(this.configuration));            
-            this.requestHandlers.Add(new ApiExceptionRequestHandler());
-            this.requestHandlers.Add(new AuthWithSignatureRequestHandler(this.configuration));         
         }
     }
 }

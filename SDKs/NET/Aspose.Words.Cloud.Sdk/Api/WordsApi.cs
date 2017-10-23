@@ -29,6 +29,7 @@ namespace Aspose.Words.Cloud.Sdk
     using System.Text.RegularExpressions;
     using Aspose.Words.Cloud.Sdk.Model;
     using Aspose.Words.Cloud.Sdk.Model.Requests;
+    using Aspose.Words.Cloud.Sdk.RequestHandlers;
 
     /// <summary>
     /// Aspose.Words for Cloud API.
@@ -59,7 +60,13 @@ namespace Aspose.Words.Cloud.Sdk
         public WordsApi(Configuration configuration)
         {
             this.configuration = configuration;
-            this.apiInvoker = new ApiInvoker(configuration);
+            
+            var requestHandlers = new List<IRequestHandler>();
+            requestHandlers.Add(new OAuthRequestHandler(this.configuration));
+            requestHandlers.Add(new DebugLogRequestHandler(this.configuration));
+            requestHandlers.Add(new ApiExceptionRequestHandler());
+            requestHandlers.Add(new AuthWithSignatureRequestHandler(this.configuration));
+            this.apiInvoker = new ApiInvoker(requestHandlers);
         }                            
 
         /// <summary>
@@ -154,7 +161,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.Property; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Property); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -1382,7 +1389,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "loadEncoding", request.LoadEncoding);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "password", request.Password);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
-            var postBody = request.ProtectionRequest; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.ProtectionRequest); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -1660,7 +1667,7 @@ namespace Aspose.Words.Cloud.Sdk
                         .Replace(resourcePath, "\\*", string.Empty)
                         .Replace("&amp;", "&")
                         .Replace("/?", "?");
-            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "documentName", request.DocumentName);
+            resourcePath = this.AddPathParameter(resourcePath, "documentName", request.DocumentName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "folder", request.Folder);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "storage", request.Storage);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "loadEncoding", request.LoadEncoding);
@@ -1900,7 +1907,7 @@ namespace Aspose.Words.Cloud.Sdk
                         "GET", 
                         null, 
                         null, 
-                        null) as System.IO.Stream;
+                        null);
             } 
             catch (ApiException ex) 
             {
@@ -1953,7 +1960,7 @@ namespace Aspose.Words.Cloud.Sdk
                         "GET", 
                         null, 
                         null, 
-                        null) as System.IO.Stream;
+                        null);
             } 
             catch (ApiException ex) 
             {
@@ -2768,7 +2775,7 @@ namespace Aspose.Words.Cloud.Sdk
                         .Replace(resourcePath, "\\*", string.Empty)
                         .Replace("&amp;", "&")
                         .Replace("/?", "?");
-            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "name", request.Name);
+            resourcePath = this.AddPathParameter(resourcePath, "name", request.Name);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "format", request.Format);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "folder", request.Folder);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "storage", request.Storage);
@@ -2784,7 +2791,7 @@ namespace Aspose.Words.Cloud.Sdk
                         "GET", 
                         null, 
                         null, 
-                        null) as System.IO.Stream;
+                        null);
             } 
             catch (ApiException ex) 
             {
@@ -4044,7 +4051,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "nodePath", request.NodePath);
-            var postBody = request.Table; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Table); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -4105,7 +4112,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.Cell; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Cell); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -4166,7 +4173,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.Row; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Row); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -4226,7 +4233,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.DocumentList; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.DocumentList); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -4284,7 +4291,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "loadEncoding", request.LoadEncoding);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "password", request.Password);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
-            var postBody = request.ProtectionRequest; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.ProtectionRequest); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -4351,7 +4358,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.Comment; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Comment); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -4409,7 +4416,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "loadEncoding", request.LoadEncoding);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "password", request.Password);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
-            var postBody = request.CompareData; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.CompareData); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -4551,7 +4558,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.FontDto; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.FontDto); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -4610,7 +4617,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "password", request.Password);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "fontsLocation", request.FontsLocation);
-            var postBody = request.SaveOptionsData; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.SaveOptionsData); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -4831,7 +4838,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "nodePath", request.NodePath);
-            var postBody = request.Field; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Field); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -4899,7 +4906,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "nodePath", request.NodePath);
-            var postBody = request.FootnoteDto; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.FootnoteDto); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -4967,7 +4974,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "nodePath", request.NodePath);
-            var postBody = request.FormField; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.FormField); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -5081,7 +5088,7 @@ namespace Aspose.Words.Cloud.Sdk
                         .Replace(resourcePath, "\\*", string.Empty)
                         .Replace("&amp;", "&")
                         .Replace("/?", "?");
-            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "name", request.Name);
+            resourcePath = this.AddPathParameter(resourcePath, "name", request.Name);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "folder", request.Folder);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "storage", request.Storage);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "loadEncoding", request.LoadEncoding);
@@ -5089,7 +5096,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.WatermarkText; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.WatermarkText); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -5149,7 +5156,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.PageNumber; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.PageNumber); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -5196,7 +5203,7 @@ namespace Aspose.Words.Cloud.Sdk
                         .Replace("&amp;", "&")
                         .Replace("/?", "?");
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "storage", request.Storage);
-            var postBody = request.Data; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Data); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -5256,7 +5263,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.ReplaceText; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.ReplaceText); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -5330,7 +5337,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.Run; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Run); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -5454,7 +5461,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.BookmarkData; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.BookmarkData); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -5566,7 +5573,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.Comment; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Comment); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -5636,7 +5643,7 @@ namespace Aspose.Words.Cloud.Sdk
                         "PUT", 
                         null, 
                         null, 
-                        formParams) as System.IO.Stream;
+                        formParams);
             } 
             catch (ApiException ex) 
             {
@@ -5795,7 +5802,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "tiffBinarizationMethod", request.TiffBinarizationMethod);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "zipOutput", request.ZipOutput);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "fontsLocation", request.FontsLocation);
-            var postBody = request.SaveOptions; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.SaveOptions); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -5948,7 +5955,7 @@ namespace Aspose.Words.Cloud.Sdk
                         "PUT", 
                         null, 
                         null, 
-                        formParams) as System.IO.Stream;
+                        formParams);
             } 
             catch (ApiException ex) 
             {
@@ -6009,7 +6016,7 @@ namespace Aspose.Words.Cloud.Sdk
                         "PUT", 
                         null, 
                         null, 
-                        formParams) as System.IO.Stream;
+                        formParams);
             } 
             catch (ApiException ex) 
             {
@@ -6057,7 +6064,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "nodePath", request.NodePath);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "insertBeforeNode", request.InsertBeforeNode);
-            var postBody = request.Field; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Field); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -6118,7 +6125,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "nodePath", request.NodePath);
-            var postBody = request.FootnoteDto; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.FootnoteDto); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -6180,7 +6187,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "nodePath", request.NodePath);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "insertBeforeNode", request.InsertBeforeNode);
-            var postBody = request.FormField; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.FormField); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -6241,7 +6248,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "sectionPath", request.SectionPath);
-            var postBody = request.HeaderFooterType; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.HeaderFooterType); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -6303,7 +6310,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "nodePath", request.NodePath);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "insertBeforeNode", request.InsertBeforeNode);
-            var postBody = request.Paragraph; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Paragraph); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -6361,7 +6368,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "loadEncoding", request.LoadEncoding);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "password", request.Password);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
-            var postBody = request.ProtectionRequest; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.ProtectionRequest); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -6429,7 +6436,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "insertBeforeNode", request.InsertBeforeNode);
-            var postBody = request.Run; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Run); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -6556,7 +6563,7 @@ namespace Aspose.Words.Cloud.Sdk
                         "GET", 
                         null, 
                         null, 
-                        null) as System.IO.Stream;
+                        null);
             } 
             catch (ApiException ex) 
             {
@@ -6617,7 +6624,7 @@ namespace Aspose.Words.Cloud.Sdk
                         "GET", 
                         null, 
                         null, 
-                        null) as System.IO.Stream;
+                        null);
             } 
             catch (ApiException ex) 
             {
@@ -6677,7 +6684,7 @@ namespace Aspose.Words.Cloud.Sdk
                         "GET", 
                         null, 
                         null, 
-                        null) as System.IO.Stream;
+                        null);
             } 
             catch (ApiException ex) 
             {
@@ -6738,7 +6745,7 @@ namespace Aspose.Words.Cloud.Sdk
                         "GET", 
                         null, 
                         null, 
-                        null) as System.IO.Stream;
+                        null);
             } 
             catch (ApiException ex) 
             {
@@ -6799,7 +6806,7 @@ namespace Aspose.Words.Cloud.Sdk
                         "GET", 
                         null, 
                         null, 
-                        null) as System.IO.Stream;
+                        null);
             } 
             catch (ApiException ex) 
             {
@@ -6957,7 +6964,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.BorderProperties; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.BorderProperties); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -7024,7 +7031,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.PageSetup; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.PageSetup); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -7092,7 +7099,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.Format; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Format); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -7154,7 +7161,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "nodePath", request.NodePath);
-            var postBody = request.Properties; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Properties); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
@@ -7222,7 +7229,7 @@ namespace Aspose.Words.Cloud.Sdk
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "destFileName", request.DestFileName);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionAuthor", request.RevisionAuthor);
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "revisionDateTime", request.RevisionDateTime);
-            var postBody = request.Format; // http body (model) parameter
+            var postBody = SerializationHelper.Serialize(request.Format); // http body (model) parameter
             try 
             {                               
                 var response = this.apiInvoker.InvokeApi(
