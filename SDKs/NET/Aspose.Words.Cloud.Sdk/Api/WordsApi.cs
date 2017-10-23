@@ -1650,12 +1650,12 @@ namespace Aspose.Words.Cloud.Sdk.Api
             }
 
             // create path and map variables
-            var resourcePath = "/words/{documentName}?appSid={appSid}&amp;documentName=[documentName]&amp;folder=[folder]&amp;storage=[storage]&amp;loadEncoding=[loadEncoding]&amp;password=[password]";
+            var resourcePath = "/words/{documentName}?appSid={appSid}&amp;folder=[folder]&amp;storage=[storage]&amp;loadEncoding=[loadEncoding]&amp;password=[password]";
             resourcePath = Regex
                         .Replace(resourcePath, "\\*", string.Empty)
                         .Replace("&amp;", "&")
                         .Replace("/?", "?");
-            resourcePath = this.AddQueryParameter(resourcePath, "documentName", request.DocumentName);
+            resourcePath = this.AddPathParameter(resourcePath, "documentName", request.DocumentName);
             resourcePath = this.AddQueryParameter(resourcePath, "folder", request.Folder);
             resourcePath = this.AddQueryParameter(resourcePath, "storage", request.Storage);
             resourcePath = this.AddQueryParameter(resourcePath, "loadEncoding", request.LoadEncoding);
@@ -2758,12 +2758,12 @@ namespace Aspose.Words.Cloud.Sdk.Api
             }
 
             // create path and map variables
-            var resourcePath = "/words/{name}?appSid={appSid}&amp;name=[name]&amp;format=[format]&amp;folder=[folder]&amp;storage=[storage]&amp;loadEncoding=[loadEncoding]&amp;password=[password]&amp;outPath=[outPath]&amp;fontsLocation=[fontsLocation]";
+            var resourcePath = "/words/{name}?appSid={appSid}&amp;format=[format]&amp;folder=[folder]&amp;storage=[storage]&amp;loadEncoding=[loadEncoding]&amp;password=[password]&amp;outPath=[outPath]&amp;fontsLocation=[fontsLocation]";
             resourcePath = Regex
                         .Replace(resourcePath, "\\*", string.Empty)
                         .Replace("&amp;", "&")
                         .Replace("/?", "?");
-            resourcePath = this.AddQueryParameter(resourcePath, "name", request.Name);
+            resourcePath = this.AddPathParameter(resourcePath, "name", request.Name);
             resourcePath = this.AddQueryParameter(resourcePath, "format", request.Format);
             resourcePath = this.AddQueryParameter(resourcePath, "folder", request.Folder);
             resourcePath = this.AddQueryParameter(resourcePath, "storage", request.Storage);
@@ -5071,12 +5071,12 @@ namespace Aspose.Words.Cloud.Sdk.Api
             }
 
             // create path and map variables
-            var resourcePath = "/words/{name}/watermark/insertText?appSid={appSid}&amp;name=[name]&amp;folder=[folder]&amp;storage=[storage]&amp;loadEncoding=[loadEncoding]&amp;password=[password]&amp;destFileName=[destFileName]&amp;revisionAuthor=[revisionAuthor]&amp;revisionDateTime=[revisionDateTime]";
+            var resourcePath = "/words/{name}/watermark/insertText?appSid={appSid}&amp;folder=[folder]&amp;storage=[storage]&amp;loadEncoding=[loadEncoding]&amp;password=[password]&amp;destFileName=[destFileName]&amp;revisionAuthor=[revisionAuthor]&amp;revisionDateTime=[revisionDateTime]";
             resourcePath = Regex
                         .Replace(resourcePath, "\\*", string.Empty)
                         .Replace("&amp;", "&")
                         .Replace("/?", "?");
-            resourcePath = this.AddQueryParameter(resourcePath, "name", request.Name);
+            resourcePath = this.AddPathParameter(resourcePath, "name", request.Name);
             resourcePath = this.AddQueryParameter(resourcePath, "folder", request.Folder);
             resourcePath = this.AddQueryParameter(resourcePath, "storage", request.Storage);
             resourcePath = this.AddQueryParameter(resourcePath, "loadEncoding", request.LoadEncoding);
