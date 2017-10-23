@@ -34,23 +34,53 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
     /// </summary>
     public abstract class BaseTestContext
     {
-        private const string ApiKey = "0fbf678c5ecabdb5caca48452a736dd0";
-        private const string ApiSid = "91a2fd07-bba1-4b32-9112-abfb1fe8aebd";
-        private const string AppUrl = "http://api.aspose.cloud/v1.1";
+        private const string BaseProductUri = @"http://api-dev.aspose.cloud/v1.1";
+        private const string AppSID = "78b637f6-b4cc-41de-a619-d8bd9fc2b6b6";
+        private const string AppKey = "3d588eb82b3d5a634ad3141f09b03629";
+        private const string DropBoxAppSid = "C821FA88-DA8B-4B97-925A-8D69A6B2FCD1";
+        private const string DropBoxAppKey = "9be9d89b967e5f08d4bbddfa8f7cbcd0";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestContext"/> class.
         /// </summary>
         protected BaseTestContext()
         {
-            this.WordsApi = new WordsApi(ApiKey, ApiSid, AppUrl);
-            this.StorageApi = new StorageApi(ApiKey, ApiSid, AppUrl);
+            this.WordsApi = new WordsApi(AppKey, AppSID, BaseProductUri);
+            this.StorageApi = new StorageApi(AppKey, AppSID, BaseProductUri);
+            this.DropboxStorageApi = new StorageApi(DropBoxAppKey, DropBoxAppSid, BaseProductUri);
+        }
+
+        /// <summary>
+        /// Base path to test data
+        /// </summary>
+        protected static string BaseTestDataPath
+        {
+            get
+            {
+                return "Temp/SdkTests/TestData";
+            }
+        }
+
+        /// <summary>
+        /// Base path to output data
+        /// </summary>
+        protected static string BaseTestOutPath
+        {
+            get
+            {
+                return "TestOut";
+            }
         }
 
         /// <summary>
         /// Storage API
         /// </summary>
         protected StorageApi StorageApi { get; }
+
+        /// <summary>
+        /// Dropbox storage API
+        /// </summary>
+        protected StorageApi DropboxStorageApi { get; set; }
 
         /// <summary>
         /// Words API

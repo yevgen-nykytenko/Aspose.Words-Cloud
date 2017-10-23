@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="GetDocumentWithFormat.cs">
+// // <copyright company="Aspose" file="DocumentWithFormatTest.cs">
 // //   Copyright (c) 2016 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -25,6 +25,9 @@
 
 namespace Aspose.Words.Cloud.Sdk.Tests.Document
 {
+    using System.Diagnostics.Contracts;
+    using System.IO;
+
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
@@ -34,20 +37,24 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// Example about how to get document with different format
     /// </summary>
     [TestClass]
-    public class GetDocumentWithFormat : BaseTestContext
+    public class DocumentWithFormatTest : BaseTestContext
     {
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/DocumentWithFormat");
+
         /// <summary>
         /// Test for getting document with specified format
         /// </summary>
         [TestMethod]
         public void TestGetDocumentWithFormat()
         {
-            string name = "test_multi_pages.docx";
-            string format = "text";
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestGetDocumentWithFormat.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var format = "text";
 
-            this.StorageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
 
-            var request = new GetDocumentWithFormatRequest(name, format);
+            var request = new GetDocumentWithFormatRequest(remoteName, format, this.dataFolder);
             var result = this.WordsApi.GetDocumentWithFormat(request);
             Assert.IsTrue(result.Length > 0, "Conversion has failed");
         }
@@ -58,15 +65,17 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
         [TestMethod]
         public void TestGetDocumentWithFormatAndOutPath()
         {
-            string name = "test_multi_pages.docx";
-            string format = "text";
-            string outPath = "out/test_multi_pages.text";
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestGetDocumentWithFormatAndOutPath.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var format = "text";
+            var destFileName = Path.Combine(BaseTestOutPath, Path.GetFileNameWithoutExtension(remoteName) + ".text");
 
-            this.StorageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
 
-            var request = new GetDocumentWithFormatRequest(name, format, outPath: outPath);
+            var request = new GetDocumentWithFormatRequest(remoteName, format, this.dataFolder, outPath: destFileName);
             this.WordsApi.GetDocumentWithFormat(request);
-            var result = this.StorageApi.GetIsExist(outPath, null, null);
+            var result = this.StorageApi.GetIsExist(destFileName, null, null);
             Assert.IsNotNull(result, "Cannot download document from storage");
             Assert.IsTrue(result.FileExist.IsExist, "File doesn't exist on storage");
         }
@@ -75,15 +84,18 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
         /// Test for getting document with specified format and storage
         /// </summary>
         [TestMethod]
+        [Ignore]
         public void TestGetDocumentFormatUsingStorage()
         {
-            string name = "test_multi_pages.docx";
-            string format = "text";
-            string storage = "dropboxstorage";
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestGetDocumentFormatUsingStorage.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var format = "text"; 
+            string storage = "DropBox";
 
-            this.StorageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+            this.DropboxStorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
 
-            var request = new GetDocumentWithFormatRequest(name, format, storage: storage);
+            var request = new GetDocumentWithFormatRequest(remoteName, format, this.dataFolder, storage);
             var result = this.WordsApi.GetDocumentWithFormat(request);
             Assert.IsTrue(result.Length > 0, "Conversion has failed");
         }

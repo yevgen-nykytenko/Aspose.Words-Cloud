@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="RejectAllRevisions.cs">
+// // <copyright company="Aspose" file="MacrosTest.cs">
 // //   Copyright (c) 2016 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -21,34 +21,38 @@
 // //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // //  SOFTWARE.
 // // </summary>
-// // --------------------------------------------------------------------------------------------------------------------
-
-namespace Aspose.Words.Cloud.Sdk.Tests.Document
+// //  --------------------------------------------------------------------------------------------------------------------
+namespace Aspose.Words.Cloud.Sdk.Tests.Macros
 {
+    using System.IO;
+
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to reject all revisions in document
+    /// Example about how to work with macros
     /// </summary>
     [TestClass]
-    public class RejectAllRevisions : BaseTestContext
+    public class MacrosTest : BaseTestContext
     {
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/Macros");
+
         /// <summary>
-        /// Test for rejecting revisions in document
+        /// Test for deleting macros
         /// </summary>
         [TestMethod]
-        public void TestRejectAllRevisions()
+        public void TestDeleteDocumentMacros()
         {
-            string name = "test_multi_pages.docx";
-            string filename = "test_multi_pages.docx";
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestDeleteDocumentMacros.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
 
-            var request = new RejectAllRevisionsRequest(name, destFileName: filename);
-            var actual = this.WordsApi.RejectAllRevisions(request);
+            var request = new DeleteDocumentMacrosRequest(remoteName, this.dataFolder);
+            var actual = this.WordsApi.DeleteDocumentMacros(request);
 
             Assert.AreEqual(200, actual.Code);
         }

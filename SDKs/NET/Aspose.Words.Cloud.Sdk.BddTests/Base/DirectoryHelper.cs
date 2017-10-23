@@ -39,7 +39,7 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Base
         /// <param name="parentDir">parent directory</param>
         /// <returns>path to test data folder</returns>
         public static string GetTestDataPath(string parentDir = null)
-        { 
+        {
             var info = Directory.GetParent(parentDir ?? Directory.GetCurrentDirectory());
             if (info != null)
             {

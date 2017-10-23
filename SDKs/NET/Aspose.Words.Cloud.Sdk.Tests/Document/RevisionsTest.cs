@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="ConvertDocumentToAnyFormat.cs">
+// // <copyright company="Aspose" file="RevisionsTest.cs">
 // //   Copyright (c) 2016 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -25,33 +25,55 @@
 
 namespace Aspose.Words.Cloud.Sdk.Tests.Document
 {
-    using Aspose.Words.Cloud.Sdk.Model;
+    using System.IO;
+
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to convert document to one of the available formats
+    /// Example about how to accept all revisions in document
     /// </summary>
     [TestClass]
-    public class ConvertDocumentToAnyFormat : BaseTestContext
+    public class RevisionsTest : BaseTestContext
     {
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/Revisions");
+
         /// <summary>
-        /// Test for converting document to one of the available formats
+        /// Test for accepting revisions in document
         /// </summary>
         [TestMethod]
-        public void TestPostDocumentSaveAs()
+        public void TestAcceptAllRevisions()
         {
-            string name = "test_multi_pages.docx";
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestAcceptAllRevisions.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var destFileName = Path.Combine(BaseTestOutPath, remoteName);
 
-            var body = new SaveOptionsData { SaveFormat = "pdf", FileName = "output.pdf" };
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
+            var request = new AcceptAllRevisionsRequest(remoteName, this.dataFolder, destFileName: destFileName);
+            var actual = this.WordsApi.AcceptAllRevisions(request);
 
-            this.StorageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+            Assert.AreEqual(200, actual.Code);
+        }
 
-            var request = new PostDocumentSaveAsRequest(name, body);
-            var actual = this.WordsApi.PostDocumentSaveAs(request);
+        /// <summary>
+        /// Test for rejecting revisions in document
+        /// </summary>
+        [TestMethod]
+        public void TestRejectAllRevisions()
+        {
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestRejectAllRevisions.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var destFileName = Path.Combine(BaseTestOutPath, remoteName);
+
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+
+            var request = new RejectAllRevisionsRequest(remoteName, this.dataFolder, destFileName: destFileName);
+            var actual = this.WordsApi.RejectAllRevisions(request);
 
             Assert.AreEqual(200, actual.Code);
         }

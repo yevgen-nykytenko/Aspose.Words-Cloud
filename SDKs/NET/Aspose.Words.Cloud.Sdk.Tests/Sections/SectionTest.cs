@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="UpdateDocumentBookmark.cs">
+// // <copyright company="Aspose" file="SectionTest.cs">
 // //   Copyright (c) 2016 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -21,37 +21,57 @@
 // //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // //  SOFTWARE.
 // // </summary>
-// // --------------------------------------------------------------------------------------------------------------------
-
-namespace Aspose.Words.Cloud.Sdk.Tests.Bookmark
+// //  --------------------------------------------------------------------------------------------------------------------
+namespace Aspose.Words.Cloud.Sdk.Tests.Sections
 {
-    using Aspose.Words.Cloud.Sdk.Model;
+    using System.IO;
+
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to update document bookmark
+    /// Example about how to work with sections
     /// </summary>
     [TestClass]
-    public class UpdateDocumentBookmark : BaseTestContext
+    public class SectionTest : BaseTestContext
     {
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/Section");
+
         /// <summary>
-        /// Test for updating existed bookmark
+        /// Test for getting section by index
         /// </summary>
         [TestMethod]
-        public void TestPostUpdateDocumentBookmark()
+        public void TestGetSection()
         {
-            string name = "test_multi_pages.docx";
-            string bookmarkName = "aspose";
-            string filename = "test.docx";
-            var body = new BookmarkData { Name = "aspose", Text = "This will be the text for Aspose" };
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestGetSection.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var sectionIndex = 0;
 
-            this.StorageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
 
-            var request = new PostUpdateDocumentBookmarkRequest(name, body, bookmarkName, destFileName: filename);
-            var actual = this.WordsApi.PostUpdateDocumentBookmark(request);
+            var request = new GetSectionRequest(remoteName, sectionIndex, this.dataFolder);
+            var actual = this.WordsApi.GetSection(request);
+
+            Assert.AreEqual(200, actual.Code);
+        }
+
+        /// <summary>
+        /// Test for getting sections
+        /// </summary>
+        [TestMethod]
+        public void TestGetSections()
+        {
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestGetSections.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+
+            var request = new GetSectionsRequest(remoteName, this.dataFolder);
+            var actual = this.WordsApi.GetSections(request);
 
             Assert.AreEqual(200, actual.Code);
         }

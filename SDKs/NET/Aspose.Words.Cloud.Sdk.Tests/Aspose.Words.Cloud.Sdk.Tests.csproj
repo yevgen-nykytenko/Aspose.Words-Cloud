@@ -26,7 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-	<CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -68,29 +68,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BaseTestContext.cs" />
-    <Compile Include="Bookmark\GetAllBookmarks.cs" />
-    <Compile Include="Bookmark\GetBookmarkByName.cs" />
-    <Compile Include="Bookmark\UpdateDocumentBookmark.cs" />
+    <Compile Include="Bookmark\BookmarkTests.cs" />
     <Compile Include="Common.cs" />
-    <Compile Include="DocumentProperties\DocumentProperties.cs" />
-    <Compile Include="Document\AcceptAllRevisions.cs" />
-    <Compile Include="Document\AppendDocument.cs" />
-    <Compile Include="Document\ConvertDocumentToAnyFormat.cs" />
-    <Compile Include="Document\ConvertDocumentWithoutStorage.cs" />
-    <Compile Include="Document\GetComments.cs" />
-    <Compile Include="Document\GetDocumentStatistics.cs" />
-    <Compile Include="Document\GetDocumentWithFormat.cs" />
-    <Compile Include="Document\LoadWebDocument.cs" />
-    <Compile Include="Document\RejectAllRevisions.cs" />
-    <Compile Include="Document\SplitDocumentToFormat.cs" />
-    <Compile Include="Drawing\DrawingObjects.cs" />
+    <Compile Include="DocumentProperties\DocumentPropertiesTest.cs" />
+    <Compile Include="DocumentProtection\DocumentProtection.cs" />
+    <Compile Include="Document\DocumentTest.cs" />
+    <Compile Include="Document\RevisionsTest.cs" />
+    <Compile Include="Document\AppendDocumentTest.cs" />
+    <Compile Include="Document\ConvertDocumentTest.cs" />
+    <Compile Include="Document\CommentTest.cs" />
+    <Compile Include="Document\DocumentStatisticsTest.cs" />
+    <Compile Include="Document\DocumentWithFormatTest.cs" />
+    <Compile Include="Document\LoadWebDocumentTest.cs" />
+    <Compile Include="Document\SplitDocumentToFormatTest.cs" />
+    <Compile Include="Drawing\DrawingObjectsTest.cs" />
+    <Compile Include="Field\FieldTest.cs" />
+    <Compile Include="Field\FormFieldTest.cs" />
+    <Compile Include="Field\MailMergeFiledsTest.cs" />
+    <Compile Include="Hyperlink\HyperlinkTest.cs" />
+    <Compile Include="Macros\MacrosTest.cs" />
+    <Compile Include="MailMerge\ExecuteMailMergeTest.cs" />
+    <Compile Include="MailMerge\ExecuteTemplateTest.cs" />
+    <Compile Include="PageSetup\PageSetupTest.cs" />
+    <Compile Include="Paragraph\ParagraphTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TestWordsApi.cs" />
+    <Compile Include="Sections\HeaderFooterTest.cs" />
+    <Compile Include="Sections\SectionTest.cs" />
+    <Compile Include="BaseApiTest.cs" />
+    <Compile Include="Text\TextTest.cs" />
+    <Compile Include="Watermark\WatermarkTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\Data\AppendFile_destination.docx">
@@ -229,19 +240,19 @@
       <Link>Data\TestExecuteResult.doc</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-	<None Include="..\..\..\Data\Conversion\TableDocument.doc">
+    <None Include="..\..\..\Data\Conversion\TableDocument.doc">
       <Link>Data\TableDocument.doc</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-	<None Include="..\..\..\Data\Conversion\test_doc.docx">
+    <None Include="..\..\..\Data\Conversion\test_doc.docx">
       <Link>Data\test_doc.docx</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-	<None Include="..\..\..\Data\MailMerge\TestExecuteTemplate.doc">
+    <None Include="..\..\..\Data\MailMerge\TestExecuteTemplate.doc">
       <Link>Data\TestExecuteTemplate.doc</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-	<None Include="..\..\..\Data\MailMerge\TestExecuteTemplateData.txt">
+    <None Include="..\..\..\Data\MailMerge\TestExecuteTemplateData.txt">
       <Link>Data\TestExecuteTemplateData.txt</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -341,6 +352,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -349,4 +361,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets" Condition="Exists('..\packages\StyleCop.MSBuild.5.0.0\build\StyleCop.MSBuild.targets')" />
 </Project>

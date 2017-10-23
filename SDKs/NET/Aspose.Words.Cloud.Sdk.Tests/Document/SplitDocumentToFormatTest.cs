@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="LoadWebDocument.cs">
+// // <copyright company="Aspose" file="SplitDocumentToFormatTest.cs">
 // //   Copyright (c) 2016 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -25,41 +25,39 @@
 
 namespace Aspose.Words.Cloud.Sdk.Tests.Document
 {
-    using Aspose.Words.Cloud.Sdk.Model;
+    using System.IO;
+
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to load web document
+    /// Example about how to split document and return result with specified format and page range
     /// </summary>
     [TestClass]
-    public class LoadWebDocument : BaseTestContext
+    public class SplitDocumentToFormatTest : BaseTestContext
     {
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/SplitDocument");
+
         /// <summary>
-        /// A test for PostLoadWebDocument
+        /// Test for document splitting
         /// </summary>
         [TestMethod]
-        public void TestPostLoadWebDocument()
+        public void TestPostSplitDocument()
         {
-            var body = new LoadWebDocumentData();
-            var saveOptions = new SaveOptionsData
-                               {
-                                   FileName = "google.doc",
-                                   SaveFormat = "doc",
-                                   ColorMode = "1",
-                                   DmlEffectsRenderingMode = "1",
-                                   DmlRenderingMode = "1",
-                                   UpdateSdtContent = false,
-                                   ZipOutput = false
-                               };
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestPostSplitDocument.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            string format = "text";
+            var destFileName = Path.Combine(BaseTestOutPath, Path.GetFileNameWithoutExtension(remoteName) + ".text");
+            int from = 1;
+            int to = 2;
 
-            body.LoadingDocumentUrl = "http://google.com";
-            body.SaveOptions = saveOptions;
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
 
-            var request = new PostLoadWebDocumentRequest(body);
-            var actual = this.WordsApi.PostLoadWebDocument(request);
+            var request = new PostSplitDocumentRequest(remoteName, this.dataFolder, format: format, @from: from, to: to, destFileName: destFileName);
+            var actual = this.WordsApi.PostSplitDocument(request);
 
             Assert.AreEqual(200, actual.Code);
         }

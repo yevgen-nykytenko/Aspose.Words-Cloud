@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="GetDocumentStatistics.cs">
+// // <copyright company="Aspose" file="HeaderFooterTest.cs">
 // //   Copyright (c) 2016 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -21,33 +21,40 @@
 // //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // //  SOFTWARE.
 // // </summary>
-// // --------------------------------------------------------------------------------------------------------------------
-
-namespace Aspose.Words.Cloud.Sdk.Tests.Document
+// //  --------------------------------------------------------------------------------------------------------------------
+namespace Aspose.Words.Cloud.Sdk.Tests.Sections
 {
+    using System.IO;
+
+    using Aspose.Words.Cloud.Sdk.Model;
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to get document statistics
+    /// Example about how to work with headers and footers
     /// </summary>
     [TestClass]
-    public class GetDocumentStatistics : BaseTestContext
+    public class HeaderFooterTest : BaseTestContext
     {
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/HeaderFooter");
+
         /// <summary>
-        /// Test for getting document statistics
+        /// Test for deleting headers and footers
         /// </summary>
         [TestMethod]
-        public void TestGetDocumentStatistics()
+        public void TestDeleteHeadersFooters()
         {
-            string name = "test_multi_pages.docx";
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestDeleteHeadersFooters.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var destFileName = Path.Combine(BaseTestOutPath, remoteName);
 
-            this.StorageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
 
-            var request = new GetDocumentStatisticsRequest(name);
-            var actual = this.WordsApi.GetDocumentStatistics(request);
+            var request = new DeleteHeadersFootersRequest(remoteName, this.dataFolder, sectionPath: "sections/0", destFileName: destFileName);
+            var actual = this.WordsApi.DeleteHeadersFooters(request);
 
             Assert.AreEqual(200, actual.Code);
         }

@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="GetComments.cs">
+// // <copyright company="Aspose" file="DocumentStatisticsTest.cs">
 // //   Copyright (c) 2016 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -25,47 +25,35 @@
 
 namespace Aspose.Words.Cloud.Sdk.Tests.Document
 {
+    using System.IO;
+
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to get comments from document
+    /// Example about how to get document statistics
     /// </summary>
     [TestClass]
-    public class GetComments : BaseTestContext
+    public class DocumentStatisticsTest : BaseTestContext
     {
-        /// <summary>
-        /// Test for getting comment by specified comment's index
-        /// </summary>
-        [TestMethod]
-        public void TestGetComment()
-        {
-            string name = "test_multi_pages.docx";
-            int commentIndex = 0;
-
-            this.StorageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
-
-            var request = new GetCommentRequest(name, commentIndex);
-            var actual = this.WordsApi.GetComment(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
-
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/Statistics");
 
         /// <summary>
-        /// Test for getting all comments from document
+        /// Test for getting document statistics
         /// </summary>
         [TestMethod]
-        public void TestGetComments()
+        public void TestGetDocumentStatistics()
         {
-            string name = "test_multi_pages.docx";
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestGetDocumentStatistics.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
 
-            var request = new GetCommentsRequest(name);
-            var actual = this.WordsApi.GetComments(request);
+            var request = new GetDocumentStatisticsRequest(remoteName, this.dataFolder);
+            var actual = this.WordsApi.GetDocumentStatistics(request);
 
             Assert.AreEqual(200, actual.Code);
         }

@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="AcceptAllRevisions.cs">
+// // <copyright company="Aspose" file="LoadWebDocumentTest.cs">
 // //   Copyright (c) 2016 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -25,30 +25,41 @@
 
 namespace Aspose.Words.Cloud.Sdk.Tests.Document
 {
+    using Aspose.Words.Cloud.Sdk.Model;
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to accept all revisions in document
+    /// Example about how to load web document
     /// </summary>
     [TestClass]
-    public class AcceptAllRevisions : BaseTestContext
+    public class LoadWebDocumentTest : BaseTestContext
     {
         /// <summary>
-        /// Test for accepting revisions in document
+        /// Test for loading web document
         /// </summary>
         [TestMethod]
-        public void TestAcceptAllRevisions()
+        public void TestPostLoadWebDocument()
         {
-            string name = "test_multi_pages.docx";
-            string filename = "Test2.docx";
+            var body = new LoadWebDocumentData();
+            var saveOptions = new SaveOptionsData
+                               {
+                                   FileName = "google.doc",
+                                   SaveFormat = "doc",
+                                   ColorMode = "1",
+                                   DmlEffectsRenderingMode = "1",
+                                   DmlRenderingMode = "1",
+                                   UpdateSdtContent = false,
+                                   ZipOutput = false
+                               };
 
-            this.StorageApi.PutCreate(name, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + name));
+            body.LoadingDocumentUrl = "http://google.com";
+            body.SaveOptions = saveOptions;
 
-            var request = new AcceptAllRevisionsRequest(name, destFileName: filename);
-            var actual = this.WordsApi.AcceptAllRevisions(request);
+            var request = new PostLoadWebDocumentRequest(body);
+            var actual = this.WordsApi.PostLoadWebDocument(request);
 
             Assert.AreEqual(200, actual.Code);
         }

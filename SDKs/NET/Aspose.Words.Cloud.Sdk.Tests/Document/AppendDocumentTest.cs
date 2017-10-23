@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="GetAllBookmarks.cs">
+// // <copyright company="Aspose" file="AppendDocumentTest.cs">
 // //   Copyright (c) 2016 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -23,32 +23,46 @@
 // // </summary>
 // // --------------------------------------------------------------------------------------------------------------------
 
-namespace Aspose.Words.Cloud.Sdk.Tests.Bookmark
+namespace Aspose.Words.Cloud.Sdk.Tests.Document
 {
     using System.IO;
 
+    using Aspose.Words.Cloud.Sdk.Model;
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to get all bookmarks from document
+    /// Example about how to append document
     /// </summary>
     [TestClass]
-    public class GetAllBookmarks : BaseTestContext
+    public class AppendDocumentTest : BaseTestContext
     {
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/AppendDocument");
+
         /// <summary>
-        /// Test for getting bookmarks from document
+        /// Test for appending document
         /// </summary>
         [TestMethod]
-        public void TestGetDocumentBookmarks()
+        public void TestPostAppendDocument()
         {
-            string name = "test_multi_pages.docx";
-            this.StorageApi.PutCreate(name, null, null, File.ReadAllBytes(Common.GetDataDir() + name));
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestPostAppendDocument.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var destFileName = Path.Combine(BaseTestOutPath, remoteName);
 
-            var request = new GetDocumentBookmarksRequest(name);
-            var actual = this.WordsApi.GetDocumentBookmarks(request);
+            var body = new DocumentEntryList();
+            System.Collections.Generic.List<DocumentEntry> docEntries = new System.Collections.Generic.List<DocumentEntry>();
+
+            DocumentEntry docEntry = new DocumentEntry { Href = fullName, ImportFormatMode = "KeepSourceFormatting" };
+            docEntries.Add(docEntry);
+            body.DocumentEntries = docEntries;
+
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+
+            var request = new PostAppendDocumentRequest(remoteName, body, this.dataFolder, destFileName: destFileName);
+            var actual = this.WordsApi.PostAppendDocument(request);
 
             Assert.AreEqual(200, actual.Code);
         }

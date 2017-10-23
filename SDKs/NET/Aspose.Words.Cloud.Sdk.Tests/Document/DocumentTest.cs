@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="ConvertDocumentWithoutStorage.cs">
+// // <copyright company="Aspose" file="DocumentTest.cs">
 // //   Copyright (c) 2016 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -21,34 +21,40 @@
 // //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // //  SOFTWARE.
 // // </summary>
-// // --------------------------------------------------------------------------------------------------------------------
-
+// //  --------------------------------------------------------------------------------------------------------------------
 namespace Aspose.Words.Cloud.Sdk.Tests.Document
 {
+    using System.IO;
+
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to get converted document without saving to storage
+    /// Example about how to get document
     /// </summary>
     [TestClass]
-    public class ConvertDocumentWithoutStorage : BaseTestContext
+    public class DocumentTest : BaseTestContext
     {
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/Document");
+
         /// <summary>
-        /// A test for PutConvertDocument
+        /// Test for getting document
         /// </summary>
         [TestMethod]
-        public void TestPutConvertDocument()
+        public void TestGetDocument()
         {
-            string format = "pdf";
-            using (var fileStream = System.IO.File.OpenRead(Common.GetDataDir() + "test_uploadfile.docx"))
-            {
-                var request = new PutConvertDocumentRequest(fileStream, format);
-                var result = this.WordsApi.PutConvertDocument(request);
-                Assert.IsTrue(result.Length > 0, "Error occured while converting document");
-            }
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestGetDocument.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+
+            var request = new GetDocumentRequest(remoteName, this.dataFolder);
+            var actual = this.WordsApi.GetDocument(request);
+
+            Assert.AreEqual(200, actual.Code);
         }
     }
 }
