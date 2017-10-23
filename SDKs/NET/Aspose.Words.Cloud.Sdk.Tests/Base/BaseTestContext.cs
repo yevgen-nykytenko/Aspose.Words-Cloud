@@ -75,7 +75,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         /// <summary>
         /// Storage API
         /// </summary>
-        protected StorageApi StorageApi { get; }
+        protected StorageApi StorageApi { get; set; }
 
         /// <summary>
         /// Dropbox storage API
@@ -85,6 +85,6 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         /// <summary>
         /// Words API
         /// </summary>
-        protected WordsApi WordsApi { get; }
+        protected WordsApi WordsApi { get; set; }
     }
 }
