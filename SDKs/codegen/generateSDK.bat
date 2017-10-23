@@ -3,11 +3,11 @@ java -jar SDKs\codegen\swagger-codegen-cli-2.3.0.jar generate -i SDKs\spec\aspos
 
 SDKs\codegen\Tools\SplitCSharpCodeFile.exe C:\tmp\csharp\src\Aspose.Words.Cloud.Sdk\Api\WordsApi.cs C:\tmp\csharp\src\Aspose.Words.Cloud.Sdk\Model\Requests\
 
-del /S /Q "SDKs\Aspose.Words-Cloud-SDK-for-.NET\Aspose.Words.Cloud.Sdk\Model"
-del /S /Q "SDKs\Aspose.Words-Cloud-SDK-for-.NET\Aspose.Words.Cloud.Sdk\Api"
+del /S /Q "SDKs\NET\Aspose.Words.Cloud.Sdk\Model"
+del /S /Q "SDKs\NET\Aspose.Words.Cloud.Sdk\Api\WordsApi.cs"
 
-xcopy "c:\tmp\csharp\src\Aspose.Words.Cloud.Sdk\Model" "SDKs\Aspose.Words-Cloud-SDK-for-.NET\Aspose.Words.Cloud.Sdk\Model" /E
-xcopy "c:\tmp\csharp\src\Aspose.Words.Cloud.Sdk\Api" "SDKs\Aspose.Words-Cloud-SDK-for-.NET\Aspose.Words.Cloud.Sdk\Api" /E
+xcopy "c:\tmp\csharp\src\Aspose.Words.Cloud.Sdk\Model" "SDKs\NET\Aspose.Words.Cloud.Sdk\Model" /E
+xcopy "c:\tmp\csharp\src\Aspose.Words.Cloud.Sdk\Api" "SDKs\NET\Aspose.Words.Cloud.Sdk\Api" /E
 
 
 
