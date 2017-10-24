@@ -32,7 +32,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to load web document
+    /// Example of how to load web document
     /// </summary>
     [TestClass]
     public class LoadWebDocumentTest : BaseTestContext

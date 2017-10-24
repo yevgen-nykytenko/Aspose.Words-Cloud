@@ -33,7 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.DocumentProtection
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to set document protection
+    /// Example of how to set document protection
     /// </summary>
     [TestClass]
     public class DocumentProtection : BaseTestContext

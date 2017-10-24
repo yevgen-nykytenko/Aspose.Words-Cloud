@@ -33,7 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Paragraph
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to work with paragraph
+    /// Example of how to work with paragraph
     /// </summary>
     [TestClass]
     public class ParagraphTest : BaseTestContext

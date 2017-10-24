@@ -32,7 +32,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Sections
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to work with sections
+    /// Example of how to work with sections
     /// </summary>
     [TestClass]
     public class SectionTest : BaseTestContext

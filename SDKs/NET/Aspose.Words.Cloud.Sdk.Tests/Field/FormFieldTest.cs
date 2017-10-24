@@ -33,7 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to work with form field
+    /// Example of how to work with form field
     /// </summary>
     [TestClass]
     public class FormFieldTest : BaseTestContext

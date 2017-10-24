@@ -33,7 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to split document and return result with specified format and page range
+    /// Example of how to split document and return result with specified format and page range
     /// </summary>
     [TestClass]
     public class SplitDocumentToFormatTest : BaseTestContext

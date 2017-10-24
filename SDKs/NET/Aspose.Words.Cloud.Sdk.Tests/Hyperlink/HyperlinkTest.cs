@@ -32,7 +32,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Hyperlink
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to work with hyperlinks
+    /// Example of how to work with hyperlinks
     /// </summary>
     [TestClass]
     public class HyperlinkTest : BaseTestContext

@@ -32,7 +32,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to get document
+    /// Example of how to get document
     /// </summary>
     [TestClass]
     public class DocumentTest : BaseTestContext

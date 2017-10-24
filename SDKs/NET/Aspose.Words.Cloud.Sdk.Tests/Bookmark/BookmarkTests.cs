@@ -34,7 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Bookmark
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to get all bookmarks from document
+    /// Example of how to get all bookmarks from document
     /// </summary>
     [TestClass]
     public class BookmarkTests : BaseTestContext

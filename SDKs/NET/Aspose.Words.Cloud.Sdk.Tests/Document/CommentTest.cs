@@ -34,7 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to get comments from document
+    /// Example of how to get comments from document
     /// </summary>
     [TestClass]
     public class CommentTest : BaseTestContext

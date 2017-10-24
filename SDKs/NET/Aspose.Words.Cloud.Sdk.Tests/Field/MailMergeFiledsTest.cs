@@ -33,7 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to work with merge fields
+    /// Example of how to work with merge fields
     /// </summary>
     [TestClass]
     public class MailMergeFiledsTest : BaseTestContext

@@ -33,7 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Text
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to work with text
+    /// Example of how to work with text
     /// </summary>
     [TestClass]
     public class TextTest : BaseTestContext

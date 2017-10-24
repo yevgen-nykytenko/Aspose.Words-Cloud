@@ -32,7 +32,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.MailMerge
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to perfom template execution
+    /// Example of how to perfom template execution
     /// </summary>
     [TestClass]
     public class ExecuteTemplateTest : BaseTestContext

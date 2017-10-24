@@ -32,7 +32,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Macros
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to work with macros
+    /// Example of how to work with macros
     /// </summary>
     [TestClass]
     public class MacrosTest : BaseTestContext

@@ -34,7 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to get document with different format
+    /// Example of how to get document with different format
     /// </summary>
     [TestClass]
     public class DocumentWithFormatTest : BaseTestContext

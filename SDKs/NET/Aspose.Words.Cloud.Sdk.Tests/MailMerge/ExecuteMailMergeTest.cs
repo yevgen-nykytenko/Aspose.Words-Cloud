@@ -32,7 +32,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.MailMerge
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to perform mail merge
+    /// Example of how to perform mail merge
     /// </summary>
     [TestClass]
     public class ExecuteMailMergeTest : BaseTestContext

@@ -86,5 +86,14 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         /// Words API
         /// </summary>
         protected WordsApi WordsApi { get; set; }
+
+        /// <summary>
+        /// Returns words api with enabled debug option
+        /// </summary>
+        /// <returns>instance of words api in debug mode</returns>
+        protected WordsApi GetDebugApi()
+        {
+            return new WordsApi(AppKey, AppSID, BaseProductUri, true);
+        }
     }
 }

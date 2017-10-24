@@ -34,7 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.DocumentProperties
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to get document properties
+    /// Example of how to get document properties
     /// </summary>
     [TestClass]
     public class DocumentPropertiesTest : BaseTestContext

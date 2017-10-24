@@ -33,7 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to accept all revisions in document
+    /// Example of how to accept all revisions in document
     /// </summary>
     [TestClass]
     public class RevisionsTest : BaseTestContext

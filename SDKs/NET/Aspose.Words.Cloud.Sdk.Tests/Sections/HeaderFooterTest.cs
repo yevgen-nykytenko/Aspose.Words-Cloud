@@ -33,7 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Sections
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to work with headers and footers
+    /// Example of how to work with headers and footers
     /// </summary>
     [TestClass]
     public class HeaderFooterTest : BaseTestContext

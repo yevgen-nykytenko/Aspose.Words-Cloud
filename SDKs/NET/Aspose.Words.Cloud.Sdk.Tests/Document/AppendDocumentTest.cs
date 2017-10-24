@@ -34,7 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to append document
+    /// Example of how to append document
     /// </summary>
     [TestClass]
     public class AppendDocumentTest : BaseTestContext

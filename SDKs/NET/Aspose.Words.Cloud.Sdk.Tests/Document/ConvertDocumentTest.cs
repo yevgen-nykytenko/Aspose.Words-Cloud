@@ -34,7 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to convert document to one of the available formats
+    /// Example of how to convert document to one of the available formats
     /// </summary>
     [TestClass]
     public class ConvertDocumentTest : BaseTestContext

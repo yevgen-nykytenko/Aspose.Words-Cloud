@@ -33,7 +33,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example about how to get drawing objects
+    /// Example of how to get drawing objects
     /// </summary>
     [TestClass]
     public class DrawingObjectsTest : BaseTestContext
