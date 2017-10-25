@@ -186,9 +186,17 @@ namespace Aspose.Words.Cloud.Sdk
            
             this.requestHandlers.ForEach(p => path = p.ProcessUrl(path));
 
-            var client = this.PrepareRequest(path, method, formParams, headerParams, body, contentType);
-            
-            return this.ReadResponse(client, binaryResponse);
+            WebRequest request;
+            try
+            {
+                request = this.PrepareRequest(path, method, formParams, headerParams, body, contentType);
+                return this.ReadResponse(request, binaryResponse);
+            }
+            catch (NeedRepeatRequestException)
+            {
+                request = this.PrepareRequest(path, method, formParams, headerParams, body, contentType);
+                return this.ReadResponse(request, binaryResponse);               
+            }            
         }       
         
         private WebRequest PrepareRequest(string path, string method, Dictionary<string, object> formParams, Dictionary<string, string> headerParams, string body, string contentType)
