@@ -45,9 +45,9 @@ namespace Aspose.Words.Cloud.Sdk.Tests.MailMerge
         [TestMethod]
         public void TestPutExecuteMailMergeOnline()
         {
-            using (var file = System.IO.File.OpenRead(Common.GetDataDir() + "SampleExecuteTemplate.docx"))
+            using (var file = File.OpenRead(Common.GetDataDir() + "SampleExecuteTemplate.docx"))
             {
-                using (var data = System.IO.File.OpenRead(Common.GetDataDir() + "SampleExecuteTemplateData.txt"))
+                using (var data = File.OpenRead(Common.GetDataDir() + "SampleExecuteTemplateData.txt"))
                 {
                     var request = new PutExecuteMailMergeOnlineRequest(file, data);
                     var result = this.WordsApi.PutExecuteMailMergeOnline(request);
@@ -66,9 +66,9 @@ namespace Aspose.Words.Cloud.Sdk.Tests.MailMerge
             var remoteName = "TestPostDocumentExecuteMailMerge.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
-            var data = System.IO.File.ReadAllText(Common.GetDataDir() + "SampleMailMergeTemplateData.txt");
+            var data = File.ReadAllText(Common.GetDataDir() + "SampleMailMergeTemplateData.txt");
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             // TODO check why when destFileName contains folder, folder is doubled while saving
             var request = new PostDocumentExecuteMailMergeRequest(remoteName, false, data, this.dataFolder, destFileName: destFileName);

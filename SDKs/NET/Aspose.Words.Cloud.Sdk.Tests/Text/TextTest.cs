@@ -50,7 +50,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Text
             var remoteName = "TestGetDocumentTextItems.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new GetDocumentTextItemsRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.GetDocumentTextItems(request);
@@ -70,7 +70,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Text
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
             var body = new ReplaceTextRequest { OldValue = "aspose", NewValue = "aspose new" };
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new PostReplaceTextRequest(remoteName, body, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.PostReplaceText(request);
@@ -89,7 +89,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Text
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var pattern = "aspose";
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new SearchRequest(remoteName, pattern, this.dataFolder);
             var actual = this.WordsApi.Search(request);

@@ -52,7 +52,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.DocumentProtection
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
             var body = new ProtectionRequest { NewPassword = "123" };
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new PutProtectDocumentRequest(remoteName, body, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.PutProtectDocument(request);
@@ -70,7 +70,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.DocumentProtection
             var remoteName = "TestGetDocumentProtection.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new GetDocumentProtectionRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.GetDocumentProtection(request);
@@ -89,7 +89,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.DocumentProtection
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var body = new ProtectionRequest { NewPassword = string.Empty };
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new PostChangeDocumentProtectionRequest(remoteName, body, this.dataFolder);
             var actual = this.WordsApi.PostChangeDocumentProtection(request);
@@ -108,7 +108,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.DocumentProtection
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var body = new ProtectionRequest { Password = "aspose" };
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new DeleteUnprotectDocumentRequest(remoteName, body, this.dataFolder);
             var actual = this.WordsApi.DeleteUnprotectDocument(request);

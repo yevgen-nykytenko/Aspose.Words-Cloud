@@ -25,6 +25,7 @@
 
 namespace Aspose.Words.Cloud.Sdk.Tests
 {
+    // TODO: move to BaseTestContext (as BaseTestDataPath and BaseTestOutPath)
     internal class Common
     {
         public static string GetDataDir()

@@ -50,7 +50,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var remoteName = "TestGetDocumentFieldNames.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new GetDocumentFieldNamesRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.GetDocumentFieldNames(request);
@@ -60,6 +60,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
 
         /// <summary>
         /// Test for deleting fields
+        /// // TODO: move to FieldTest
         /// </summary>
         [TestMethod]
         public void TestDeleteDocumentFields()
@@ -68,7 +69,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var remoteName = "TestDeleteDocumentFields.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new DeleteFieldsRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.DeleteFields(request);
@@ -82,7 +83,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
         [TestMethod]
         public void TestPutDocumentFieldNames()
         {
-            using (var fileStream = System.IO.File.OpenRead(Common.GetDataDir() + "SampleExecuteTemplate.docx"))
+            using (var fileStream = File.OpenRead(Common.GetDataDir() + "SampleExecuteTemplate.docx"))
             {
                 var request = new PutDocumentFieldNamesRequest(fileStream, true);
                 FieldNamesResponse actual = this.WordsApi.PutDocumentFieldNames(request);
@@ -93,6 +94,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
 
         /// <summary>
         /// Test for posting updated fields
+        /// // TODO: move to FieldTest
         /// </summary>
         [TestMethod]
         public void TestPostUpdateDocumentFields()
@@ -101,7 +103,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var remoteName = "TestPostUpdateDocumentFields.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new PostUpdateDocumentFieldsRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.PostUpdateDocumentFields(request);

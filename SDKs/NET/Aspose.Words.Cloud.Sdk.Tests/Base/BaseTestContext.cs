@@ -78,7 +78,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         protected StorageApi StorageApi { get; set; }
 
         /// <summary>
-        /// Dropbox storage API
+        /// Dropbox storage API.
+        /// // TODO: it is used only in 1 test, move this property closer to usage
         /// </summary>
         protected StorageApi DropboxStorageApi { get; set; }
 

@@ -50,7 +50,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
             var remoteName = "TestGetDocumentDrawingObjects.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new GetDocumentDrawingObjectsRequest(remoteName, this.dataFolder, nodePath: "sections/0");
             var actual = this.WordsApi.GetDocumentDrawingObjects(request);
@@ -69,7 +69,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
             var fullName = Path.Combine(this.dataFolder, remoteName);
             int objectIndex = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new GetDocumentDrawingObjectByIndexRequest(remoteName, objectIndex, this.dataFolder, nodePath: "sections/0");
             DrawingObjectResponse actual = this.WordsApi.GetDocumentDrawingObjectByIndex(request);
@@ -89,7 +89,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
             int objectIndex = 0;
             string format = "png";
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new RenderDrawingObjectRequest(remoteName, format, objectIndex, this.dataFolder, nodePath: "sections/0");
             var result = this.WordsApi.RenderDrawingObject(request);
@@ -107,7 +107,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
             var fullName = Path.Combine(this.dataFolder, remoteName);
             int objectIndex = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new GetDocumentDrawingObjectImageDataRequest(remoteName, objectIndex, this.dataFolder, nodePath: "sections/0");
             var result = this.WordsApi.GetDocumentDrawingObjectImageData(request);
@@ -125,7 +125,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
             var fullName = Path.Combine(this.dataFolder, remoteName);
             int objectIndex = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new GetDocumentDrawingObjectOleDataRequest(remoteName, objectIndex, this.dataFolder, nodePath: "sections/0");
             var result = this.WordsApi.GetDocumentDrawingObjectOleData(request);

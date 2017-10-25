@@ -89,7 +89,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Bookmark
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
             var body = new BookmarkData { Name = "aspose", Text = "This will be the text for Aspose" };
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new PostUpdateDocumentBookmarkRequest(remoteName, body, bookmarkName, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.PostUpdateDocumentBookmark(request);

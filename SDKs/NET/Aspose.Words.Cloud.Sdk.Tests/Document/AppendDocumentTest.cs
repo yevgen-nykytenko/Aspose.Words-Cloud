@@ -59,7 +59,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             docEntries.Add(docEntry);
             body.DocumentEntries = docEntries;
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new PostAppendDocumentRequest(remoteName, body, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.PostAppendDocument(request);

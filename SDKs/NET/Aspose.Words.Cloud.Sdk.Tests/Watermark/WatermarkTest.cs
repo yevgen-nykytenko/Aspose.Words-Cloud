@@ -53,9 +53,9 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Watermark
             double rotationAngle = 0F;
             var image = "aspose-cloud.png";
 
-            using (var file = System.IO.File.OpenRead(Common.GetDataDir() + image))
+            using (var file = File.OpenRead(Common.GetDataDir() + image))
             {
-                this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+                this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
                 var request = new PostInsertDocumentWatermarkImageRequest(remoteName,
                     file,
@@ -84,8 +84,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Watermark
             var remoteImage = "TestPostInsertWatermarkImage.png";
             var fullImagePath = Path.Combine(this.dataFolder, remoteImage);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
-            this.StorageApi.PutCreate(fullImagePath, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localImage));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullImagePath, null, null, File.ReadAllBytes(Common.GetDataDir() + localImage));
 
             var request = new PostInsertDocumentWatermarkImageRequest(remoteName, folder: this.dataFolder, image: fullImagePath, rotationAngle: rotationAngle, destFileName: destFileName);
             var actual = this.WordsApi.PostInsertDocumentWatermarkImage(request);
@@ -105,7 +105,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Watermark
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
             var body = new WatermarkText { Text = "This is the text", RotationAngle = 90.0f };
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new PostInsertDocumentWatermarkTextRequest(remoteName, body, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.PostInsertDocumentWatermarkText(request);
@@ -124,7 +124,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Watermark
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new DeleteDocumentWatermarkRequest(remoteName, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.DeleteDocumentWatermark(request);

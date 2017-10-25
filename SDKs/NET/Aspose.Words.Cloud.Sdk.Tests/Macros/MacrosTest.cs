@@ -49,7 +49,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Macros
             var remoteName = "TestDeleteDocumentMacros.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new DeleteDocumentMacrosRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.DeleteDocumentMacros(request);
