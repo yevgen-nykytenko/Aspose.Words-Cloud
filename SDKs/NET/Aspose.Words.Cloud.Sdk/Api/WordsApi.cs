@@ -61,9 +61,9 @@ namespace Aspose.Words.Cloud.Sdk
         {
             this.configuration = configuration;
             
-            var requestHandlers = new List<IRequestHandler>();
-            requestHandlers.Add(new OAuthRequestHandler(this.configuration));
+            var requestHandlers = new List<IRequestHandler>();            
             requestHandlers.Add(new DebugLogRequestHandler(this.configuration));
+            requestHandlers.Add(new OAuthRequestHandler(this.configuration));
             requestHandlers.Add(new ApiExceptionRequestHandler());
             requestHandlers.Add(new AuthWithSignatureRequestHandler(this.configuration));
             this.apiInvoker = new ApiInvoker(requestHandlers);

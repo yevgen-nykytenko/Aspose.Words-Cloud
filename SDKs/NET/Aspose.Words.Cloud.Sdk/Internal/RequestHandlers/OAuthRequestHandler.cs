@@ -36,8 +36,6 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
         private readonly Configuration configuration;
         private readonly ApiInvoker apiInvoker;
 
-        ////private string accessToken = "1n6lfta7NUeAkgfu0JWnEIWdl4QEvECnUF810_9K709ZuMZofe9tneG-_yfTfHAEGuEX0TWk-WIp4tUUuoRBmeubucE_hNpF0zz6p38S73EHfNIMCVZ-drwvVJlDE2nMfX7jOrxDY652xJ5LZYt-41XUr0pV-o_6dXevtmK7xIPeUE1DsbLNIUILNfgebJkce3j6VwtvRQfUtniKVC1CU2ZOZwDEq-ZZr8IIROlJ1uUgX1uxIMCD14UyuX7rycPusGeCEmVK4Yz1nAMc6amfKZl38P071uzsPUCBrHOKY1DoyHJ-q9k7A3M5F75ihl_4AanFrH_7anH0lPlQvJcrnOtiSBEzuoI6TQLuSrpEeEDQ3QHtNZqe6Z6KdNER_6FMHosRDkiX2SiVMA45PtUnuVQyDl2IJBp5sMqs67Ib03XSy60qI";
-        ////private string refreshToken = "d7a2d884498f49fc831bb309aaee34ea";
         private string accessToken;
         private string refreshToken;
 
@@ -78,7 +76,7 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
                 return;
             }
 
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
+            if (response.StatusCode == HttpStatusCode.Forbidden)
             {
                 this.RefreshToken();
 
