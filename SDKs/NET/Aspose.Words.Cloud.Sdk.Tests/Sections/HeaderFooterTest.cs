@@ -51,7 +51,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Sections
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new DeleteHeadersFootersRequest(remoteName, this.dataFolder, sectionPath: "sections/0", destFileName: destFileName);
             var actual = this.WordsApi.DeleteHeadersFooters(request);

@@ -50,7 +50,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             var remoteName = "TestGetDocument.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir(BaseTestContext.CommonFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new GetDocumentRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.GetDocument(request);

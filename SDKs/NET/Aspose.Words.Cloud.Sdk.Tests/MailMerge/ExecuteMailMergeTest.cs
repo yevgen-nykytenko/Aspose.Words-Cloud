@@ -46,9 +46,9 @@ namespace Aspose.Words.Cloud.Sdk.Tests.MailMerge
         [TestMethod]
         public void TestPutExecuteMailMergeOnline()
         {
-            using (var file = File.OpenRead(Common.GetDataDir() + "SampleExecuteTemplate.docx"))
+            using (var file = File.OpenRead(BaseTestContext.GetDataDir(BaseTestContext.MailMergeFolder) + "SampleExecuteTemplate.docx"))
             {
-                using (var data = File.OpenRead(Common.GetDataDir() + "SampleExecuteTemplateData.txt"))
+                using (var data = File.OpenRead(BaseTestContext.GetDataDir(BaseTestContext.MailMergeFolder) + "SampleExecuteTemplateData.txt"))
                 {
                     var request = new PutExecuteMailMergeOnlineRequest(file, data);
                     var result = this.WordsApi.PutExecuteMailMergeOnline(request);
@@ -67,10 +67,9 @@ namespace Aspose.Words.Cloud.Sdk.Tests.MailMerge
             var remoteName = "TestPostDocumentExecuteMailMerge.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
-            var data = File.ReadAllText(Common.GetDataDir() + "SampleMailMergeTemplateData.txt");
+            var data = File.ReadAllText(BaseTestContext.GetDataDir(BaseTestContext.MailMergeFolder) + "SampleMailMergeTemplateData.txt");
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
-
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.MailMergeFolder) + localName));
 
             var request = new PostDocumentExecuteMailMergeRequest(remoteName, false, data, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.PostDocumentExecuteMailMerge(request);

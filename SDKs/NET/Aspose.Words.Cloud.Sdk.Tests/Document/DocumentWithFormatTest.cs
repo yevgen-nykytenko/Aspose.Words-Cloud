@@ -52,7 +52,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var format = "text";
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new GetDocumentWithFormatRequest(remoteName, format, this.dataFolder);
             var result = this.WordsApi.GetDocumentWithFormat(request);
@@ -71,7 +71,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             var format = "text";
             var destFileName = Path.Combine(BaseTestOutPath, Path.GetFileNameWithoutExtension(remoteName) + ".text");
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new GetDocumentWithFormatRequest(remoteName, format, this.dataFolder, outPath: destFileName);
             this.WordsApi.GetDocumentWithFormat(request);
@@ -92,7 +92,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             var format = "text"; 
             var storage = "AWSStorageS3";
 
-            this.DropboxStorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.AnotherStorage.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new GetDocumentWithFormatRequest(remoteName, format, this.dataFolder, storage);
             var result = this.AnotherWordApi.GetDocumentWithFormat(request);

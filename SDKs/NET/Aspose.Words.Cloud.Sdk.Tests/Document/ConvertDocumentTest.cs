@@ -54,7 +54,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             var destFileName = Path.Combine(BaseTestOutPath, Path.GetFileNameWithoutExtension(remoteName) + ".pdf");
             var saveOptionsData = new SaveOptionsData { SaveFormat = "pdf", FileName = destFileName };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new PostDocumentSaveAsRequest(remoteName, saveOptionsData, this.dataFolder);
             var actual = this.WordsApi.PostDocumentSaveAs(request);
@@ -69,7 +69,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
         public void TestPutConvertDocument()
         {
             var format = "pdf";
-            using (var fileStream = File.OpenRead(Common.GetDataDir() + "test_uploadfile.docx"))
+            using (var fileStream = File.OpenRead(BaseTestContext.GetDataDir(BaseTestContext.ConvertFolder) + "test_uploadfile.docx"))
             {
                 var request = new PutConvertDocumentRequest(fileStream, format);
                 var result = this.WordsApi.PutConvertDocument(request);
@@ -89,7 +89,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             var destFileName = Path.Combine(BaseTestOutPath, Path.GetFileNameWithoutExtension(remoteName) + ".tiff");
             var body = new TiffSaveOptionsData { FileName = "abc.tiff", SaveFormat = "tiff" };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new PutDocumentSaveAsTiffRequest(remoteName,
                 body,

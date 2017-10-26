@@ -51,29 +51,10 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var remoteName = "TestGetDocumentFieldNames.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new GetDocumentFieldNamesRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.GetDocumentFieldNames(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
-
-        /// <summary>
-        /// Test for deleting fields
-        /// // TODO: move to FieldTest
-        /// </summary>
-        [TestMethod]
-        public void TestDeleteDocumentFields()
-        {
-            var localName = "test_multi_pages.docx";
-            var remoteName = "TestDeleteDocumentFields.docx";
-            var fullName = Path.Combine(this.dataFolder, remoteName);
-
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
-
-            var request = new DeleteFieldsRequest(remoteName, this.dataFolder);
-            var actual = this.WordsApi.DeleteFields(request);
 
             Assert.AreEqual(200, actual.Code);
         }
@@ -84,32 +65,13 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
         [TestMethod]
         public void TestPutDocumentFieldNames()
         {
-            using (var fileStream = File.OpenRead(Common.GetDataDir() + "SampleExecuteTemplate.docx"))
+            using (var fileStream = File.OpenRead(BaseTestContext.GetDataDir(BaseTestContext.MailMergeFolder) + "SampleExecuteTemplate.docx"))
             {
                 var request = new PutDocumentFieldNamesRequest(fileStream, true);
                 FieldNamesResponse actual = this.WordsApi.PutDocumentFieldNames(request);
 
                 Assert.AreEqual(200, actual.Code);
             }
-        }
-
-        /// <summary>
-        /// Test for posting updated fields
-        /// // TODO: move to FieldTest
-        /// </summary>
-        [TestMethod]
-        public void TestPostUpdateDocumentFields()
-        {
-            var localName = "test_multi_pages.docx";
-            var remoteName = "TestPostUpdateDocumentFields.docx";
-            var fullName = Path.Combine(this.dataFolder, remoteName);
-
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
-
-            var request = new PostUpdateDocumentFieldsRequest(remoteName, this.dataFolder);
-            var actual = this.WordsApi.PostUpdateDocumentFields(request);
-
-            Assert.AreEqual(200, actual.Code);
         }
     }
 }

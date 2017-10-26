@@ -51,7 +51,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Sections
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var sectionIndex = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new GetSectionRequest(remoteName, sectionIndex, this.dataFolder);
             var actual = this.WordsApi.GetSection(request);
@@ -69,7 +69,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Sections
             var remoteName = "TestGetSections.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new GetSectionsRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.GetSections(request);

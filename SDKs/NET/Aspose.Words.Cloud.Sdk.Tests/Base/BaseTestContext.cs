@@ -25,6 +25,8 @@
 
 namespace Aspose.Words.Cloud.Sdk.Tests.Base
 {
+    using System.IO;
+
     using Aspose.Words.Cloud.Sdk.Api;
 
     using Com.Aspose.Storage.Api;
@@ -169,6 +171,16 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         /// WORDS API
         /// </summary>
         protected WordsApi AnotherWordApi { get; set; }
+
+        /// <summary>
+        /// Returns test data path
+        /// </summary>
+        /// <param name="subfolder">subfolder for specific tests</param>
+        /// <returns>test data path</returns>
+        protected static string GetDataDir(string subfolder = null)
+        {
+            return Path.Combine("TestData", string.IsNullOrEmpty(subfolder) ? string.Empty : subfolder);
+        }
 
         /// <summary>
         /// Returns words api with enabled debug option
