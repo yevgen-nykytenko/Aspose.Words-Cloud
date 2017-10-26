@@ -21,7 +21,7 @@ New SDKs have the following advantages over the [previous versions](https://gith
 + Better security
 + Usage of Request/Response classes to represent long lists of parameters. This allows for cleaner code and easier backwards-compatibility going forward
 
-New SDKs are not backwards compatible with previous generation because of the last item. It should be straightforward to convert your code to using Request/Response objects, if you need any help on migration please ask at [Free Support Forums] (https://forum.aspose.cloud/c/words).
+New SDKs are not backwards compatible with previous generation because of the last item. It should be straightforward to convert your code to using Request/Response objects, if you need any help on migration please ask at [Free Support Forums](https://forum.aspose.cloud/c/words).
 
 # Licensing
 All Aspose.Words for Cloud SDKs are licensed under [MIT License](LICENSE).
