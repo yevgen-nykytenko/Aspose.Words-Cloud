@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright company="Aspose" file="Common.cs">
-//   Copyright (c) 2016 Aspose.Words for Cloud
+//   Copyright (c) 2017 Aspose.Words for Cloud
 // </copyright>
 // <summary>
 //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,12 +25,13 @@
 
 namespace Aspose.Words.Cloud.Sdk.Tests
 {
-    // TODO: move to BaseTestContext (as BaseTestDataPath and BaseTestOutPath)
+    using System.IO;
+
     internal class Common
     {
-        public static string GetDataDir()
-        {        
-            return @"Data\";
+        public static string GetDataDir(string subfolder = null)
+        {
+            return Path.Combine("TestData", string.IsNullOrEmpty(subfolder) ? string.Empty : subfolder);
         }
     }
 }

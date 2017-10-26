@@ -1,6 +1,6 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
 // // <copyright company="Aspose" file="DocumentWithFormatTest.cs">
-// //   Copyright (c) 2016 Aspose.Words for Cloud
+// //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
 // //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -36,6 +36,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// Example of how to get document with different format
     /// </summary>
     [TestClass]
+    [DeploymentItem("TestData", "TestData")]
     public class DocumentWithFormatTest : BaseTestContext
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/DocumentWithFormat");
@@ -83,19 +84,18 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
         /// Test for getting document with specified format and storage
         /// </summary>
         [TestMethod]
-        [Ignore]
         public void TestGetDocumentFormatUsingStorage()
         {
             var localName = "test_multi_pages.docx";
             var remoteName = "TestGetDocumentFormatUsingStorage.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var format = "text"; 
-            string storage = "DropBox";
+            var storage = "AWSStorageS3";
 
             this.DropboxStorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
             var request = new GetDocumentWithFormatRequest(remoteName, format, this.dataFolder, storage);
-            var result = this.WordsApi.GetDocumentWithFormat(request);
+            var result = this.AnotherWordApi.GetDocumentWithFormat(request);
             Assert.IsTrue(result.Length > 0, "Conversion has failed");
         }
     }

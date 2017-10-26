@@ -1,6 +1,6 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
 // // <copyright company="Aspose" file="BaseTestContext.cs">
-// //   Copyright (c) 2016 Aspose.Words for Cloud
+// //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
 // //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,8 +37,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         private const string BaseProductUri = @"http://api-dev.aspose.cloud/v1.1";
         private const string AppSID = "78b637f6-b4cc-41de-a619-d8bd9fc2b6b6";
         private const string AppKey = "3d588eb82b3d5a634ad3141f09b03629";
-        private const string DropBoxAppSid = "C821FA88-DA8B-4B97-925A-8D69A6B2FCD1";
-        private const string DropBoxAppKey = "9be9d89b967e5f08d4bbddfa8f7cbcd0";
+        private const string StorageAppSID = "ff470aee-3000-43dd-877d-e02e74499f18";
+        private const string StorageAppKey = "532a70d65e0a752d55673b86f10e53fc";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestContext"/> class.
@@ -47,7 +47,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         {
             this.WordsApi = new WordsApi(AppKey, AppSID, BaseProductUri);
             this.StorageApi = new StorageApi(AppKey, AppSID, BaseProductUri);
-            this.DropboxStorageApi = new StorageApi(DropBoxAppKey, DropBoxAppSid, BaseProductUri);
+            this.AnotherStorage = new StorageApi(StorageAppKey, StorageAppSID, BaseProductUri);
+            this.AnotherWordApi = new WordsApi(StorageAppKey, StorageAppSID, BaseProductUri);
         }
 
         /// <summary>
@@ -73,20 +74,101 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         }
 
         /// <summary>
+        /// Returns common folder with source test files
+        /// </summary>
+        protected static string CommonFolder
+        {
+            get
+            {
+                return "Common/";
+            }
+        }
+
+        /// <summary>
+        /// Returns folder with source for document conversion tests
+        /// </summary>
+        protected static string ConvertFolder
+        {
+            get
+            {
+                return "ConvertDocument/";
+            }
+        }
+
+        /// <summary>
+        /// Returns folder with source for document protection tests
+        /// </summary>
+        protected static string ProtectFolder
+        {
+            get
+            {
+                return "DocumentProtection/";
+            }
+        }
+
+        /// <summary>
+        /// Returns folder with source for drawing objects tests
+        /// </summary>
+        protected static string DrawingFolder
+        {
+            get
+            {
+                return "Drawing/";
+            }
+        }
+
+        /// <summary>
+        /// Returns folder with source for fields tests
+        /// </summary>
+        protected static string FieldFolder
+        {
+            get
+            {
+                return "Field/";
+            }
+        }
+
+        /// <summary>
+        /// Returns folder with source for mail merge tests
+        /// </summary>
+        protected static string MailMergeFolder
+        {
+            get
+            {
+                return "MailMerge/";
+            }
+        }
+
+        /// <summary>
+        /// Returns folder with source for text tests
+        /// </summary>
+        protected static string TextFolder
+        {
+            get
+            {
+                return "Text/";
+            }
+        }
+
+        /// <summary>
         /// Storage API
         /// </summary>
         protected StorageApi StorageApi { get; set; }
 
         /// <summary>
-        /// Dropbox storage API.
-        /// // TODO: it is used only in 1 test, move this property closer to usage
-        /// </summary>
-        protected StorageApi DropboxStorageApi { get; set; }
-
-        /// <summary>
         /// Words API
         /// </summary>
         protected WordsApi WordsApi { get; set; }
+
+        /// <summary>
+        /// Storage API
+        /// </summary>
+        protected StorageApi AnotherStorage { get; set; }
+
+        /// <summary>
+        /// WORDS API
+        /// </summary>
+        protected WordsApi AnotherWordApi { get; set; }
 
         /// <summary>
         /// Returns words api with enabled debug option

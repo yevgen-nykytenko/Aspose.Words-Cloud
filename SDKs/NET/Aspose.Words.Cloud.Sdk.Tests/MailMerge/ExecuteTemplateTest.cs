@@ -1,6 +1,6 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
 // // <copyright company="Aspose" file="ExecuteTemplateTest.cs">
-// //   Copyright (c) 2016 Aspose.Words for Cloud
+// //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
 // //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -35,6 +35,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.MailMerge
     /// Example of how to perfom template execution
     /// </summary>
     [TestClass]
+    [DeploymentItem("TestData", "TestData")]
     public class ExecuteTemplateTest : BaseTestContext
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/MailMerge");
@@ -55,7 +56,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.MailMerge
 
             this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
 
-            // TODO check why when destFileName contains folder, folder is doubled while saving
+
             var request = new PostExecuteTemplateRequest(remoteName, data, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.PostExecuteTemplate(request);
 

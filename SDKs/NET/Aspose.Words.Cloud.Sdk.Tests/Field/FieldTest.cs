@@ -1,6 +1,6 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
 // // <copyright company="Aspose" file="FieldTest.cs">
-// //   Copyright (c) 2016 Aspose.Words for Cloud
+// //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
 // //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -36,6 +36,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
     /// Example of how to work with field
     /// </summary>
     [TestClass]
+    [DeploymentItem("TestData", "TestData")]
     public class FieldTest : BaseTestContext
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/Field");

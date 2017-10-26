@@ -1,6 +1,6 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
 // // <copyright company="Aspose" file="HeaderFooterTest.cs">
-// //   Copyright (c) 2016 Aspose.Words for Cloud
+// //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
 // //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -35,6 +35,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Sections
     /// Example of how to work with headers and footers
     /// </summary>
     [TestClass]
+    [DeploymentItem("TestData", "TestData")]
     public class HeaderFooterTest : BaseTestContext
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/HeaderFooter");

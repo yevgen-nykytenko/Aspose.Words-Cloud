@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright company="Aspose" file="StorageSteps.cs">
-//   Copyright (c) 2016 Aspose.Words for Cloud
+//   Copyright (c) 2017 Aspose.Words for Cloud
 // </copyright>
 // <summary>
 //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,7 +25,6 @@
 
 namespace Aspose.Words.Cloud.Sdk.BddTests.Base.Steps
 {
-    using System;
     using System.IO;
 
     using Aspose.Words.Cloud.Sdk.BddTests.Base.Context;

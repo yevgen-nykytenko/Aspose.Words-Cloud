@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright company="Aspose" file="BaseApiTest.cs">
-//   Copyright (c) 2016 Aspose.Words for Cloud
+//   Copyright (c) 2017 Aspose.Words for Cloud
 // </copyright>
 // <summary>
 //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -41,7 +41,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
     /// to contain all TestWordsApi Unit Tests
     /// </summary>
     [TestClass]
-    [DeploymentItem("Data", "Data")]
+    [DeploymentItem("TestData", "TestData")]
     public class BaseApiTest : BaseTestContext
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "BaseApiTest");
@@ -84,7 +84,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             var traceListenerMock = mockFactory.CreateMock<TraceListener>();
             Trace.Listeners.Add(traceListenerMock.MockObject);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             traceListenerMock.Expects.One.Method(p => p.WriteLine(string.Empty)).With(Is.StringContaining("DELETE: http://api-dev.aspose.cloud/v1.1/words/IfUserSetDebugOptionRequestAndErrorsShouldBeWritedToTrace.docx/fields"));
             traceListenerMock.Expects.One.Method(p => p.WriteLine(string.Empty)).With(Is.StringContaining("Response 200: OK"));

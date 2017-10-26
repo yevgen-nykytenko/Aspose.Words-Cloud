@@ -36,6 +36,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Text
     /// Example of how to work with text
     /// </summary>
     [TestClass]
+    [DeploymentItem("TestData", "TestData")]
     public class TextTest : BaseTestContext
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/Text");

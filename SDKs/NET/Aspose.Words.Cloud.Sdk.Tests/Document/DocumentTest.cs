@@ -1,6 +1,6 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
 // // <copyright company="Aspose" file="DocumentTest.cs">
-// //   Copyright (c) 2016 Aspose.Words for Cloud
+// //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
 // //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -35,6 +35,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// Example of how to get document
     /// </summary>
     [TestClass]
+    [DeploymentItem("TestData", "TestData")]
     public class DocumentTest : BaseTestContext
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/Document");
@@ -49,7 +50,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             var remoteName = "TestGetDocument.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(Common.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new GetDocumentRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.GetDocument(request);

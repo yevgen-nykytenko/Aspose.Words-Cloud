@@ -1,6 +1,6 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
 // // <copyright company="Aspose" file="BookmarkTests.cs">
-// //   Copyright (c) 2016 Aspose.Words for Cloud
+// //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
 // //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,6 +37,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Bookmark
     /// Example of how to get all bookmarks from document
     /// </summary>
     [TestClass]
+    [DeploymentItem("TestData", "TestData")]
     public class BookmarkTests : BaseTestContext
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/Bookmarks");
@@ -50,7 +51,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Bookmark
             var localName = "test_multi_pages.docx";
             var remoteName = "TestGetDocumentBookmarks.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new GetDocumentBookmarksRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.GetDocumentBookmarks(request);
@@ -69,7 +70,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Bookmark
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var bookmarkName = "aspose";
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new GetDocumentBookmarkByNameRequest(remoteName, bookmarkName, this.dataFolder);
             var actual = this.WordsApi.GetDocumentBookmarkByName(request);

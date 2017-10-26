@@ -1,6 +1,6 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
 // // <copyright company="Aspose" file="RevisionsTest.cs">
-// //   Copyright (c) 2016 Aspose.Words for Cloud
+// //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
 // //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -36,6 +36,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     /// Example of how to accept all revisions in document
     /// </summary>
     [TestClass]
+    [DeploymentItem("TestData", "TestData")]
     public class RevisionsTest : BaseTestContext
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/Revisions");
@@ -51,7 +52,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new AcceptAllRevisionsRequest(remoteName, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.AcceptAllRevisions(request);
@@ -70,7 +71,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir() + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(Common.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             var request = new RejectAllRevisionsRequest(remoteName, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.RejectAllRevisions(request);
