@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright company="Aspose" file="SpecifyOutputFormatRequestSteps.cs">
-//   Copyright (c) 2016 Aspose.Words for Cloud
+//   Copyright (c) 2017 Aspose.Words for Cloud
 // </copyright>
 // <summary>
 //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -47,7 +47,7 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Base.Steps
         public SpecifyOutputFormatRequestSteps(BaseContext context)
         {
             this.context = context;
-            this.context.TestSubFolderInStorage = "Conversion/";
+            this.context.TestSubFolderInStorage = "Conversion";
         }
 
         private ICanSpecifyOutputFormatRequest Request
