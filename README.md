@@ -3,7 +3,7 @@
 
 Our Cloud SDKs are wrappers around REST API in various programming languages, allowing you to process documents in language of your choice quickly and easily, gaining all benefits of strong types and IDE highlights. This repository contains new (version 2.0) SDKs for Aspose.Words for Cloud and examples.
 
-These SDKs are now fully supported. If you have any questions, see any bugs or have enhancement request, feel free to reach out to us at [Free Support Forums] (https://forum.aspose.cloud/c/words).
+These SDKs are now fully supported. If you have any questions, see any bugs or have enhancement request, feel free to reach out to us at [Free Support Forums](https://forum.aspose.cloud/c/words).
 
 # Currently Available SDKs
 
@@ -24,7 +24,7 @@ New SDKs have the following advantages over the [previous versions](https://gith
 New SDKs are not backwards compatible with previous generation because of the last item. It should be straightforward to convert your code to using Request/Response objects, if you need any help on migration please ask at [Free Support Forums] (https://forum.aspose.cloud/c/words).
 
 # Licensing
-All Aspose.Words for Cloud SDKs are licensed under [MIT License](LICENSE)
+All Aspose.Words for Cloud SDKs are licensed under [MIT License](LICENSE).
 
 # Resources
 + [**Website**](https://www.aspose.cloud)
