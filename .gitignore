@@ -18,7 +18,7 @@ Out/
 Out*/
 Data/*Out*
 TestResults/
-SDKs\Aspose.Words-Cloud-SDK-for-.NET\.vs
+*.ide
 *.vsmdi
 test-results/
 node_modules/

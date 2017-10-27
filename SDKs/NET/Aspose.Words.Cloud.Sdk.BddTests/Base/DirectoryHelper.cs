@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright company="Aspose" file="DirectoryHelper.cs">
-//   Copyright (c) 2016 Aspose.Words for Cloud
+//   Copyright (c) 2017 Aspose.Words for Cloud
 // </copyright>
 // <summary>
 //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -39,20 +39,20 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Base
         /// <param name="parentDir">parent directory</param>
         /// <returns>path to test data folder</returns>
         public static string GetTestDataPath(string parentDir = null)
-        { 
+        {
             var info = Directory.GetParent(parentDir ?? Directory.GetCurrentDirectory());
             if (info != null)
             {
-                var dataFolderExists = info.GetDirectories("Data");
+                var dataFolderExists = info.GetDirectories("TestData");
                 if (dataFolderExists.Any())
                 {
-                    return Path.Combine(info.FullName, "Data\\");
+                    return Path.Combine(info.FullName, "TestData");
                 }
 
                 return GetTestDataPath(info.FullName);
             }
 
-            return Path.Combine(parentDir ?? string.Empty, "Data\\");
+            return Path.Combine(parentDir ?? string.Empty, "TestData");
         }
     }
 }
