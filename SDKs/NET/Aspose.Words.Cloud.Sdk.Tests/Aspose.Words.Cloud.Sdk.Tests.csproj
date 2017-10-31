@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\BaseTestContext.cs" />
+    <Compile Include="Base\DirectoryHelper.cs" />
     <Compile Include="Bookmark\BookmarkTests.cs" />
     <Compile Include="DocumentProperties\DocumentPropertiesTest.cs" />
     <Compile Include="DocumentProtection\DocumentProtection.cs" />
