@@ -113,9 +113,12 @@ namespace Aspose.Words.Cloud.Sdk.Tests
                 .Where(p => p.IsPublic && p.DeclaringType != typeof(object))
                 .Select(p => p.Name)
                 .ToList();
-            var folder = Path.Combine(DirectoryHelper.GetTestDataPath(), "Aspose.Words.Cloud.Sdk.Tests");
-            var fileNames = DirectoryHelper.GetFilesByExtension(folder, ".cs", SearchOption.AllDirectories);
-            var filesContent = fileNames.Select(File.ReadAllText).ToList();
+            var unitTestFolder = Path.Combine(DirectoryHelper.GetTestDataPath(), "Aspose.Words.Cloud.Sdk.Tests");
+            var bddTestFolder = Path.Combine(DirectoryHelper.GetTestDataPath(), "Aspose.Words.Cloud.Sdk.BddTests");
+            var unitTestFiles = DirectoryHelper.GetFilesByExtension(unitTestFolder, ".cs", SearchOption.AllDirectories).ToList();
+            var bddTestFiles = DirectoryHelper.GetFilesByExtension(bddTestFolder, ".cs", SearchOption.AllDirectories).ToList();
+            unitTestFiles.AddRange(bddTestFiles);
+            var filesContent = unitTestFiles.Select(File.ReadAllText).ToList();
             var strBuilder = new StringBuilder();
             foreach (var methodInfo in methods)
             {
