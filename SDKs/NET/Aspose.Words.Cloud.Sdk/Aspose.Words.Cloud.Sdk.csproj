@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Aspose.Words.Cloud.Sdk.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -376,7 +377,6 @@
     <Compile Include="Model.Requests\ICanSpecifyOutputFormatRequest.cs" />
     <Compile Include="Model.Requests\ICanUseCustomFontsRequest.cs" />
     <Compile Include="Model.Requests\IWordDocumentRequest.cs" />
-    <Compile Include="TestFriends.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
