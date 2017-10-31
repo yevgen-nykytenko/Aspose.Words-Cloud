@@ -27,8 +27,11 @@ namespace Aspose.Words.Cloud.Sdk.Tests
 {
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
+    using System.Text;
 
     using Aspose.Words.Cloud.Sdk;
+    using Aspose.Words.Cloud.Sdk.Api;
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
@@ -97,6 +100,32 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             
             // Assert                    
             mockFactory.VerifyAllExpectationsHaveBeenMet();
+        }
+
+        /// <summary>
+        /// Check if all API methods have covered by tests
+        /// </summary>
+        [TestMethod]
+        [Ignore]
+        public void TestApiCoverage()
+        {
+            var methods = typeof(WordsApi).GetMethods()
+                .Where(p => p.IsPublic && p.DeclaringType != typeof(object))
+                .Select(p => p.Name)
+                .ToList();
+            var folder = Path.Combine(DirectoryHelper.GetTestDataPath(), "Aspose.Words.Cloud.Sdk.Tests");
+            var fileNames = DirectoryHelper.GetFilesByExtension(folder, ".cs", SearchOption.AllDirectories);
+            var filesContent = fileNames.Select(File.ReadAllText).ToList();
+            var strBuilder = new StringBuilder();
+            foreach (var methodInfo in methods)
+            {
+                if (filesContent.All(p => !p.Contains(methodInfo)))
+                {
+                    strBuilder.AppendFormat("Uncovered api method {0}\n", methodInfo);
+                }
+            }
+
+            Assert.IsTrue(strBuilder.Length == 0, strBuilder.ToString());
         }
     }
 }
