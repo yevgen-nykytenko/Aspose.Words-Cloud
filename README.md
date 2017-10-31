@@ -1,7 +1,7 @@
 # Aspose.Words for Cloud
 [Aspose.Words for Cloud](https://products.aspose.cloud/words/cloud) is a true REST API that enables you to perform a wide range of document processing operations including creation, manipulation, conversion and rendering of Word documents in the cloud.
 
-Our Cloud SDKs are wrappers around REST API in various programming languages, allowing you to process documents in language of your choice quickly and easily, gaining all benefits of strong types and IDE highlights. This repository contains new (version 2.0) SDKs for Aspose.Words for Cloud and examples.
+Our Cloud SDKs are wrappers around REST API in various programming languages, allowing you to process documents in language of your choice quickly and easily, gaining all benefits of strong types and IDE highlights. This repository contains new generation SDKs for Aspose.Words for Cloud and examples.
 
 These SDKs are now fully supported. If you have any questions, see any bugs or have enhancement request, feel free to reach out to us at [Free Support Forums](https://forum.aspose.cloud/c/words).
 
@@ -14,7 +14,7 @@ Directory | Description
 [.NET SDK](SDKs/NET) | Aspose.Words for Cloud .NET SDK
 
 
-# Comparison with Old (1.0) SDKs
+# Comparison with Old generation SDKs
 New SDKs have the following advantages over the [previous versions](https://github.com/aspose-words/Aspose.Words-for-Cloud):
 + SDK is fully in sync with the API, all missing methods are added
 + Classes, methods and properties have comments and are IDE-friendly
