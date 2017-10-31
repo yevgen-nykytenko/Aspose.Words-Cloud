@@ -42,6 +42,8 @@ namespace Aspose.Words.Cloud.Sdk
         private const string AppSidParamTemplate = "{appSid}";        
         private const string AsposeClientHeaderName = "x-aspose-client";
 
+        private const string AsposeClientVersionHeaderName = "x-aspose-client-version";
+
         private readonly string apiBaseUrl;
         private readonly string apiKey;
         private readonly string appSid;
@@ -52,7 +54,9 @@ namespace Aspose.Words.Cloud.Sdk
     
         public ApiInvoker(string apiKey, string appSid, string apiBaseUrl, bool debug)
         {
+            var sdkVersion = this.GetType().Assembly.GetName().Version;
             this.AddDefaultHeader(AsposeClientHeaderName, ".net sdk");
+            this.AddDefaultHeader(AsposeClientVersionHeaderName, string.Format("{0}.{1}", sdkVersion.Major, sdkVersion.Minor));
             
             this.apiBaseUrl = apiBaseUrl.EndsWith("/") ? apiBaseUrl.Substring(0, apiBaseUrl.Length - 1) : apiBaseUrl;
             this.apiKey = apiKey;
