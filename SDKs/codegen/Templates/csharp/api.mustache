@@ -97,7 +97,7 @@ namespace {{packageName}}
             {{#-first}}var formParams = new Dictionary<string, object>();{{/-first}}
             {{/formParams}}
             {{#pathParams}}
-            resourcePath = this.AddPathParameter(resourcePath, "{{paramName}}", request.{{baseName}});
+            resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", request.{{baseName}});
             {{/pathParams}}
             {{#queryParams}}
             resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{baseName}});
@@ -146,21 +146,7 @@ namespace {{packageName}}
                 throw;                
             }
         }
-        {{/operation}}
-
-        private string AddPathParameter(string url, string parameterName, object parameterValue)
-        {
-            if (parameterValue == null || string.IsNullOrEmpty(parameterValue.ToString()))
-            {
-                url = url.Replace("/{" + parameterName + "}", string.Empty);
-            }
-            else
-            {
-                url = url.Replace("{" + parameterName + "}", parameterValue.ToString());
-            }
-
-            return url;
-        }        
+        {{/operation}}        
     }
     {{/operations}}
 }
