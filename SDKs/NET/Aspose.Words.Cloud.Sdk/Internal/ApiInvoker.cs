@@ -33,7 +33,8 @@ namespace Aspose.Words.Cloud.Sdk
 
     internal class ApiInvoker
     {        
-        private const string AsposeClientHeaderName = "x-aspose-client";        
+        private const string AsposeClientHeaderName = "x-aspose-client";
+        private const string AsposeClientVersionHeaderName = "x-aspose-client-version";
         private readonly Dictionary<string, string> defaultHeaderMap = new Dictionary<string, string>();
         private readonly List<IRequestHandler> requestHandlers; 
     
