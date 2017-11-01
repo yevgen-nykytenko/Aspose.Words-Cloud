@@ -33,7 +33,7 @@ namespace Aspose.Words.Cloud.Sdk
         private string apiBaseUrl = "https://api.aspose.cloud";
         private string version = "v1.1";
 
-        private bool debugMode = true;
+        private bool debugMode = false;
 
         /// <summary>
         /// Aspose Cloud API base URL.

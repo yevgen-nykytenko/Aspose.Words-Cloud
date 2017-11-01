@@ -32,6 +32,12 @@ namespace Aspose.Words.Cloud.Sdk
     {
         public static void CopyTo(Stream source, Stream destination, int bufferSize = 81920)
         {
+            if (source.CanSeek)
+            {
+                source.Flush();
+                source.Position = 0;
+            }
+
             byte[] array = new byte[bufferSize];
             int count;
             while ((count = source.Read(array, 0, array.Length)) != 0)

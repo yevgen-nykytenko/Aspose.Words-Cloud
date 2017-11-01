@@ -60,6 +60,11 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
                 {                    
                     var responseData = responseReader.ReadToEnd();
                     var errorResponse = (WordsApiErrorResponse)SerializationHelper.Deserialize(responseData, typeof(WordsApiErrorResponse));
+                    if (string.IsNullOrEmpty(errorResponse.Message))
+                    {
+                        errorResponse.Message = responseData;
+                    }
+
                     resutException = new ApiException((int)webResponse.StatusCode, errorResponse.Message);
                 }
             }          

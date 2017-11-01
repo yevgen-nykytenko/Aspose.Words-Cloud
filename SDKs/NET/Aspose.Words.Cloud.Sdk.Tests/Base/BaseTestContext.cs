@@ -47,7 +47,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         {
             var configuration = new Configuration { ApiBaseUrl = BaseProductUri, AppKey = AppKey, AppSid = AppSID };
             this.WordsApi = new WordsApi(configuration);
-            this.StorageApi = new StorageApi(AppKey, AppSID, BaseProductUri);
+            this.StorageApi = new StorageApi(AppKey, AppSID, BaseProductUri + "/v1.1");
         }
 
         /// <summary>

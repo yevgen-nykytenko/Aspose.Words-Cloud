@@ -25,6 +25,7 @@
 
 namespace Aspose.Words.Cloud.Sdk
 {
+    using System;
     using System.Collections.Generic;    
     using System.IO;
     using System.Net;
@@ -292,23 +293,30 @@ namespace Aspose.Words.Cloud.Sdk
         private object ReadResponse(WebRequest client, bool binaryResponse)
         {
             var webResponse = (HttpWebResponse)this.GetResponse(client);
-            using (var resultStream = new MemoryStream())
-            {
-                StreamHelper.CopyTo(webResponse.GetResponseStream(), resultStream);
+            var resultStream = new MemoryStream();
 
+            StreamHelper.CopyTo(webResponse.GetResponseStream(), resultStream);
+            try
+            {
                 this.requestHandlers.ForEach(p => p.ProcessResponse(webResponse, resultStream));
 
                 resultStream.Position = 0;
                 if (binaryResponse)
-                {                    
+                {
                     return resultStream;
                 }
 
                 using (var responseReader = new StreamReader(resultStream))
                 {
                     var responseData = responseReader.ReadToEnd();
+                    resultStream.Dispose();
                     return responseData;
                 }
+            }
+            catch (Exception)
+            {
+                resultStream.Dispose();
+                throw;
             }
         }
 
