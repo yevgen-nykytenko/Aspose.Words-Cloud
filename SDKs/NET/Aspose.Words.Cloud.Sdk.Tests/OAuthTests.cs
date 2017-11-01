@@ -50,7 +50,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
         /// Ignored because we use local server to test this feature (access token is expired in 1s)
         /// </summary>
         [TestMethod]
-        ////[Ignore]
+        [Ignore]
         public void IfTokenIsNotValidRefreshTokenShouldBeSuccessfully()
         {
             // Arrange         
