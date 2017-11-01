@@ -89,6 +89,7 @@
     <Compile Include="Macros\MacrosTest.cs" />
     <Compile Include="MailMerge\ExecuteMailMergeTest.cs" />
     <Compile Include="MailMerge\ExecuteTemplateTest.cs" />
+    <Compile Include="OAuthTests.cs" />
     <Compile Include="PageSetup\PageSetupTest.cs" />
     <Compile Include="Paragraph\ParagraphTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

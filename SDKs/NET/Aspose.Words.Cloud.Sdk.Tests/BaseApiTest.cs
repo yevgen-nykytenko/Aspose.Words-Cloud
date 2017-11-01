@@ -30,8 +30,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests
     using System.Linq;
     using System.Text;
 
-    using Aspose.Words.Cloud.Sdk;
-    using Aspose.Words.Cloud.Sdk.Api;
+    using Aspose.Words.Cloud.Sdk;    
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
@@ -81,13 +80,13 @@ namespace Aspose.Words.Cloud.Sdk.Tests
             var remoteName = "IfUserSetDebugOptionRequestAndErrorsShouldBeWritedToTrace.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var request = new DeleteFieldsRequest(remoteName, this.dataFolder);
-            var api = this.GetDebugApi();
+            var api = new WordsApi(new Configuration { ApiBaseUrl = BaseProductUri, AppKey = AppKey, AppSid = AppSID, DebugMode = true });
 
             var mockFactory = new MockFactory();
             var traceListenerMock = mockFactory.CreateMock<TraceListener>();
             Trace.Listeners.Add(traceListenerMock.MockObject);
 
-            this.StorageApi.PutCreate(fullName, null, null, System.IO.File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
             traceListenerMock.Expects.One.Method(p => p.WriteLine(string.Empty)).With(Is.StringContaining("DELETE: http://api-dev.aspose.cloud/v1.1/words/IfUserSetDebugOptionRequestAndErrorsShouldBeWritedToTrace.docx/fields"));
             traceListenerMock.Expects.One.Method(p => p.WriteLine(string.Empty)).With(Is.StringContaining("Response 200: OK"));

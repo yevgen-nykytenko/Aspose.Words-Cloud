@@ -48,7 +48,7 @@ namespace Aspose.Words.Cloud.Sdk
             string body = null,
             Dictionary<string, string> headerParams = null,
             Dictionary<string, object> formParams = null,
-            string contentType = "ContentType = \"application/json\"")
+            string contentType = "application/json")
         {
             return this.InvokeInternal(path, method, false, body, headerParams, formParams, contentType) as string;
         }
@@ -59,7 +59,7 @@ namespace Aspose.Words.Cloud.Sdk
             string body,
             Dictionary<string, string> headerParams,
             Dictionary<string, object> formParams,
-            string contentType = "ContentType = \"application/json\"")
+            string contentType = "application/json")
         {
             return (Stream)this.InvokeInternal(path, method, true, body, headerParams, formParams, contentType);
         }                     

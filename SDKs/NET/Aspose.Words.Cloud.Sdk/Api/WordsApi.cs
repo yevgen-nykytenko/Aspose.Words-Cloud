@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright company="Aspose" file="WordsApi.cs">
-//   Copyright (c) 2017 Aspose.Words for Cloud
+//   Copyright (c) 2016 Aspose.Words for Cloud
 // </copyright>
 // <summary>
 //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -30,7 +30,7 @@ namespace Aspose.Words.Cloud.Sdk
     using Aspose.Words.Cloud.Sdk.Model;
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.RequestHandlers;
-
+    
     /// <summary>
     /// Aspose.Words for Cloud API.
     /// </summary>
@@ -61,9 +61,9 @@ namespace Aspose.Words.Cloud.Sdk
         {
             this.configuration = configuration;
             
-            var requestHandlers = new List<IRequestHandler>();            
-            requestHandlers.Add(new DebugLogRequestHandler(this.configuration));
+            var requestHandlers = new List<IRequestHandler>();
             requestHandlers.Add(new OAuthRequestHandler(this.configuration));
+            requestHandlers.Add(new DebugLogRequestHandler(this.configuration));
             requestHandlers.Add(new ApiExceptionRequestHandler());
             requestHandlers.Add(new AuthWithSignatureRequestHandler(this.configuration));
             this.apiInvoker = new ApiInvoker(requestHandlers);
