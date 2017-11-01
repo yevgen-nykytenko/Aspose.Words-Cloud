@@ -23,20 +23,22 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace {{packageName}}.Api
+namespace {{packageName}}
 {
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using {{packageName}}.Model;
     using {{packageName}}.Model.Requests;
-
+    using {{packageName}}.RequestHandlers;
+    
     {{#operations}}
     /// <summary>
     /// Aspose.Words for Cloud API.
     /// </summary>
     public class {{classname}}
     {        
-        private readonly ApiInvoker apiInvoker;        
+        private readonly ApiInvoker apiInvoker;
+        private readonly Configuration configuration;     
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WordsApi"/> class.
@@ -47,16 +49,26 @@ namespace {{packageName}}.Api
         /// <param name="appSid">
         /// The app Sid.
         /// </param>
-        /// <param name="apiBaseUrl">
-        /// Aspose Cloud API base URL.
-        /// </param>
-        /// <param name="debug">
-        /// Allows to see the SDK debugging messages.
-        /// </param>
-        public WordsApi(string apiKey, string appSid, string apiBaseUrl, bool debug = false)
+        public WordsApi(string apiKey, string appSid)
+            : this(new Configuration { AppKey = apiKey, AppSid = appSid })
         {
-            this.apiInvoker = new ApiInvoker(apiKey, appSid, apiBaseUrl, debug);
-        }                     
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WordsApi"/> class.
+        /// </summary>    
+        /// <param name="configuration">Configuration settings</param>
+        public WordsApi(Configuration configuration)
+        {
+            this.configuration = configuration;
+            
+            var requestHandlers = new List<IRequestHandler>();
+            requestHandlers.Add(new OAuthRequestHandler(this.configuration));
+            requestHandlers.Add(new DebugLogRequestHandler(this.configuration));
+            requestHandlers.Add(new ApiExceptionRequestHandler());
+            requestHandlers.Add(new AuthWithSignatureRequestHandler(this.configuration));
+            this.apiInvoker = new ApiInvoker(requestHandlers);
+        }                            
         {{#operation}}
 
         /// <summary>
@@ -73,7 +85,7 @@ namespace {{packageName}}.Api
             }
 
 {{/required}}{{/allParams}}            // create path and map variables
-            var resourcePath = "{{path}}?appSid={appSid}{{#queryParams}}&amp;{{paramName}}=[{{paramName}}]{{/queryParams}}";
+            var resourcePath = this.configuration.GetApiRootUrl() + "{{path}}";
             resourcePath = Regex
                         .Replace(resourcePath, "\\*", string.Empty)
                         .Replace("&amp;", "&")
@@ -85,10 +97,10 @@ namespace {{packageName}}.Api
             {{#-first}}var formParams = new Dictionary<string, object>();{{/-first}}
             {{/formParams}}
             {{#pathParams}}
-            resourcePath = this.AddPathParameter(resourcePath, "{{paramName}}", request.{{baseName}});
+            resourcePath = UrlHelper.AddPathParameter(resourcePath, "{{paramName}}", request.{{baseName}});
             {{/pathParams}}
             {{#queryParams}}
-            resourcePath = this.AddQueryParameter(resourcePath, "{{paramName}}", request.{{baseName}});
+            resourcePath = UrlHelper.AddQueryParameterToUrl(resourcePath, "{{paramName}}", request.{{baseName}});
             {{/queryParams}}
             {{#headerParams}}
             if ({{paramName}} != null) 
@@ -96,7 +108,7 @@ namespace {{packageName}}.Api
                 headerParams.Add("{{paramName}}", this.apiInvoker.ToPathValue(request.{{baseName}})); // header parameter
             }
             {{/headerParams}}
-            {{#hasBodyParam}}var postBody = request.{{bodyParam.baseName}}; // http body (model) parameter{{/hasBodyParam}}
+            {{#hasBodyParam}}var postBody = SerializationHelper.Serialize(request.{{bodyParam.baseName}}); // http body (model) parameter{{/hasBodyParam}}
             {{#formParams}}
             if (request.{{baseName}} != null) 
             {
@@ -111,7 +123,7 @@ namespace {{packageName}}.Api
                         "{{httpMethod}}", 
                         {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}}, 
                         {{#hasHeaderParams}}headerParams{{/hasHeaderParams}}{{^hasHeaderParams}}null{{/hasHeaderParams}}, 
-                        {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}}) as {{returnType}};{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}                var response = this.apiInvoker.InvokeApi(
+                        {{#hasFormParams}}formParams{{/hasFormParams}}{{^hasFormParams}}null{{/hasFormParams}});{{/x-binary-result}}{{/vendorExtensions}}{{#vendorExtensions}}{{^x-binary-result}}                var response = this.apiInvoker.InvokeApi(
                     resourcePath, 
                     "{{httpMethod}}", 
                     {{#hasBodyParam}}postBody{{/hasBodyParam}}{{^hasBodyParam}}null{{/hasBodyParam}}, 
@@ -134,42 +146,7 @@ namespace {{packageName}}.Api
                 throw;                
             }
         }
-        {{/operation}}
-
-        private string AddPathParameter(string url, string parameterName, object parameterValue)
-        {
-            if (parameterValue == null || string.IsNullOrEmpty(parameterValue.ToString()))
-            {
-                url = url.Replace("/{" + parameterName + "}", string.Empty);
-            }
-            else
-            {
-                url = url.Replace("{" + parameterName + "}", this.apiInvoker.ToPathValue(parameterValue));
-            }
-
-            return url;
-        }
-
-        private string AddQueryParameter(string url, string parameterName, object parameterValue)
-        {
-            if (url.Contains("{" + parameterName + "}"))
-            {
-                url = Regex.Replace(url, @"([&?])" + parameterName + @"=\[" + parameterName + @"\]", string.Empty);
-                url = this.AddPathParameter(url, parameterName, parameterValue);
-                return url;
-            }
-
-            if (parameterValue == null) 
-            {
-                url = Regex.Replace(url, @"([&?])" + parameterName + @"=\[" + parameterName + @"\]", string.Empty);
-            } 
-            else 
-            {
-                url = url.Replace("[" + parameterName + "]", this.apiInvoker.ToPathValue(parameterValue));
-            }
-          
-            return url;
-        }
+        {{/operation}}        
     }
     {{/operations}}
 }

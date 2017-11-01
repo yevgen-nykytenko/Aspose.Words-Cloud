@@ -26,9 +26,7 @@
 namespace Aspose.Words.Cloud.Sdk.BddTests.Base.Context
 {
     using System.IO;
-
-    using Aspose.Words.Cloud.Sdk.Api;
-
+    
     using Com.Aspose.Storage.Api;
 
     /// <summary>
@@ -36,7 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Base.Context
     /// </summary>
     public class BaseContext
     {
-        private const string BaseProductUri = @"http://api-dev.aspose.cloud/v1.1";
+        private const string BaseProductUri = @"http://api-dev.aspose.cloud";
         private const string AppSID = "78b637f6-b4cc-41de-a619-d8bd9fc2b6b6";
         private const string AppKey = "3d588eb82b3d5a634ad3141f09b03629";
 
@@ -46,9 +44,9 @@ namespace Aspose.Words.Cloud.Sdk.BddTests.Base.Context
         /// Initializes a new instance of the <see cref="BaseContext"/>.
         /// </summary>
         protected BaseContext()
-        {            
-            this.WordsApi = new WordsApi(AppKey, AppSID, BaseProductUri);
-            this.StorageApi = new StorageApi(AppKey, AppSID, BaseProductUri);
+        {
+            this.WordsApi = new WordsApi(new Configuration { AppKey = AppKey, AppSid = AppSID, ApiBaseUrl = BaseProductUri });
+            this.StorageApi = new StorageApi(AppKey, AppSID, BaseProductUri + "/v1.1");
         }
 
         /// <summary>

@@ -26,9 +26,7 @@
 namespace Aspose.Words.Cloud.Sdk.Tests.Base
 {
     using System.IO;
-
-    using Aspose.Words.Cloud.Sdk.Api;
-
+    
     using Com.Aspose.Storage.Api;
 
     /// <summary>
@@ -36,21 +34,20 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
     /// </summary>
     public abstract class BaseTestContext
     {
-        private const string BaseProductUri = @"http://api-dev.aspose.cloud/v1.1";
-        private const string AppSID = "78b637f6-b4cc-41de-a619-d8bd9fc2b6b6";
-        private const string AppKey = "3d588eb82b3d5a634ad3141f09b03629";
-        private const string StorageAppSID = "ff470aee-3000-43dd-877d-e02e74499f18";
-        private const string StorageAppKey = "532a70d65e0a752d55673b86f10e53fc";
+        protected const string BaseProductUri = @"http://api-dev.aspose.cloud";
+        protected const string AppSID = "78b637f6-b4cc-41de-a619-d8bd9fc2b6b6";
+        protected const string AppKey = "3d588eb82b3d5a634ad3141f09b03629";
+        protected const string StorageAppSID = "ff470aee-3000-43dd-877d-e02e74499f18";
+        protected const string StorageAppKey = "532a70d65e0a752d55673b86f10e53fc";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestContext"/> class.
         /// </summary>
         protected BaseTestContext()
         {
-            this.WordsApi = new WordsApi(AppKey, AppSID, BaseProductUri);
-            this.StorageApi = new StorageApi(AppKey, AppSID, BaseProductUri);
-            this.AnotherStorage = new StorageApi(StorageAppKey, StorageAppSID, BaseProductUri);
-            this.AnotherWordApi = new WordsApi(StorageAppKey, StorageAppSID, BaseProductUri);
+            var configuration = new Configuration { ApiBaseUrl = BaseProductUri, AppKey = AppKey, AppSid = AppSID };
+            this.WordsApi = new WordsApi(configuration);
+            this.StorageApi = new StorageApi(AppKey, AppSID, BaseProductUri + "/v1.1");
         }
 
         /// <summary>
@@ -163,16 +160,6 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         protected WordsApi WordsApi { get; set; }
 
         /// <summary>
-        /// Storage API
-        /// </summary>
-        protected StorageApi AnotherStorage { get; set; }
-
-        /// <summary>
-        /// WORDS API
-        /// </summary>
-        protected WordsApi AnotherWordApi { get; set; }
-
-        /// <summary>
         /// Returns test data path
         /// </summary>
         /// <param name="subfolder">subfolder for specific tests</param>
@@ -180,15 +167,6 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         protected static string GetDataDir(string subfolder = null)
         {
             return Path.Combine("TestData", string.IsNullOrEmpty(subfolder) ? string.Empty : subfolder);
-        }
-
-        /// <summary>
-        /// Returns words api with enabled debug option
-        /// </summary>
-        /// <returns>instance of words api in debug mode</returns>
-        protected WordsApi GetDebugApi()
-        {
-            return new WordsApi(AppKey, AppSID, BaseProductUri, true);
-        }
+        }        
     }
 }

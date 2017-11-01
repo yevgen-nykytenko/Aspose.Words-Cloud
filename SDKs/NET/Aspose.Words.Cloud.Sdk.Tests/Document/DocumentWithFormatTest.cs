@@ -30,6 +30,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
+    using Com.Aspose.Storage.Api;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -94,10 +96,12 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             var format = "text"; 
             var storage = "AWSStorageS3";
 
-            this.AnotherStorage.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
+            var anotherStorageApi = new StorageApi(StorageAppKey, StorageAppSID, BaseProductUri);
+            anotherStorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
+            var anotherWordApi = new WordsApi(new Configuration { ApiBaseUrl = BaseProductUri, AppKey = AppKey, AppSid = AppSID });
             var request = new GetDocumentWithFormatRequest(remoteName, format, this.dataFolder, storage);
-            var result = this.AnotherWordApi.GetDocumentWithFormat(request);
+            var result = anotherWordApi.GetDocumentWithFormat(request);
             Assert.IsTrue(result.Length > 0, "Conversion has failed");
         }
     }
