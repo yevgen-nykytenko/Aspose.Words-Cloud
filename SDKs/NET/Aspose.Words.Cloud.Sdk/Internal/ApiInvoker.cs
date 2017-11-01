@@ -26,99 +26,56 @@
 namespace Aspose.Words.Cloud.Sdk
 {
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
+    using System.Collections.Generic;    
     using System.IO;
     using System.Net;
-    using System.Security.Cryptography;
     using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Web;
 
-    using Aspose.Words.Cloud.Sdk.Model;
-  
     internal class ApiInvoker
-    {
-        private const string AppSidParamTemplate = "{appSid}";        
-        private const string AsposeClientHeaderName = "x-aspose-client";
-
-        private readonly string apiBaseUrl;
-        private readonly string apiKey;
-        private readonly string appSid;
-
-        private readonly bool debug;
-
-        private readonly Dictionary<string, string> defaultHeaderMap = new Dictionary<string, string>();      
+    {        
+        private const string AsposeClientHeaderName = "x-aspose-client";        
+        private readonly Dictionary<string, string> defaultHeaderMap = new Dictionary<string, string>();
+        private readonly List<IRequestHandler> requestHandlers; 
     
-        public ApiInvoker(string apiKey, string appSid, string apiBaseUrl, bool debug)
+        public ApiInvoker(List<IRequestHandler> requestHandlers)
         {
+            var sdkVersion = this.GetType().Assembly.GetName().Version;
             this.AddDefaultHeader(AsposeClientHeaderName, ".net sdk");
-            
-            this.apiBaseUrl = apiBaseUrl.EndsWith("/") ? apiBaseUrl.Substring(0, apiBaseUrl.Length - 1) : apiBaseUrl;
-            this.apiKey = apiKey;
-            this.appSid = appSid;
-            this.debug = debug;
-        }                         
+            this.AddDefaultHeader(AsposeClientVersionHeaderName, string.Format("{0}.{1}", sdkVersion.Major, sdkVersion.Minor));
+            this.requestHandlers = requestHandlers;
+        }
         
         public string InvokeApi(
             string path,
             string method,
-            object body,
-            Dictionary<string, string> headerParams,
-            Dictionary<string, object> formParams)
+            string body = null,
+            Dictionary<string, string> headerParams = null,
+            Dictionary<string, object> formParams = null,
+            string contentType = "application/json")
         {
-            return this.InvokeInternal(path, method, false, body, headerParams, formParams) as string;
+            return this.InvokeInternal(path, method, false, body, headerParams, formParams, contentType) as string;
         }
 
-        public object InvokeBinaryApi(
+        public Stream InvokeBinaryApi(
             string path,
             string method,
-            object body,
+            string body,
             Dictionary<string, string> headerParams,
-            Dictionary<string, object> formParams)
+            Dictionary<string, object> formParams,
+            string contentType = "application/json")
         {
-            return this.InvokeInternal(path, method, true, body, headerParams, formParams);
-        }             
-
-        public string ToPathValue(object value)
-        {
-            return value.ToString();
-        }
+            return (Stream)this.InvokeInternal(path, method, true, body, headerParams, formParams, contentType);
+        }                     
        
         public FileInfo ToFileInfo(Stream stream, string paramName)
         {
             // TODO: add contenttype
             return new FileInfo { Name = paramName, FileContent = StreamHelper.ReadAsBytes(stream) };
-        }          
-
-        private static string Sign(string url, string appKey)
-        {
-            UriBuilder uriBuilder = new UriBuilder(url);
-
-            // Remove final slash here as it can be added automatically.
-            uriBuilder.Path = uriBuilder.Path.TrimEnd('/');
-
-            // Compute the hash.
-            byte[] privateKey = Encoding.UTF8.GetBytes(appKey);
-            HMACSHA1 algorithm = new HMACSHA1(privateKey);
-
-            byte[] sequence = Encoding.ASCII.GetBytes(uriBuilder.Uri.AbsoluteUri);
-            byte[] hash = algorithm.ComputeHash(sequence);
-            string signature = Convert.ToBase64String(hash);
-
-            // Remove invalid symbols.
-            signature = signature.TrimEnd('=');
-            signature = HttpUtility.UrlEncode(signature);
-
-            // Convert codes to upper case as they can be updated automatically.
-            signature = Regex.Replace(signature, "%[0-9a-f]{2}", e => e.Value.ToUpper());
-
-            // Add the signature to query string.
-            return string.Format("{0}&signature={1}", uriBuilder.Uri.AbsoluteUri, signature);
-        }
+        }                 
 
         private static byte[] GetMultipartFormData(Dictionary<string, object> postParameters, string boundary)
         {
+            // TOOD: stream is not disposed
             Stream formDataStream = new MemoryStream();
             bool needsClrf = false;
 
@@ -215,9 +172,10 @@ namespace Aspose.Words.Cloud.Sdk
             string path,
             string method,
             bool binaryResponse,
-            object body,
+            string body,
             Dictionary<string, string> headerParams,
-            Dictionary<string, object> formParams)
+            Dictionary<string, object> formParams,
+            string contentType)
         {
             if (formParams == null)
             {
@@ -228,16 +186,23 @@ namespace Aspose.Words.Cloud.Sdk
             {
                 headerParams = new Dictionary<string, string>();
             }
+           
+            this.requestHandlers.ForEach(p => path = p.ProcessUrl(path));
 
-            path = path.Replace(AppSidParamTemplate, this.appSid);
-            path = Regex.Replace(path, @"{.+?}", string.Empty);            
-            path = Sign(this.apiBaseUrl + path, this.apiKey);
-
-            var client = this.PrepareRequest(path, method, formParams, headerParams, body);
-            return this.ReadResponse(client, binaryResponse);
-        }
-
-        private WebRequest PrepareRequest(string path, string method, Dictionary<string, object> formParams, Dictionary<string, string> headerParams, object body)
+            WebRequest request;
+            try
+            {
+                request = this.PrepareRequest(path, method, formParams, headerParams, body, contentType);
+                return this.ReadResponse(request, binaryResponse);
+            }
+            catch (NeedRepeatRequestException)
+            {
+                request = this.PrepareRequest(path, method, formParams, headerParams, body, contentType);
+                return this.ReadResponse(request, binaryResponse);               
+            }            
+        }       
+        
+        private WebRequest PrepareRequest(string path, string method, Dictionary<string, object> formParams, Dictionary<string, string> headerParams, string body, string contentType)
         {
             var client = WebRequest.Create(path);
             client.Method = method;
@@ -261,7 +226,7 @@ namespace Aspose.Words.Cloud.Sdk
             }
             else
             {
-                client.ContentType = "application/json";
+                client.ContentType = contentType;
             }
 
             foreach (var headerParamsItem in headerParams)
@@ -297,16 +262,16 @@ namespace Aspose.Words.Cloud.Sdk
                         if (body != null)
                         {
                             var requestWriter = new StreamWriter(streamToSend);
-                            requestWriter.Write(SerializationHelper.Serialize(body));
+                            requestWriter.Write(body);
                             requestWriter.Flush();
                         }
-
-                        streamToSend.Position = 0;
-
+                        
                         break;
                     default:
                         throw new ApiException(500, "unknown method type " + method);
                 }
+
+                this.requestHandlers.ForEach(p => p.BeforeSend(client, streamToSend));
 
                 if (streamToSend != null)
                 {
@@ -314,12 +279,7 @@ namespace Aspose.Words.Cloud.Sdk
                     {
                         StreamHelper.CopyTo(streamToSend, requestStream);
                     }
-                }
-
-                if (this.debug)
-                {
-                    this.LogRequest(client, streamToSend);
-                }
+                }                
             }
             finally
             {
@@ -328,134 +288,55 @@ namespace Aspose.Words.Cloud.Sdk
                     streamToSend.Dispose();
                 }
             }
-
+            
             return client;
         }
 
         private object ReadResponse(WebRequest client, bool binaryResponse)
         {
+            var webResponse = (HttpWebResponse)this.GetResponse(client);
+            var resultStream = new MemoryStream();
+
+            StreamHelper.CopyTo(webResponse.GetResponseStream(), resultStream);
             try
             {
-                var webResponse = (HttpWebResponse)client.GetResponse();
-                var resultStream = new MemoryStream();
-                StreamHelper.CopyTo(webResponse.GetResponseStream(), resultStream);
+                this.requestHandlers.ForEach(p => p.ProcessResponse(webResponse, resultStream));
+
                 resultStream.Position = 0;
-
-                if (this.debug)
-                {
-                    this.LogResponse(webResponse, resultStream);
-                }
-
-                if (webResponse.StatusCode != HttpStatusCode.OK)
-                {
-                    this.ThrowApiException(webResponse);
-                }
-
                 if (binaryResponse)
-                {                    
+                {
                     return resultStream;
                 }
 
                 using (var responseReader = new StreamReader(resultStream))
                 {
                     var responseData = responseReader.ReadToEnd();
+                    resultStream.Dispose();
                     return responseData;
                 }
             }
-            catch (WebException ex)
+            catch (Exception)
             {
-                var response = ex.Response as HttpWebResponse;
-                this.ThrowApiException(response);
+                resultStream.Dispose();
                 throw;
             }
         }
 
-        private void ThrowApiException(HttpWebResponse webResponse)
+        private WebResponse GetResponse(WebRequest request)
         {
             try
             {
-                using (var responseReader = new StreamReader(webResponse.GetResponseStream()))
-                {
-                    var responseData = responseReader.ReadToEnd();
-                    var errorResponse = (WordsApiErrorResponse)SerializationHelper.Deserialize(responseData, typeof(WordsApiErrorResponse));
-                    throw new ApiException((int)webResponse.StatusCode, errorResponse.Message);
-                }
+                return request.GetResponse();
             }
-            catch (ApiException)
+            catch (WebException wex)
             {
+                if (wex.Response != null)
+                {
+                    return wex.Response;
+                }
+
                 throw;
             }
-            catch (Exception)
-            {
-                throw new ApiException((int)webResponse.StatusCode, webResponse.StatusDescription);
-            }
         }
-
-        private void LogRequest(WebRequest request, Stream streamToSend)
-        {            
-            var header = string.Format("{0}: {1}", request.Method, request.RequestUri);
-            var sb = new StringBuilder();
-
-            this.FormatHeaders(sb, request.Headers);
-            this.CopyStreamToStringBuilder(sb, streamToSend);
-
-            this.Log(header, sb);
-        }
-
-        private void LogResponse(HttpWebResponse response, Stream resultStream)
-        {            
-            var header = string.Format("\r\nResponse {0}: {1}", (int)response.StatusCode, response.StatusCode);
-            var sb = new StringBuilder();
-
-            this.FormatHeaders(sb, response.Headers);
-            this.CopyStreamToStringBuilder(sb, resultStream);            
-            this.Log(header, sb);
-        }
-
-        private void FormatHeaders(StringBuilder sb, WebHeaderCollection headerDictionary)
-        {
-            foreach (var key in headerDictionary.AllKeys)
-            {
-                sb.Append(key);
-                sb.Append(": ");
-                sb.AppendLine(headerDictionary[key]);
-            }
-        }
-
-        private void Log(string header, StringBuilder sb)
-        {
-            Trace.WriteLine(header);
-            Trace.WriteLine(sb.ToString());
-        }
-
-        private void CopyStreamToStringBuilder(StringBuilder sb, Stream stream)
-        {
-            if ((stream == null) || !stream.CanRead)
-            {
-                return;
-            }
-
-            Stream streamToRead;
-            if (!stream.CanSeek)
-            {
-                streamToRead = new MemoryStream(1024);
-                StreamHelper.CopyTo(stream, streamToRead);
-            }
-            else
-            {
-                streamToRead = stream;
-            }
-
-            streamToRead.Seek(0, SeekOrigin.Begin);
-            var bodyReader = new StreamReader(streamToRead);
-            if (bodyReader.Peek() != -1)
-            {
-                var content = bodyReader.ReadToEnd();
-                streamToRead.Seek(0, SeekOrigin.Begin);
-
-                sb.AppendLine("Body:");                
-                sb.AppendLine(content);                
-            }            
-        }       
     }
 }
