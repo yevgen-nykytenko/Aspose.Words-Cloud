@@ -76,7 +76,7 @@ namespace Aspose.Words.Cloud.Sdk.RequestHandlers
                 return;
             }
 
-            if (response.StatusCode == HttpStatusCode.Forbidden)
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 this.RefreshToken();
 
