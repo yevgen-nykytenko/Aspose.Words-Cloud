@@ -39,7 +39,9 @@ namespace Aspose.Words.Cloud.Sdk
     
         public ApiInvoker(List<IRequestHandler> requestHandlers)
         {
+            var sdkVersion = this.GetType().Assembly.GetName().Version;
             this.AddDefaultHeader(AsposeClientHeaderName, ".net sdk");
+            this.AddDefaultHeader(AsposeClientVersionHeaderName, string.Format("{0}.{1}", sdkVersion.Major, sdkVersion.Minor));
             this.requestHandlers = requestHandlers;
         }
         
