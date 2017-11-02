@@ -150,6 +150,72 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         }
 
         /// <summary>
+        /// Returns folder with source for compare tests
+        /// </summary>
+        protected static string CompareFolder
+        {
+            get
+            {
+                return "CompareDocument/";
+            }
+        }
+
+        /// <summary>
+        /// Returns folder with source for table tests
+        /// </summary>
+        protected static string TableFolder
+        {
+            get
+            {
+                return "Table/";
+            }
+        }
+
+        /// <summary>
+        /// Returns folder with source for MathObject tests
+        /// </summary>
+        protected static string MathObjectFolder
+        {
+            get
+            {
+                return "MathObject/";
+            }
+        }
+
+        /// <summary>
+        /// Returns folder with source for run tests
+        /// </summary>
+        protected static string RunFolder
+        {
+            get
+            {
+                return "Run/";
+            }
+        }
+
+        /// <summary>
+        /// Returns folder with source for footnote tests
+        /// </summary>
+        protected static string FootnoteFolder
+        {
+            get
+            {
+                return "Footnote/";
+            }
+        }
+
+        /// <summary>
+        /// Returns folder with source for headerfooter tests
+        /// </summary>
+        protected static string HeaderFooterFolder
+        {
+            get
+            {
+                return "HeaderFooter/";
+            }
+        }
+
+        /// <summary>
         /// Storage API
         /// </summary>
         protected StorageApi StorageApi { get; set; }

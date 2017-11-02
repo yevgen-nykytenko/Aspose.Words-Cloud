@@ -172,5 +172,42 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Paragraph
             var actual = this.WordsApi.PostDocumentParagraphRunFont(request);
             Assert.AreEqual(200, actual.Code);
         }
+
+        /// <summary>
+        /// Test for adding paragraph
+        /// </summary>
+        [TestMethod]
+        public void TestPutParagraph()
+        {
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestPutParagraph.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var paragraph = new ParagraphInsert { Text = "This is a new paragraph for your document" };
+
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
+
+            var request = new PutParagraphRequest(remoteName, paragraph, this.dataFolder, nodePath: "sections/0");
+            var actual = this.WordsApi.PutParagraph(request);
+
+            Assert.AreEqual(200, actual.Code);
+        }
+
+        /// <summary>
+        /// Test for paragraph rendering
+        /// </summary>
+        [TestMethod]
+        public void TestRenderParagraph()
+        {
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestRenderParagraph.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
+
+            var request = new RenderParagraphRequest(remoteName, "png", 0, this.dataFolder);
+            var actual = this.WordsApi.RenderParagraph(request);
+
+            Assert.IsTrue(actual.Length > 0, "Error has occured while paragraph rendering");
+        }
     }
 }

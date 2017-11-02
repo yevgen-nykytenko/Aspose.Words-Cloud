@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="DocumentTest.cs">
+// // <copyright company="Aspose" file="FontTest.cs">
 // //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -22,52 +22,29 @@
 // //  SOFTWARE.
 // // </summary>
 // //  --------------------------------------------------------------------------------------------------------------------
-namespace Aspose.Words.Cloud.Sdk.Tests.Document
+namespace Aspose.Words.Cloud.Sdk.Tests.Font
 {
-    using System.IO;
-
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example of how to get document
+    /// Example of how to work with font
     /// </summary>
     [TestClass]
     [DeploymentItem("TestData", "TestData")]
-    public class DocumentTest : BaseTestContext
+    public class FontTest : BaseTestContext
     {
-        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/Document");
-
         /// <summary>
-        /// Test for getting document
+        /// Test for reseting cache
         /// </summary>
         [TestMethod]
-        public void TestGetDocument()
+        public void TestResetCache()
         {
-            var localName = "test_multi_pages.docx";
-            var remoteName = "TestGetDocument.docx";
-            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var request = new ResetCacheRequest();
+            var actual = this.WordsApi.ResetCache(request);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
-
-            var request = new GetDocumentRequest(remoteName, this.dataFolder);
-            var actual = this.WordsApi.GetDocument(request);
-
-            Assert.AreEqual(200, actual.Code);
-        }
-
-        /// <summary>
-        /// Test for creating word document
-        /// </summary>
-        [TestMethod]
-        public void TestPutCreateDocument()
-        {
-            var remoteName = "TestPutCreateDocument.doc";
-            var request = new PutCreateDocumentRequest { FileName = remoteName, Folder = this.dataFolder };
-
-            var actual = this.WordsApi.PutCreateDocument(request);
             Assert.AreEqual(200, actual.Code);
         }
     }

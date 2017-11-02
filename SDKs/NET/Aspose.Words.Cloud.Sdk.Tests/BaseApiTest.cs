@@ -105,7 +105,6 @@ namespace Aspose.Words.Cloud.Sdk.Tests
         /// Check if all API methods have covered by tests
         /// </summary>
         [TestMethod]
-        [Ignore]
         public void TestApiCoverage()
         {
             var methods = typeof(WordsApi).GetMethods()

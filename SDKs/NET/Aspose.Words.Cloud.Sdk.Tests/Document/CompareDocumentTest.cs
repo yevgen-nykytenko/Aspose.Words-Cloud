@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="DocumentTest.cs">
+// // <copyright company="Aspose" file="CompareDocumentTest.cs">
 // //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -24,50 +24,45 @@
 // //  --------------------------------------------------------------------------------------------------------------------
 namespace Aspose.Words.Cloud.Sdk.Tests.Document
 {
+    using System;
     using System.IO;
 
+    using Aspose.Words.Cloud.Sdk.Model;
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example of how to get document
+    /// Example of document comparison
     /// </summary>
     [TestClass]
     [DeploymentItem("TestData", "TestData")]
-    public class DocumentTest : BaseTestContext
+    public class CompareDocumentTest : BaseTestContext
     {
-        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/Document");
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/CompareDocument");
 
         /// <summary>
-        /// Test for getting document
+        /// Test for document comparison
         /// </summary>
         [TestMethod]
-        public void TestGetDocument()
+        public void TestCompareDocument()
         {
-            var localName = "test_multi_pages.docx";
-            var remoteName = "TestGetDocument.docx";
-            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var localName1 = "compareTestDoc1.doc";
+            var localName2 = "compareTestDoc2.doc";
+            var remoteName1 = "TestCompareDocument1.doc";
+            var remoteName2 = "TestCompareDocument2.doc";
+            var fullName1 = Path.Combine(this.dataFolder, remoteName1);
+            var fullName2 = Path.Combine(this.dataFolder, remoteName2);
+            var destFileName = Path.Combine(BaseTestOutPath, "TestCompareDocumentOut.doc");
+            var compareData = new CompareData { Author = "author", ComparingWithDocument = fullName2, DateTime = new DateTime(2015, 10, 26) };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
+            this.StorageApi.PutCreate(fullName1, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CompareFolder) + localName1));
+            this.StorageApi.PutCreate(fullName2, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CompareFolder) + localName2));
 
-            var request = new GetDocumentRequest(remoteName, this.dataFolder);
-            var actual = this.WordsApi.GetDocument(request);
+            var request = new PostCompareDocumentRequest(remoteName1, compareData, this.dataFolder, destFileName: destFileName);
+            var actual = this.WordsApi.PostCompareDocument(request);
 
-            Assert.AreEqual(200, actual.Code);
-        }
-
-        /// <summary>
-        /// Test for creating word document
-        /// </summary>
-        [TestMethod]
-        public void TestPutCreateDocument()
-        {
-            var remoteName = "TestPutCreateDocument.doc";
-            var request = new PutCreateDocumentRequest { FileName = remoteName, Folder = this.dataFolder };
-
-            var actual = this.WordsApi.PutCreateDocument(request);
             Assert.AreEqual(200, actual.Code);
         }
     }
