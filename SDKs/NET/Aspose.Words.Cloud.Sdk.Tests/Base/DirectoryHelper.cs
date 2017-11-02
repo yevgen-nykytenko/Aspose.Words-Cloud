@@ -45,10 +45,10 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
             var info = Directory.GetParent(parentDir ?? Directory.GetCurrentDirectory());
             if (info != null)
             {
-                var dataFolderExists = info.GetDirectories("NET");
+                var dataFolderExists = info.GetDirectories("SDKs");
                 if (dataFolderExists.Any())
                 {
-                    return Path.Combine(info.FullName, "NET");
+                    return Path.Combine(info.FullName, "SDKs", "NET");
                 }
 
                 return GetTestDataPath(info.FullName);
