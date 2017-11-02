@@ -34,6 +34,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
     /// </summary>
     public abstract class BaseTestContext
     {
+        // It is "test" credentials for "dev" server. Please, don't use them in youre application.
         protected const string BaseProductUri = @"http://api-dev.aspose.cloud";
         protected const string AppSID = "78b637f6-b4cc-41de-a619-d8bd9fc2b6b6";
         protected const string AppKey = "3d588eb82b3d5a634ad3141f09b03629";
