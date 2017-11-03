@@ -136,8 +136,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
         /// <summary>
         /// Test for adding drawing object
         /// </summary>
-        [TestMethod]
-        [Ignore]
+        [TestMethod]       
         public void TestPutDrawingObject()
         {
             var localName = "test_multi_pages.docx";
@@ -145,30 +144,11 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var image = "aspose-cloud.png";
             using (var file = File.OpenRead(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + image))
-            {
-                // todo change API to recieve a dto object instead of string
-                var dto = new DrawingObject
-                              {
-                                  Width = 300,
-                                  Height = 300,
-                                  NodeId = "0.1.0",
-                                  RelativeHorizontalPosition = DrawingObject.RelativeHorizontalPositionEnum.Column,
-                                  RelativeVerticalPosition = DrawingObject.RelativeVerticalPositionEnum.TextFrameDefault,
-                                  ImageDataLink = new WordsApiLink
-                                                      {
-                                                          Href =
-                                                              "http://api-dev.aspose.cloud/v1.1/words/TestGetDocumentDrawingObjectByIndex.docx/sections/0/paragraphs/1/drawingObjects/0/ImageData?folder=Temp%5cSdkTests%5cTestData%5cDocumentElements%5cDrawingObjects",
-                                                          Rel = "self"
-                                                      },
-                                  WrapType = DrawingObject.WrapTypeEnum.Inline
-                              };
-
-                var request = new PutDrawingObjectRequest(remoteName, null, file, this.dataFolder);
-
+            {               
+                var request = new PutDrawingObjectRequest(remoteName, "{\"Left\": 0}", file, this.dataFolder);
                 this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
                 var actual = this.WordsApi.PutDrawingObject(request);
-
                 Assert.AreEqual(200, actual.Code);
             }
         }

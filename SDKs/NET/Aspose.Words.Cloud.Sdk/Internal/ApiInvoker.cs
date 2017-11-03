@@ -109,13 +109,22 @@ namespace Aspose.Words.Cloud.Sdk
                     }
                     else
                     {
-                        var stringDaa = SerializationHelper.Serialize(param.Value);
+                        string stringData;
+                        if (param.Value is string)
+                        {
+                            stringData = (string)param.Value;
+                        }
+                        else
+                        {
+                            stringData = SerializationHelper.Serialize(param.Value);
+                        }
+                        
                         string postData =
                             string.Format(
                                 "--{0}\r\nContent-Disposition: form-data; name=\"{1}\"\r\n\r\n{2}",
                                 boundary,
                                 param.Key,
-                                stringDaa);
+                                stringData);
                         formDataStream.Write(Encoding.UTF8.GetBytes(postData), 0, Encoding.UTF8.GetByteCount(postData));
                     }
                 }
