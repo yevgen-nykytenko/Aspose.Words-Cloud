@@ -52,7 +52,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         }
 
         /// <summary>
-        /// Base path to test data
+        /// Base path to test data        
         /// </summary>
         protected static string BaseTestDataPath
         {
@@ -86,6 +86,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
 
         /// <summary>
         /// Returns folder with source for document conversion tests
+        /// // TODO: move all "folder" properties below closer to usage
         /// </summary>
         protected static string ConvertFolder
         {
