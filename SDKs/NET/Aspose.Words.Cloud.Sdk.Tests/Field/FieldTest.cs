@@ -41,6 +41,10 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/Field");
 
+        private readonly string textFolder = "Text/";
+
+        private readonly string fieldFolder = "Field/";
+
         /// <summary>
         /// Test for getting fields
         /// </summary>
@@ -51,7 +55,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var remoteName = "TestGetFields.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FieldFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.fieldFolder) + localName));
 
             var request = new GetFieldsRequest(remoteName, this.dataFolder, nodePath: "sections/0");
             FieldsResponse actual = this.WordsApi.GetFields(request);
@@ -70,7 +74,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var fieldIndex = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FieldFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.fieldFolder) + localName));
 
             var request = new GetFieldRequest(remoteName, fieldIndex, this.dataFolder, nodePath: "sections/0/paragraphs/0");
             var actual = this.WordsApi.GetField(request);
@@ -89,7 +93,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var fullName = Path.Combine(this.dataFolder, remoteName);
             Field body = new Field { Result = "3", FieldCode = "{ NUMPAGES }", NodeId = "0.0.3" };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.TextFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.textFolder) + localName));
 
             var request = new PutFieldRequest(remoteName, body, this.dataFolder, nodePath: "sections/0/paragraphs/0");
             var actual = this.WordsApi.PutField(request);
@@ -110,7 +114,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
             var body = new Field { Result = "3", FieldCode = "{ NUMPAGES }", NodeId = "0.0.3" };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FieldFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.fieldFolder) + localName));
 
             var request = new PostFieldRequest(remoteName, body, fieldIndex, this.dataFolder, nodePath: "sections/0/paragraphs/0", destFileName: destFileName);
             var actual = this.WordsApi.PostField(request);
@@ -149,7 +153,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var fieldIndex = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FieldFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.fieldFolder) + localName));
 
             var request = new DeleteFieldRequest(remoteName, fieldIndex, this.dataFolder, nodePath: "sections/0/paragraphs/0");
             var actual = this.WordsApi.DeleteField(request);

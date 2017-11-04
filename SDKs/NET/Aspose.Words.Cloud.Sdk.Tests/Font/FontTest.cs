@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="MailMergeFiledsTest.cs">
+// // <copyright company="Aspose" file="FontTest.cs">
 // //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -22,58 +22,30 @@
 // //  SOFTWARE.
 // // </summary>
 // //  --------------------------------------------------------------------------------------------------------------------
-namespace Aspose.Words.Cloud.Sdk.Tests.Field
+namespace Aspose.Words.Cloud.Sdk.Tests.Font
 {
-    using System.IO;
-
-    using Aspose.Words.Cloud.Sdk.Model;
     using Aspose.Words.Cloud.Sdk.Model.Requests;
     using Aspose.Words.Cloud.Sdk.Tests.Base;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example of how to work with merge fields
+    /// Example of how to work with font
     /// </summary>
     [TestClass]
     [DeploymentItem("TestData", "TestData")]
-    public class MailMergeFiledsTest : BaseTestContext
+    public class FontTest : BaseTestContext
     {
-        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/MergeField");
-
-        private readonly string mailMergeFolder = "MailMerge/";
-
         /// <summary>
-        /// Test for getting mailmerge fields
+        /// Test for reseting cache
         /// </summary>
         [TestMethod]
-        public void TestGetDocumentFieldNames()
+        public void TestResetCache()
         {
-            var localName = "test_multi_pages.docx";
-            var remoteName = "TestGetDocumentFieldNames.docx";
-            var fullName = Path.Combine(this.dataFolder, remoteName);
-
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
-
-            var request = new GetDocumentFieldNamesRequest(remoteName, this.dataFolder);
-            var actual = this.WordsApi.GetDocumentFieldNames(request);
+            var request = new ResetCacheRequest();
+            var actual = this.WordsApi.ResetCache(request);
 
             Assert.AreEqual(200, actual.Code);
-        }
-
-        /// <summary>
-        /// Test for putting new fileds
-        /// </summary>
-        [TestMethod]
-        public void TestPutDocumentFieldNames()
-        {
-            using (var fileStream = File.OpenRead(BaseTestContext.GetDataDir(this.mailMergeFolder) + "SampleExecuteTemplate.docx"))
-            {
-                var request = new PutDocumentFieldNamesRequest(fileStream, true);
-                FieldNamesResponse actual = this.WordsApi.PutDocumentFieldNames(request);
-
-                Assert.AreEqual(200, actual.Code);
-            }
         }
     }
 }

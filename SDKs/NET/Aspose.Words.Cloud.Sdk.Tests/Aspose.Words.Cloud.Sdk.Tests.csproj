@@ -57,6 +57,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -72,6 +73,7 @@
     <Compile Include="Bookmark\BookmarkTests.cs" />
     <Compile Include="DocumentProperties\DocumentPropertiesTest.cs" />
     <Compile Include="DocumentProtection\DocumentProtection.cs" />
+    <Compile Include="Document\CompareDocumentTest.cs" />
     <Compile Include="Document\DocumentTest.cs" />
     <Compile Include="Document\RevisionsTest.cs" />
     <Compile Include="Document\AppendDocumentTest.cs" />
@@ -85,10 +87,14 @@
     <Compile Include="Field\FieldTest.cs" />
     <Compile Include="Field\FormFieldTest.cs" />
     <Compile Include="Field\MailMergeFiledsTest.cs" />
+    <Compile Include="Font\FontTest.cs" />
+    <Compile Include="Footnote\FootnoteTest.cs" />
+    <Compile Include="HeaderFooter\HeaderFooterTest.cs" />
     <Compile Include="Hyperlink\HyperlinkTest.cs" />
     <Compile Include="Macros\MacrosTest.cs" />
     <Compile Include="MailMerge\ExecuteMailMergeTest.cs" />
     <Compile Include="MailMerge\ExecuteTemplateTest.cs" />
+    <Compile Include="MathObject\MathObjectTest.cs" />
     <Compile Include="OAuthTests.cs" />
     <Compile Include="PageSetup\PageSetupTest.cs" />
     <Compile Include="Paragraph\ParagraphTest.cs" />
@@ -98,9 +104,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Run\RunTest.cs" />
     <Compile Include="Sections\HeaderFooterTest.cs" />
     <Compile Include="Sections\SectionTest.cs" />
     <Compile Include="BaseApiTest.cs" />
+    <Compile Include="Table\TableBorderTest.cs" />
+    <Compile Include="Table\TableTest.cs" />
     <Compile Include="Text\TextTest.cs" />
     <Compile Include="Watermark\WatermarkTest.cs" />
   </ItemGroup>
@@ -235,6 +244,38 @@
     </None>
     <None Include="..\..\..\TestData\MailMerge\TestExecuteTemplateData.txt">
       <Link>TestData\MailMerge\TestExecuteTemplateData.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\TestData\CompareDocument\compareTestDoc1.doc">
+      <Link>TestData\CompareDocument\compareTestDoc1.doc</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\TestData\CompareDocument\compareTestDoc2.doc">
+      <Link>TestData\CompareDocument\compareTestDoc2.doc</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\TestData\Table\TablesGet.docx">
+      <Link>TestData\Table\TablesGet.docx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\TestData\Drawing\sampleDrawingObject.txt">
+      <Link>TestData\Drawing\sampleDrawingObject.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\TestData\MathObject\MathObjects.docx">
+      <Link>TestData\MathObject\MathObjects.docx</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\TestData\Run\Run.doc">
+      <Link>TestData\Run\Run.doc</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\TestData\Footnote\Footnote.doc">
+      <Link>TestData\Footnote\Footnote.doc</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\TestData\HeaderFooter\HeadersFooters.doc">
+      <Link>TestData\HeaderFooter\HeadersFooters.doc</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

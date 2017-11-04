@@ -57,5 +57,18 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
 
             Assert.AreEqual(200, actual.Code);
         }
+
+        /// <summary>
+        /// Test for creating word document
+        /// </summary>
+        [TestMethod]
+        public void TestPutCreateDocument()
+        {
+            var remoteName = "TestPutCreateDocument.doc";
+            var request = new PutCreateDocumentRequest { FileName = remoteName, Folder = this.dataFolder };
+
+            var actual = this.WordsApi.PutCreateDocument(request);
+            Assert.AreEqual(200, actual.Code);
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="TextTest.cs">
-// //   Copyright (c) 2016 Aspose.Words for Cloud
+// // <copyright company="Aspose" file="RunTest.cs">
+// //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
 // //   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,7 +22,7 @@
 // //  SOFTWARE.
 // // </summary>
 // //  --------------------------------------------------------------------------------------------------------------------
-namespace Aspose.Words.Cloud.Sdk.Tests.Text
+namespace Aspose.Words.Cloud.Sdk.Tests.Run
 {
     using System.IO;
 
@@ -33,69 +33,69 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Text
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example of how to work with text
+    /// Example of how to work with runs
     /// </summary>
     [TestClass]
     [DeploymentItem("TestData", "TestData")]
-    public class TextTest : BaseTestContext
+    public class RunTest : BaseTestContext
     {
-        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/Text");
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/Run");
 
-        private readonly string textFolder = "Text/";
+        private readonly string runFolder = "Run/";
 
         /// <summary>
-        /// Test for getting text from document
+        /// Test for updating run
         /// </summary>
         [TestMethod]
-        public void TestGetDocumentTextItems()
+        public void TestPostRun()
         {
-            var localName = "test_multi_pages.docx";
-            var remoteName = "TestGetDocumentTextItems.docx";
+            var localName = "Run.doc";
+            var remoteName = "TestPostRun.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
+            var run = new Run { Text = "run with text" };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.runFolder) + localName));
 
-            var request = new GetDocumentTextItemsRequest(remoteName, this.dataFolder);
-            var actual = this.WordsApi.GetDocumentTextItems(request);
+            var request = new PostRunRequest(remoteName, run, "paragraphs/1", 0, this.dataFolder);
+            var actual = this.WordsApi.PostRun(request);
 
             Assert.AreEqual(200, actual.Code);
         }
 
         /// <summary>
-        /// Test for replacing text
+        /// Test for adding run
         /// </summary>
         [TestMethod]
-        public void TestPostReplaceText()
+        public void TestPutRun()
         {
-            var localName = "test_multi_pages.docx";
-            var remoteName = "TestPostReplaceText.docx";
+            var localName = "Run.doc";
+            var remoteName = "TestPostRun.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
-            var destFileName = Path.Combine(BaseTestOutPath, remoteName);
-            var body = new ReplaceTextRequest { OldValue = "aspose", NewValue = "aspose new" };
+            var run = new Run { Text = "run with text" };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.runFolder) + localName));
 
-            var request = new PostReplaceTextRequest(remoteName, body, this.dataFolder, destFileName: destFileName);
-            var actual = this.WordsApi.PostReplaceText(request);
+            var request = new PutRunRequest(remoteName, "paragraphs/1", run, this.dataFolder);
+            var actual = this.WordsApi.PutRun(request);
 
             Assert.AreEqual(200, actual.Code);
         }
 
         /// <summary>
-        /// Test for searching
+        /// Test for deleting run
         /// </summary>
         [TestMethod]
-        public void TestSearch()
+        public void TestDeleteRun()
         {
-            var localName = "SampleWordDocument.docx";
-            var remoteName = "TestSearch.docx";
+            var localName = "Run.doc";
+            var remoteName = "TestDeleteRun.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
-            var pattern = "aspose";
+            var index = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.textFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.runFolder) + localName));
 
-            var request = new SearchRequest(remoteName, pattern, this.dataFolder);
-            var actual = this.WordsApi.Search(request);
+            var request = new DeleteRunRequest(remoteName, "paragraphs/1", index, this.dataFolder);
+            var actual = this.WordsApi.DeleteRun(request);
 
             Assert.AreEqual(200, actual.Code);
         }

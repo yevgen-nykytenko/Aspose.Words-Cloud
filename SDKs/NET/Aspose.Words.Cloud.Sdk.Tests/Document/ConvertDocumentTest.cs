@@ -42,6 +42,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/ConvertDocument");
 
+        private readonly string convertFolder = "ConvertDocument/";
+
         /// <summary>
         /// Test for converting document to one of the available formats        
         /// </summary>
@@ -69,7 +71,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
         public void TestPutConvertDocument()
         {
             var format = "pdf";
-            using (var fileStream = File.OpenRead(BaseTestContext.GetDataDir(BaseTestContext.ConvertFolder) + "test_uploadfile.docx"))
+            using (var fileStream = File.OpenRead(BaseTestContext.GetDataDir(this.convertFolder) + "test_uploadfile.docx"))
             {
                 var request = new PutConvertDocumentRequest(fileStream, format);
                 var result = this.WordsApi.PutConvertDocument(request);

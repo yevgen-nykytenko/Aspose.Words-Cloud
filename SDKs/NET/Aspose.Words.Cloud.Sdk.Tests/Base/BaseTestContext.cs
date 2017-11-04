@@ -52,7 +52,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
         }
 
         /// <summary>
-        /// Base path to test data
+        /// Base path to test data        
         /// </summary>
         protected static string BaseTestDataPath
         {
@@ -81,72 +81,6 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Base
             get
             {
                 return "Common/";
-            }
-        }
-
-        /// <summary>
-        /// Returns folder with source for document conversion tests
-        /// </summary>
-        protected static string ConvertFolder
-        {
-            get
-            {
-                return "ConvertDocument/";
-            }
-        }
-
-        /// <summary>
-        /// Returns folder with source for document protection tests
-        /// </summary>
-        protected static string ProtectFolder
-        {
-            get
-            {
-                return "DocumentProtection/";
-            }
-        }
-
-        /// <summary>
-        /// Returns folder with source for drawing objects tests
-        /// </summary>
-        protected static string DrawingFolder
-        {
-            get
-            {
-                return "Drawing/";
-            }
-        }
-
-        /// <summary>
-        /// Returns folder with source for fields tests
-        /// </summary>
-        protected static string FieldFolder
-        {
-            get
-            {
-                return "Field/";
-            }
-        }
-
-        /// <summary>
-        /// Returns folder with source for mail merge tests
-        /// </summary>
-        protected static string MailMergeFolder
-        {
-            get
-            {
-                return "MailMerge/";
-            }
-        }
-
-        /// <summary>
-        /// Returns folder with source for text tests
-        /// </summary>
-        protected static string TextFolder
-        {
-            get
-            {
-                return "Text/";
             }
         }
 

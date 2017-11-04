@@ -1,5 +1,5 @@
 ﻿// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Aspose" file="MailMergeFiledsTest.cs">
+// // <copyright company="Aspose" file="CompareDocumentTest.cs">
 // //   Copyright (c) 2017 Aspose.Words for Cloud
 // // </copyright>
 // // <summary>
@@ -22,8 +22,9 @@
 // //  SOFTWARE.
 // // </summary>
 // //  --------------------------------------------------------------------------------------------------------------------
-namespace Aspose.Words.Cloud.Sdk.Tests.Field
+namespace Aspose.Words.Cloud.Sdk.Tests.Document
 {
+    using System;
     using System.IO;
 
     using Aspose.Words.Cloud.Sdk.Model;
@@ -33,47 +34,38 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Example of how to work with merge fields
+    /// Example of document comparison
     /// </summary>
     [TestClass]
     [DeploymentItem("TestData", "TestData")]
-    public class MailMergeFiledsTest : BaseTestContext
+    public class CompareDocumentTest : BaseTestContext
     {
-        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/MergeField");
+        private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/CompareDocument");
 
-        private readonly string mailMergeFolder = "MailMerge/";
+        private readonly string compareFolder = "CompareDocument/";
 
         /// <summary>
-        /// Test for getting mailmerge fields
+        /// Test for document comparison
         /// </summary>
         [TestMethod]
-        public void TestGetDocumentFieldNames()
+        public void TestCompareDocument()
         {
-            var localName = "test_multi_pages.docx";
-            var remoteName = "TestGetDocumentFieldNames.docx";
-            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var localName1 = "compareTestDoc1.doc";
+            var localName2 = "compareTestDoc2.doc";
+            var remoteName1 = "TestCompareDocument1.doc";
+            var remoteName2 = "TestCompareDocument2.doc";
+            var fullName1 = Path.Combine(this.dataFolder, remoteName1);
+            var fullName2 = Path.Combine(this.dataFolder, remoteName2);
+            var destFileName = Path.Combine(BaseTestOutPath, "TestCompareDocumentOut.doc");
+            var compareData = new CompareData { Author = "author", ComparingWithDocument = fullName2, DateTime = new DateTime(2015, 10, 26) };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
+            this.StorageApi.PutCreate(fullName1, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.compareFolder) + localName1));
+            this.StorageApi.PutCreate(fullName2, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.compareFolder) + localName2));
 
-            var request = new GetDocumentFieldNamesRequest(remoteName, this.dataFolder);
-            var actual = this.WordsApi.GetDocumentFieldNames(request);
+            var request = new PostCompareDocumentRequest(remoteName1, compareData, this.dataFolder, destFileName: destFileName);
+            var actual = this.WordsApi.PostCompareDocument(request);
 
             Assert.AreEqual(200, actual.Code);
-        }
-
-        /// <summary>
-        /// Test for putting new fileds
-        /// </summary>
-        [TestMethod]
-        public void TestPutDocumentFieldNames()
-        {
-            using (var fileStream = File.OpenRead(BaseTestContext.GetDataDir(this.mailMergeFolder) + "SampleExecuteTemplate.docx"))
-            {
-                var request = new PutDocumentFieldNamesRequest(fileStream, true);
-                FieldNamesResponse actual = this.WordsApi.PutDocumentFieldNames(request);
-
-                Assert.AreEqual(200, actual.Code);
-            }
         }
     }
 }

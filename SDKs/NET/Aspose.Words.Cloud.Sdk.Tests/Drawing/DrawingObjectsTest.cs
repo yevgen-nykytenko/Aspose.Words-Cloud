@@ -41,6 +41,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/DrawingObjects");
 
+        private readonly string drawingFolder = "Drawing/";
+
         /// <summary>
         /// Test for getting drawing objects from document
         /// </summary>
@@ -68,7 +70,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
             var localName = "test_multi_pages.docx";
             var remoteName = "TestGetDocumentDrawingObjectByIndex.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
-            int objectIndex = 0;
+            var objectIndex = 0;
 
             this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
@@ -87,8 +89,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
             var localName = "test_multi_pages.docx";
             var remoteName = "TestGetDocumentDrawingObjectByIndexWithFormat.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
-            int objectIndex = 0;
-            string format = "png";
+            var objectIndex = 0;
+            var format = "png";
 
             this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
@@ -106,7 +108,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
             var localName = "test_multi_pages.docx";
             var remoteName = "TestGetDocumentDrawingObjectImageData.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
-            int objectIndex = 0;
+            var objectIndex = 0;
 
             this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
 
@@ -121,16 +123,78 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Drawing
         [TestMethod]
         public void TestGetDocumentDrawingObjectOleData()
         {
-            string localName = "sample_EmbeddedOLE.docx";
+            var localName = "sample_EmbeddedOLE.docx";
             var remoteName = "TestGetDocumentDrawingObjectOleData.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
-            int objectIndex = 0;
+            var objectIndex = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.DrawingFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.drawingFolder) + localName));
 
             var request = new GetDocumentDrawingObjectOleDataRequest(remoteName, objectIndex, this.dataFolder, nodePath: "sections/0");
             var result = this.WordsApi.GetDocumentDrawingObjectOleData(request);
             Assert.IsTrue(result.Length > 0, "Error occured while getting drawing object");
+        }
+
+        /// <summary>
+        /// Test for adding drawing object
+        /// </summary>
+        [TestMethod]       
+        public void TestPutDrawingObject()
+        {
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestPutDrawingObject.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var image = "aspose-cloud.png";
+            using (var file = File.OpenRead(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + image))
+            {               
+                var request = new PutDrawingObjectRequest(remoteName, "{\"Left\": 0}", file, this.dataFolder);
+                this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
+
+                var actual = this.WordsApi.PutDrawingObject(request);
+                Assert.AreEqual(200, actual.Code);
+            }
+        }
+
+        /// <summary>
+        /// Test for deleting drawing object
+        /// </summary>
+        [TestMethod]
+        public void TestDeleteDrawingObject()
+        {
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestDeleteDrawingObject.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            int objectIndex = 0;
+
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
+
+            var request = new DeleteDrawingObjectRequest(remoteName, objectIndex, this.dataFolder);
+            var actual = this.WordsApi.DeleteDrawingObject(request);
+
+            Assert.AreEqual(200, actual.Code);
+        }
+
+        /// <summary>
+        /// Test for updating drawing object
+        /// </summary>
+        [TestMethod]
+        public void TestPostDrawingObject()
+        {
+            var localName = "test_multi_pages.docx";
+            var remoteName = "TestPostDrawingObject.docx";
+            var fullName = Path.Combine(this.dataFolder, remoteName);
+            var image = "aspose-cloud.png";
+
+            using (var file = File.OpenRead(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + image))
+            {
+                var request = new PutDrawingObjectRequest(remoteName, "{\"Left\": 0}", file, this.dataFolder);
+
+                this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CommonFolder) + localName));
+
+                var actual = this.WordsApi.PutDrawingObject(request);
+
+                Assert.AreEqual(200, actual.Code);
+            }
         }
     }
 }

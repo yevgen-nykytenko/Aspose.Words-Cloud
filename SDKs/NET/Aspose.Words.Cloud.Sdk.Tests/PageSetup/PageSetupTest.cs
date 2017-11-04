@@ -41,6 +41,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.PageSetup
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/PageSetup");
 
+        private readonly string textFolder = "Text/";
+
         /// <summary>
         /// Test for getting page settings
         /// </summary>
@@ -99,7 +101,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.PageSetup
             var pageNumber = 1;
             var format = "bmp";
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.TextFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.textFolder) + localName));
 
             var request = new RenderPageRequest(remoteName, pageNumber, format, this.dataFolder);
             var result = this.WordsApi.RenderPage(request);
