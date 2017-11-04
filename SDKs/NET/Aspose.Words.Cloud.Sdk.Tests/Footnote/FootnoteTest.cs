@@ -41,6 +41,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Footnote
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/Footnote");
 
+        private readonly string footnoteFolder = "Footnote/";
+
         /// <summary>
         /// Test for adding footnote
         /// </summary>
@@ -52,7 +54,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Footnote
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var footNote = new Footnote { FootnoteType = Footnote.FootnoteTypeEnum.Endnote, Text = "test endnote" };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FootnoteFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.footnoteFolder) + localName));
 
             var request = new PutFootnoteRequest(remoteName, footNote, this.dataFolder);
             var actual = this.WordsApi.PutFootnote(request);
@@ -71,7 +73,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Footnote
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var index = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FootnoteFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.footnoteFolder) + localName));
 
             var request = new DeleteFootnoteRequest(remoteName, index, this.dataFolder);
             var actual = this.WordsApi.DeleteFootnote(request);
@@ -89,7 +91,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Footnote
             var remoteName = "TestGetFootnotes.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FootnoteFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.footnoteFolder) + localName));
 
             var request = new GetFootnotesRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.GetFootnotes(request);
@@ -108,7 +110,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Footnote
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var index = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FootnoteFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.footnoteFolder) + localName));
 
             var request = new GetFootnoteRequest(remoteName, index, this.dataFolder);
             var actual = this.WordsApi.GetFootnote(request);
@@ -128,7 +130,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Footnote
             var index = 0;
             var footnote = new Footnote { Text = "new text is here" };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FootnoteFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.footnoteFolder) + localName));
 
             var request = new PostFootnoteRequest(remoteName, footnote, index, this.dataFolder);
             var actual = this.WordsApi.PostFootnote(request);

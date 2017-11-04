@@ -41,6 +41,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Run
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/Run");
 
+        private readonly string runFolder = "Run/";
+
         /// <summary>
         /// Test for updating run
         /// </summary>
@@ -52,7 +54,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Run
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var run = new Run { Text = "run with text" };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.RunFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.runFolder) + localName));
 
             var request = new PostRunRequest(remoteName, run, "paragraphs/1", 0, this.dataFolder);
             var actual = this.WordsApi.PostRun(request);
@@ -71,7 +73,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Run
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var run = new Run { Text = "run with text" };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.RunFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.runFolder) + localName));
 
             var request = new PutRunRequest(remoteName, "paragraphs/1", run, this.dataFolder);
             var actual = this.WordsApi.PutRun(request);
@@ -90,7 +92,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Run
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var index = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.RunFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.runFolder) + localName));
 
             var request = new DeleteRunRequest(remoteName, "paragraphs/1", index, this.dataFolder);
             var actual = this.WordsApi.DeleteRun(request);

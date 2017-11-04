@@ -41,6 +41,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.DocumentProtection
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/Protection");
 
+        private readonly string protectionFolder = "DocumentProtection/";
+
         /// <summary>
         /// Test for setting document protection
         /// </summary>
@@ -109,7 +111,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.DocumentProtection
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var body = new ProtectionRequest { Password = "aspose" };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.ProtectFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.protectionFolder) + localName));
 
             var request = new DeleteUnprotectDocumentRequest(remoteName, body, this.dataFolder);
             var actual = this.WordsApi.DeleteUnprotectDocument(request);

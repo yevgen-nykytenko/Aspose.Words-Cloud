@@ -41,6 +41,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/FormField");
 
+        private readonly string fieldFolder = "Field/";
+
         /// <summary>
         /// Test for posting form field
         /// </summary>
@@ -63,7 +65,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
                                               TextInputDefault = string.Empty
                                           };
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FieldFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.fieldFolder) + localName));
 
             var request = new PostFormFieldRequest(remoteName, body, formfieldIndex, this.dataFolder, nodePath: "sections/0", destFileName: destFileName);
 
@@ -92,7 +94,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var fullName = Path.Combine(this.dataFolder, remoteName);
             int formfieldIndex = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FieldFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.fieldFolder) + localName));
 
             var request = new GetFormFieldRequest(remoteName, formfieldIndex, this.dataFolder, nodePath: "sections/0");
             FormFieldResponse actual = this.WordsApi.GetFormField(request);
@@ -110,7 +112,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var remoteName = "TestGetFormFields.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FieldFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.fieldFolder) + localName));
 
             var request = new GetFormFieldsRequest(remoteName, this.dataFolder, nodePath: "sections/0");
             FormFieldsResponse actual = this.WordsApi.GetFormFields(request);
@@ -160,7 +162,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
             var formfieldIndex = 0;
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FieldFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.fieldFolder) + localName));
 
             var request = new DeleteFormFieldRequest(remoteName, formfieldIndex, this.dataFolder, nodePath: "sections/0", destFileName: destFileName);
             SaaSposeResponse actual = this.WordsApi.DeleteFormField(request);

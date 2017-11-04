@@ -40,6 +40,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.MailMerge
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/MailMerge");
 
+        private readonly string mailMergeFolder = "MailMerge/";
+
         /// <summary>
         /// Test for posting execute template
         /// </summary>
@@ -52,9 +54,9 @@ namespace Aspose.Words.Cloud.Sdk.Tests.MailMerge
 
             var destFileName = Path.Combine(BaseTestOutPath, remoteName);
 
-            var data = File.ReadAllText(BaseTestContext.GetDataDir(BaseTestContext.MailMergeFolder) + "TestExecuteTemplateData.txt");
+            var data = File.ReadAllText(BaseTestContext.GetDataDir(this.mailMergeFolder) + "TestExecuteTemplateData.txt");
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.MailMergeFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.mailMergeFolder) + localName));
 
             var request = new PostExecuteTemplateRequest(remoteName, data, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.PostExecuteTemplate(request);
@@ -68,9 +70,9 @@ namespace Aspose.Words.Cloud.Sdk.Tests.MailMerge
         [TestMethod]
         public void TestPutExecuteTemplateOnline()
         {
-            using (var file = File.OpenRead(BaseTestContext.GetDataDir(BaseTestContext.MailMergeFolder) + "SampleMailMergeTemplate.docx"))
+            using (var file = File.OpenRead(BaseTestContext.GetDataDir(this.mailMergeFolder) + "SampleMailMergeTemplate.docx"))
             {
-                using (var data = File.OpenRead(BaseTestContext.GetDataDir(BaseTestContext.MailMergeFolder) + "SampleExecuteTemplateData.txt"))
+                using (var data = File.OpenRead(BaseTestContext.GetDataDir(this.mailMergeFolder) + "SampleExecuteTemplateData.txt"))
                 {
                     var request = new PutExecuteTemplateOnlineRequest(file, data);
                     var result = this.WordsApi.PutExecuteTemplateOnline(request);

@@ -41,6 +41,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.HeaderFooter
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/HeaderFooter");
 
+        private readonly string headerFooterFolder = "HeaderFooter/";
+
         /// <summary>
         /// Test for getting headers and footers
         /// </summary>
@@ -51,7 +53,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.HeaderFooter
             var remoteName = "TestGetHeadersFooters.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.HeaderFooterFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.headerFooterFolder) + localName));
 
             var request = new GetHeaderFootersRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.GetHeaderFooters(request);
@@ -70,7 +72,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.HeaderFooter
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var index = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.HeaderFooterFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.headerFooterFolder) + localName));
 
             var request = new GetHeaderFooterRequest(remoteName, index, this.dataFolder);
             var actual = this.WordsApi.GetHeaderFooter(request);
@@ -80,10 +82,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.HeaderFooter
 
         /// <summary>
         /// Test for getting headerfooter of section
-        /// todo remove ignore when method will be added to API
         /// </summary>
         [TestMethod]
-        [Ignore]
         public void TestGetHeaderFooterOfSection()
         {
             var localName = "HeadersFooters.doc";
@@ -92,7 +92,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.HeaderFooter
             var index = 0;
             var sectionIndex = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.HeaderFooterFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.headerFooterFolder) + localName));
 
             var request = new GetHeaderFooterOfSectionRequest(remoteName, index, sectionIndex, this.dataFolder);
             var actual = this.WordsApi.GetHeaderFooterOfSection(request);
@@ -111,7 +111,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.HeaderFooter
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var index = 0;
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.HeaderFooterFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.headerFooterFolder) + localName));
 
             var request = new DeleteHeaderFooterRequest(remoteName, index, this.dataFolder);
             var actual = this.WordsApi.DeleteHeaderFooter(request);
@@ -129,7 +129,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.HeaderFooter
             var remoteName = "TestDeleteHeaderFooters.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.HeaderFooterFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.headerFooterFolder) + localName));
 
             var request = new DeleteHeadersFootersRequest(remoteName, this.dataFolder);
             var actual = this.WordsApi.DeleteHeadersFooters(request);
@@ -147,7 +147,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.HeaderFooter
             var remoteName = "TestPutHeaderFooter.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.HeaderFooterFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.headerFooterFolder) + localName));
 
             var request = new PutHeaderFooterRequest(remoteName, "FooterEven",  this.dataFolder);
             var actual = this.WordsApi.PutHeaderFooter(request);

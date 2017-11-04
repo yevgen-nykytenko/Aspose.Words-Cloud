@@ -41,6 +41,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/MergeField");
 
+        private readonly string mailMergeFolder = "MailMerge/";
+
         /// <summary>
         /// Test for getting mailmerge fields
         /// </summary>
@@ -65,7 +67,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Field
         [TestMethod]
         public void TestPutDocumentFieldNames()
         {
-            using (var fileStream = File.OpenRead(BaseTestContext.GetDataDir(BaseTestContext.MailMergeFolder) + "SampleExecuteTemplate.docx"))
+            using (var fileStream = File.OpenRead(BaseTestContext.GetDataDir(this.mailMergeFolder) + "SampleExecuteTemplate.docx"))
             {
                 var request = new PutDocumentFieldNamesRequest(fileStream, true);
                 FieldNamesResponse actual = this.WordsApi.PutDocumentFieldNames(request);

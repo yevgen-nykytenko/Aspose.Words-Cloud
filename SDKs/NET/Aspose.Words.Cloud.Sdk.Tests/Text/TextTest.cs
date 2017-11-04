@@ -41,6 +41,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Text
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/Text");
 
+        private readonly string textFolder = "Text/";
+
         /// <summary>
         /// Test for getting text from document
         /// </summary>
@@ -90,7 +92,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Text
             var fullName = Path.Combine(this.dataFolder, remoteName);
             var pattern = "aspose";
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.TextFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.textFolder) + localName));
 
             var request = new SearchRequest(remoteName, pattern, this.dataFolder);
             var actual = this.WordsApi.Search(request);

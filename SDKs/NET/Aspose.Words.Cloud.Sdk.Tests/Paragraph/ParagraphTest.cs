@@ -41,6 +41,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Paragraph
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentElements/Paragraph");
 
+        private readonly string fieldFolder = "Field/";
+
         /// <summary>
         /// Test for getting paragraph
         /// </summary>
@@ -145,7 +147,7 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Paragraph
             var remoteName = "TestGetParagraphRuns.docx";
             var fullName = Path.Combine(this.dataFolder, remoteName);
 
-            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.FieldFolder) + localName));
+            this.StorageApi.PutCreate(fullName, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.fieldFolder) + localName));
 
             var request = new GetDocumentParagraphRunsRequest(remoteName, "sections/0/paragraphs/0", this.dataFolder);
             RunsResponse actual = this.WordsApi.GetDocumentParagraphRuns(request);

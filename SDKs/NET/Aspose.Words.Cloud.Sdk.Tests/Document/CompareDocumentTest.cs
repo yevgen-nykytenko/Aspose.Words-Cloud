@@ -42,6 +42,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
     {
         private readonly string dataFolder = Path.Combine(BaseTestDataPath, "DocumentActions/CompareDocument");
 
+        private readonly string compareFolder = "CompareDocument/";
+
         /// <summary>
         /// Test for document comparison
         /// </summary>
@@ -57,8 +59,8 @@ namespace Aspose.Words.Cloud.Sdk.Tests.Document
             var destFileName = Path.Combine(BaseTestOutPath, "TestCompareDocumentOut.doc");
             var compareData = new CompareData { Author = "author", ComparingWithDocument = fullName2, DateTime = new DateTime(2015, 10, 26) };
 
-            this.StorageApi.PutCreate(fullName1, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CompareFolder) + localName1));
-            this.StorageApi.PutCreate(fullName2, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(BaseTestContext.CompareFolder) + localName2));
+            this.StorageApi.PutCreate(fullName1, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.compareFolder) + localName1));
+            this.StorageApi.PutCreate(fullName2, null, null, File.ReadAllBytes(BaseTestContext.GetDataDir(this.compareFolder) + localName2));
 
             var request = new PostCompareDocumentRequest(remoteName1, compareData, this.dataFolder, destFileName: destFileName);
             var actual = this.WordsApi.PostCompareDocument(request);
